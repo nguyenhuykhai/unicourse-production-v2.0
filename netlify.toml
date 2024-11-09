@@ -1,6 +1,6 @@
 [build]
   command = "ng build --configuration production"
-  publish = "dist/unicourse-client"
+  publish = "dist/unicourse-client/browser"
 
 [[redirects]]
   from = "/*"

@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build --verbose",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "serve:ssr:Unicourse-Client": "node dist/unicourse-client/server/server.mjs"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
@@ -19,9 +18,7 @@
     "@angular/forms": "^18.0.0",
     "@angular/platform-browser": "^18.0.0",
     "@angular/platform-browser-dynamic": "^18.0.0",
-    "@angular/platform-server": "^18.0.0",
     "@angular/router": "^18.0.0",
-    "@angular/ssr": "^18.0.2",
     "@auth0/angular-jwt": "^5.2.0",
     "@lordicon/element": "^1.6.0",
     "@tinymce/tinymce-angular": "^8.0.1",
@@ -29,7 +26,6 @@
     "@webcomponents/custom-elements": "^1.6.0",
     "crypto-js": "^4.2.0",
     "crypto-ts": "^1.0.2",
-    "express": "^4.18.2",
     "firebase": "^10.12.4",
     "ionicons": "^7.4.0",
     "jwt-decode": "^4.0.0",
