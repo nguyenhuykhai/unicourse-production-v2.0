@@ -1,6 +1,6 @@
 [build]
-  command = "ng build --configuration production" # lệnh để build Angular project
-  publish = "dist/unicourse-client/browser" # đường dẫn thư mục xuất bản mà Netlify sẽ sử dụng
+  command = "ng build --configuration production"
+  publish = "dist/unicourse-client/browser/browser"
 
 [[redirects]]
   from = "/*"
