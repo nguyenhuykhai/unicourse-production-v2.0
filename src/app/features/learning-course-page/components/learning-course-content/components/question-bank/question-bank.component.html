@@ -1,0 +1,227 @@
+<div class="question-bank__container" *ngIf="clonedQuestionBank && clonedQuestionBank.length > 0; else noQuestions">
+
+    <!-- FOLLOW QUESTION ZONE (WEB SIZE)-->
+    <div class="question-bank__container__row-one desktop-only">
+        <div class="question-bank__container__row-one__progress">
+            <div class="question-bank__container__row-one__progress-header">
+                <span class="question-bank__container__row-one__progress-header-timer">{{ timeDisplay }}</span>
+            </div>
+
+            <div class="question-bank__container__row-one__progress-bar">
+                <label>Hoàn thành</label>
+                <p-progressBar [value]="completedQuestions" />
+            </div>
+
+            <div class="question-bank__container__row-one__progress-questions">
+                <label>Danh sách</label>
+                <div class="question-bank__container__row-one__progress-questions-list">
+                    <!-- AFTER SUBMIT QUIZ -->
+                    <ng-container *ngIf="questionState === 'COMPLETED'; else beforSubmitQuiz">
+                        <span *ngFor="let question of clonedQuestionBank; let i = index"
+                            class="question-bank__container__row-one__progress-questions-question"
+                            (click)="goToQuestion(i + 1, question)">
+                            <!-- CURRENT QUESTION -->
+                            <ng-container *ngIf="(i + 1 === currentQuestion); else anotherQuestion">
+                                <ng-container *ngIf="isCorrect(i); else currentUnCorrect">
+                                    <p-badge [value]="i + 1" badgeSize="large" [style]="{ 
+                                        'background-color': '#ccf3d0', 
+                                        'color': '#039d86', 
+                                        'border': '1px solid #039d86' 
+                                        }"></p-badge>
+                                </ng-container>
+                                <ng-template #currentUnCorrect>
+                                    <p-badge [value]="i + 1" badgeSize="large" [style]="{ 
+                                        'background-color': '#f7d7d8', 
+                                        'color': '#039d86', 
+                                        'border': '1px solid #039d86' 
+                                        }"></p-badge>
+                                </ng-template>
+                            </ng-container>
+
+                            <!-- ANOTHER QUESTION -->
+                            <ng-template #anotherQuestion>
+                                <ng-container *ngIf="isCorrect(i); else  DefaultUnCorrect">
+                                    <p-badge [value]="i + 1" badgeSize="large" [style]="{ 
+                                    'background-color': '#ccf3d0', 
+                                    'color': '#00d014', 
+                                    'border': '1px solid #00d014' 
+                                    }"></p-badge>
+                                </ng-container>
+                                <ng-template #DefaultUnCorrect>
+                                    <p-badge [value]="i + 1" badgeSize="large" [style]="{ 
+                                    'background-color': '#f7d7d8', 
+                                    'color': '#ff3739', 
+                                    'border': '1px solid #ff3739' 
+                                    }"></p-badge>
+                                </ng-template>
+                            </ng-template>
+                        </span>
+                    </ng-container>
+
+                    <!-- BEFORE SUBMIT QUIZ -->
+                    <ng-template #beforSubmitQuiz>
+                        <span *ngFor="let question of clonedQuestionBank; let i = index"
+                            class="question-bank__container__row-one__progress-questions-question"
+                            (click)="goToQuestion(i + 1, question)">
+                            <!-- CURRENT QUESTION -->
+                            <ng-container *ngIf="(i + 1 === currentQuestion); else anotherQuestion">
+                                <p-badge [value]="i + 1" badgeSize="large" severity="success"></p-badge>
+                            </ng-container>
+
+                            <!-- ANOTHER QUESTION -->
+                            <ng-template #anotherQuestion>
+                                <ng-container *ngIf="isAnswered(i); else defaultQuestion">
+                                    <p-badge [value]="i + 1" badgeSize="large" [style]="{ 
+                                        'background-color': '#ffffff', 
+                                        'color': '#22c55e', 
+                                        'border': '1px solid #22c55e' 
+                                        }"></p-badge>
+                                </ng-container>
+                                <ng-template #defaultQuestion>
+                                    <p-badge [value]="i + 1" badgeSize="large" [style]="{ 
+                                        'background-color': '#ffffff', 
+                                        'color': 'black', 
+                                        'border': '1px solid #dadada' 
+                                        }"></p-badge>
+                                </ng-template>
+                            </ng-template>
+                        </span>
+                    </ng-template>
+                </div>
+            </div>
+
+            <p *ngIf="questionState === 'COMPLETED'" class="question-bank__container__row-one__progress-mark"><strong>Kết quả: &nbsp;</strong>{{ totalRightAnswers }}/{{ totalQuestions }}</p>
+
+            <div class="question-bank__container__row-one__group-btn-container">
+                <ng-container *ngIf="questionState === 'NOT_STARTED'">
+                    <p-button label="Bắt đầu" (click)="startQuiz()" />
+                </ng-container>
+                <ng-container *ngIf="questionState === 'IN_PROGRESS'">
+                    <p-button [disabled]="completedQuestions < 100" label="Nộp bài" label="Nộp bài"
+                        (click)="finishQuiz()" />
+                </ng-container>
+                <ng-container *ngIf="questionState === 'COMPLETED'">
+                    <p-button label="Làm lại" (click)="startQuizAgain()" />
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOLLOW QUESTION ZONE (MOBILE SIZE)-->
+    <div class="question-bank__container__mobile-row-one mobile-only">
+        <div class="question-bank__container__mobile-row-one__progress-header">
+            <ng-container *ngIf="questionState === 'NOT_STARTED'">
+                <p-button label="Bắt đầu" (click)="startQuiz()" />
+            </ng-container>
+            <ng-container *ngIf="questionState === 'IN_PROGRESS'">
+                <p-button [disabled]="completedQuestions < 100" label="Nộp bài" label="Nộp bài"
+                    (click)="finishQuiz()" />
+            </ng-container>
+            <ng-container *ngIf="questionState === 'COMPLETED'">
+                <p-button label="Làm lại" (click)="startQuizAgain()" />
+            </ng-container>
+            <span class="question-bank__container__mobile-row-one__progress-header-timer">{{ timeDisplay }}</span>
+            <p *ngIf="questionState === 'COMPLETED'" class="question-bank__container__mobile-row-one__progress-header-mark"><strong>Kết quả: &nbsp;</strong>{{ totalRightAnswers }}/{{ totalQuestions }}</p>
+            <app-progress-circle [value]="completedQuestions" [radius]="25" [strokeWidth]="3" [color]="'#1890ff'"></app-progress-circle>
+        </div>
+    </div>
+
+    <!-- MAIN QUESTION ZONE -->
+    <div class="question-bank__container__row-two">
+        <!-- AFTER SUBMIT QUIZ -->
+        <ng-container *ngIf="questionState === 'COMPLETED'; else mainBeforSubmitQuiz">
+            <div class="question-bank__container__row-two__card"
+                *ngFor="let question of clonedQuestionBank; let index = index">
+                <div id="question-{{question.id}}" class="question-bank__container__row-two__card__type">
+                    <i class="pi pi-question-circle" style="font-size: 1rem"></i>
+                    <p><span><strong>{{index + 1}}.&nbsp;</strong></span>
+                        {{ question.type === 'SINGLE' ? 'Một đáp án' : 'Nhiều đáp án' }}
+                    </p>
+                </div>
+
+                <div id="question-{{question.id}}" class="question-bank__container__row-two__card__question__title">
+                    <h2>Câu hỏi: {{ question.title }}</h2>
+                    <p>{{ question.description }}</p>
+                    <img *ngIf="question.picture_url" [src]="question.picture_url" [alt]="question.title"
+                    class="question-bank__container__row-two__card__question__title__image" />
+                </div>
+
+                <div class="question-bank__answers">
+                    <ng-container *ngFor="let answer of question.answer">
+                        <ng-container *ngIf="answer.isChoiced; else userUnChoiced">
+                            <div class="question-bank__container__row-two__card__answers__answer"
+                                [ngClass]="{'correct': answer.is_correct, 'incorrect': !answer.is_correct}">
+                                <p class="question-bank__container__row-two__card__answers__answer__item-content">
+                                    {{ answer.content }}
+                                </p>
+                            </div>
+
+                            <ng-container *ngIf="answer.is_correct; else userUnCorrect">
+                                <div class="question-bank__container__row-two__card__answers__explanation">
+                                    <p class="question-bank__container__row-two__card__answers__explanation-success">Bạn làm rất tốt!</p>
+                                    <p><strong>Giải thích: &nbsp;</strong>{{ answer.explaination }}</p>
+                                </div>
+                            </ng-container>
+                            <ng-template #userUnCorrect>
+                                <div class="question-bank__container__row-two__card__answers__explanation">
+                                    <p class="question-bank__container__row-two__card__answers__explanation-error">Cố gắng hơn ở lần sau nhé!</p>
+                                    <p><strong>Giải thích: &nbsp;</strong>{{ answer.explaination }}</p>
+                                </div>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #userUnChoiced>
+                            <div class="question-bank__container__row-two__card__answers__answer"
+                                [ngClass]="{'correct': answer.is_correct, 'default': !answer.is_correct}">
+                                <p class="question-bank__container__row-two__card__answers__answer__item-content">
+                                    {{ answer.content }}
+                                </p>
+                            </div>
+
+                            <ng-container *ngIf="answer.is_correct">
+                                <div class="question-bank__container__row-two__card__answers__explanation">
+                                    <p class="question-bank__container__row-two__card__answers__explanation-unchoice">Bạn chưa chọn đáp án này</p>
+                                    <p><strong>Giải thích: &nbsp;</strong>{{ answer.explaination }}</p>
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+
+        <!-- BEFORE SUBMIT QUIZ -->
+        <ng-template #mainBeforSubmitQuiz>
+            <div class="question-bank__container__row-two__card"
+                *ngFor="let question of clonedQuestionBank; let index = index">
+                <div id="question-{{question.id}}" class="question-bank__container__row-two__card__type">
+                    <i class="pi pi-question-circle" style="font-size: 1rem"></i>
+                    <p><span><strong>{{index + 1}}.&nbsp;</strong></span>
+                        {{ question.type === 'SINGLE' ? 'Một đáp án' : 'Nhiều đáp án' }}
+                    </p>
+                </div>
+
+                <div id="question-{{question.id}}" class="question-bank__container__row-two__card__question__title">
+                    <h2>Câu hỏi: {{ question.title }}</h2>
+                    <p>{{ question.description }}</p>
+                    <img *ngIf="question.picture_url" [src]="question.picture_url" [alt]="question.title"
+                    class="question-bank__container__row-two__card__question__title__image" />
+                </div>
+
+                <div class="question-bank__answers">
+                    <div *ngFor="let answer of question.answer"
+                        class="question-bank__container__row-two__card__answers__answer"
+                        [ngClass]="{'active': answer?.isChoiced, 'inactive': !answer?.isChoiced}"
+                        (click)="handleToggleAnswer(answer)">
+                        <p class="question-bank__container__row-two__card__answers__answer__item-content">
+                            {{ answer.content }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>
+
+<ng-template #noQuestions>
+    <p>No questions available at the moment.</p>
+</ng-template>

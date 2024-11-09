@@ -1,0 +1,49 @@
+<div id="targetDiv" enterClass="fadein" leaveClass="fadeout" class="main">
+  <div class="main__bg">
+    <h2>Liên Hệ</h2>
+    <p>Hãy nói cho chúng tôi nếu bạn cần hỗ trợ</p>
+  </div>
+
+  <div class="main__contact">
+    <div class="main__contact-logo">
+      <img src="{{ LOGO }}" alt="logo" />
+    </div>
+
+    <div class="main__contact-form">
+      <h2>Contact us</h2>
+      <div class="flex flex-column gap-2">
+        <label for="username">Họ và tên</label>
+        <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="feedbackIssue.fullName"/>
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="phone">Số điện thoại</label>
+        <input type="text" pInputText id="phone" aria-describedby="phone-help" [(ngModel)]="feedbackIssue.phone" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="email">Email</label>
+        <input type="email" pInputText id="email" aria-describedby="email-help" [(ngModel)]="feedbackIssue.email" />
+      </div>
+
+      <div class="flex flex-column gap-2">
+        <label for="content">Nội dung</label>
+        <input type="text" pInputText id="content" aria-describedby="content-help" [(ngModel)]="feedbackIssue.content" />
+      </div>
+
+      <div class="w-full card flex flex-column gap-2 justify-content-center">
+        <label for="issue">Vấn đề cần hỗ trợ</label>
+        <p-dropdown id="issue" class="w-full" [options]="issues" [(ngModel)]="selectedIssue" optionLabel="name" placeholder="Chọn vấn đề" />
+      </div>
+
+      <p-button class="w-full" label="Gửi yêu cầu" [loading]="blockedUI"  (click)="sendFeedbackIssue()" severity="contrast" />
+    </div>
+  </div>
+
+  <div class="main__location">
+    <iframe class="w-full"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.6100105370224!2d106.80730807575326!3d10.84112758931161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2sFPT%20University%20HCMC!5e0!3m2!1sen!2s!4v1720290853657!5m2!1sen!2s"
+      width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+</div>

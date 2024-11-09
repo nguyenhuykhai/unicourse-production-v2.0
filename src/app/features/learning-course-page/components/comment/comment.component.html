@@ -1,0 +1,19 @@
+<div class="comment-container">
+    <!-- WEBSITE UI: BUTTON COMMENT ZONE -->
+    <button (click)="handleToggleComments('desktop')" class="comment-container__icon-container desktop-only" type="button">
+        <div class="comment-container__icon-container-logo" pTooltip="Hỏi đáp">
+            <lord-icon src="https://cdn.lordicon.com/amjaykqd.json" trigger="hover"
+                style="width: 3rem; height: 3rem;"></lord-icon>
+        </div>
+
+        <span class="sr-only comment-container__icon-container desktop-only">Icon description</span>
+    </button>
+
+    <!-- MOBILE UI: BUTTON COMMENT ZONE -->
+    <button (click)="handleToggleComments('mobile')" class="comment-container__icon-container mobile-only" type="button">
+        <div class="comment-container__icon-container-logo" pTooltip="Hỏi đáp">
+            <lord-icon src="https://cdn.lordicon.com/amjaykqd.json" trigger="hover"
+                style="width: 3rem; height: 3rem;"></lord-icon>
+        </div>
+    </button>
+</div>

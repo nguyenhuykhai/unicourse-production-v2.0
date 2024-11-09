@@ -1,0 +1,14 @@
+<div class="navigation">
+  <ul class="navigation__list">
+    <li *ngFor="let item of items; let i = index" class="navigation__item"
+      [class.navigation__item--active]="i === activeIndex" (click)="setActive(i)">
+      <a routerLink="{{ item.link }}" class="navigation__link">
+        <span class="navigation__icon">
+          <ion-icon [name]="item.icon"></ion-icon>
+        </span>
+        <span class="navigation__text">{{ item.text }}</span>
+      </a>
+    </li>
+    <div class="navigation__indicator" [ngStyle]="{ transform: 'translateX(' + indicatorPosition + 'px)' }"></div>
+  </ul>
+</div>

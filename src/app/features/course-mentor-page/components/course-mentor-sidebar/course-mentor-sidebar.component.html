@@ -1,0 +1,75 @@
+<div class="course-mentor-sidebar">
+    <ng-container *ngIf="!blockedUI; else loading">
+        <!-- INTRODUCTION SECTION -->
+        <div class="course-mentor-sidebar__introduction">
+            <img [src]="courseMentor?.image" [alt]="courseMentor?.title" class="course-mentor-sidebar__introduction-thumbnail" />
+        </div>
+    
+        <!-- PURCHASE SECTION -->
+        <div class="course-mentor-sidebar__purchase-section">
+            <div class="course-mentor-sidebar__purchase-section-container">
+                <div class="course-mentor-sidebar__purchase-section-container-buy-box">
+    
+                    <!-- FREE COURSE ZONE -->
+                    <ng-container *ngIf="courseMentor?.amount === 0; else feeCourse">
+                        <h2 class="course-mentor-sidebar__purchase-section-container-buy-box-price">
+                            Miễn phí
+                        </h2>
+                        <div class="course-mentor-sidebar__purchase-section-container-buy-box__container">
+                            <button
+                                class="course-mentor-sidebar__purchase-section-container-buy-box__container-add-to-cart">
+                                <p>Học ngay</p>
+                            </button>
+                        </div>
+                    </ng-container>
+    
+                    <!-- FEE COURSE ZONE -->
+                    <ng-template #feeCourse>
+                        <div class="course-mentor-sidebar__purchase-section-container-buy-box-price">
+                            <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+                                style="width: 30px; height: 30px; margin-right: 0.1rem;"></lord-icon>
+                            <h2 class="course-mentor-sidebar__purchase-section-container-buy-box-price__amount">
+                                {{ courseMentor?.amount | number: '1.0-0' }}
+                            </h2>
+                        </div>
+    
+                        <!-- LOADING ENROLL COURSE STATE -->
+                        <ng-container *ngIf="loadingEnrollCourse; else defaultBtn">
+                            <button class="course-mentor-sidebar__purchase-section-container-buy-box-buy-now">
+                                <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+                            </button>
+                        </ng-container>
+    
+                        <!-- DEFAULT ENROLL COURSE STATE -->
+                        <ng-template #defaultBtn>
+                            <ng-container *ngIf="!checkCourseInEnrollList(courseMentor); else enrolled">
+                                <button (click)="handleBuyCourse(courseMentor)"
+                                    class="course-mentor-sidebar__purchase-section-container-buy-box-buy-now">
+                                    <p>Mua ngay</p>
+                                </button>
+                            </ng-container>
+                            <ng-template #enrolled>
+                                <button routerLinkActive="active" routerLink="/calendar/{{ courseMentor?.id }}"
+                                    class="course-mentor-sidebar__purchase-section-container-buy-box-buy-now">
+                                    <p>Xem lịch học</p>
+                                </button>
+                            </ng-template>
+                        </ng-template>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="course-mentor-sidebar__introduction desktop-only">
+            <p-skeleton width="100%" height="150px" />
+        </div>
+        <div class="course-mentor-sidebar__purchase-section">
+            <p-skeleton styleClass="mb-2" />
+            <p-skeleton width="10rem" styleClass="mb-2" />
+            <p-skeleton width="5rem" styleClass="mb-2" />
+            <p-skeleton height="2rem" styleClass="mb-2" />
+        </div>
+    </ng-template>
+</div>

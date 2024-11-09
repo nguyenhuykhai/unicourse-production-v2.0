@@ -1,0 +1,54 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+
+.learning-progress-page {
+    background-color: #fff;
+    padding: 0 10%;
+
+    &__header {
+        text-align: left;
+        margin-bottom: 1.5rem;
+        color: $text-black;
+
+        &__title {
+            font-size: $font-size-xl;
+            margin: 0;
+            font-weight: $font-weight-bold;
+            color: $text-black;
+        }
+    }
+
+    &__courses {
+        display: flex;
+        gap: 2rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    &__course-card {
+        flex: 1 1 25%;
+        max-width: 23%;
+    }
+}
+
+@media (max-width: 599px) {
+    .learning-progress-page {
+        padding: 0 2%;
+
+        &__header {
+            text-align: center;
+        }
+
+        &__courses {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        &__course-card {
+            flex: 1 1 100%;
+            max-width: 45%;
+        }
+    }
+}

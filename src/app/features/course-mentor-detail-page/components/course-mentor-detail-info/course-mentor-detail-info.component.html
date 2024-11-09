@@ -1,0 +1,60 @@
+<div class="course-mentor-detail-info">
+    <ng-container *ngIf="!blockedUI && enrollCourseDetail; else loading">
+        <p-accordion [activeIndex]="0" expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="w-full">
+            <ng-container *ngFor="let item of enrollCourseDetail?.course_mentor?.mentor_session; let i = index">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <span class="course-mentor-detail-info__session">
+                            <span class="course-mentor-detail-info__session-title">{{ item.title
+                                }}</span>
+                            <p class="course-mentor-detail-info__session-date desktop-only">{{ item.start_time | date: 'dd/MM/yyyy' }}</p>
+                        </span>
+                    </ng-template>
+
+                    <ng-container>
+                        <div class="course-mentor-detail-info__body-session">
+                            <p><strong>Mô tả:</strong> {{ item.description }}</p>
+                            <p class="mobile-only"><strong>Ngày học:</strong> {{ item.start_time | date: 'dd/MM/yyyy' }}</p>
+                            <p><strong>Thời lượng:</strong> {{ convertDuration(item.start_time, item.end_time) }}</p>
+                            <p><strong>Phòng học:</strong> {{ item.room?.name }}</p>
+                            <div class="course-mentor-detail-info__body-session__attendance">
+                                <p class="m-0"><strong>Trạng thái:</strong></p>
+                                <div class="course-mentor-detail-info__body-session">
+                                    <ng-container *ngIf="item.attendance === 'absent'">
+                                        <p-tag severity="danger" value="Vắng mặt" [rounded]="true" />
+                                    </ng-container>
+                                    <ng-container *ngIf="item.attendance === 'present'">
+                                        <p-tag severity="success" value="Đã điểm danh" [rounded]="true" />
+                                    </ng-container>
+                                    <ng-container *ngIf="item.attendance === 'not_started'">
+                                        <p-tag severity="secondary" value="Chưa bắt đầu" [rounded]="true" />
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-container>
+                </p-accordionTab>
+            </ng-container>
+        </p-accordion>
+    </ng-container>
+    <ng-template #loading>
+        <p-accordion [activeIndex]="0" expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="w-full">
+            <ng-container *ngFor="let item of [1,2,3]; let i = index">
+                <p-accordionTab>
+                    <ng-template pTemplate="header">
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
+                    </ng-template>
+
+                    <ng-container>
+                        <div class="course-mentor-detail-info__body-session">
+                            <p-skeleton styleClass="mb-2" />
+                            <p-skeleton width="10rem" styleClass="mb-2" />
+                            <p-skeleton width="5rem" styleClass="mb-2" />
+                        </div>
+                    </ng-container>
+                </p-accordionTab>
+            </ng-container>
+        </p-accordion>
+    </ng-template>
+</div>

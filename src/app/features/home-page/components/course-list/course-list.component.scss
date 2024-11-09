@@ -1,0 +1,57 @@
+@import "../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../styles/mixins"; // Import mixin
+
+.course-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include respond-to(md) {
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include respond-to(sm) {
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include respond-to(xs) {
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+}
+
+@include respond-to(xxs) {
+  .course-list {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 1rem;
+  }
+}

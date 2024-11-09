@@ -1,0 +1,48 @@
+<div class="search-dialog">
+    <!-- DEFAULT STATE -->
+    <ng-container *ngIf="!loadingSearch; else loading">
+        <ng-container *ngIf="dataSearch && dataSearch.data !== undefined && dataSearch.data.length > 0; else notFoundData">
+            <div class="search-dialog__section-header">
+                <span class="pi pi-search search-dialog__section-header__icon"></span>
+                <span class="search-dialog__section-header__search">Kết quả tìm kiếm cho: '{{ searchText }}'</span>
+            </div>
+            <div class="search-dialog__section-title">
+                <span class="search-dialog__section-title__text">Khóa học</span>
+                <!-- <span class="search-dialog__section-title__link">Xem thêm</span> -->
+            </div>
+            
+            <ul class="search-dialog__list">
+                <ng-container *ngFor="let course of dataSearch.data">
+                    <li (click)="redirectToCourseDetail(course)" class="search-dialog__item">
+                        <div class="search-dialog__item__container">
+                            <img [src]="course.thumbnail" [alt]="course.title" />
+                            <span>{{ course.title }}</span>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </ng-container>
+
+        <ng-template #notFoundData>
+            <div class="search-dialog__section-header">
+                <span class="pi pi-search search-dialog__section-header__icon"></span>
+                <span class="search-dialog__section-header__search">Không có kết quả cho: '{{ searchText }}'</span>
+            </div>
+        </ng-template>
+    </ng-container>
+
+    <!-- LOADING STATE -->
+    <ng-template #loading>
+        <div class="search-dialog__section-header">
+            <span class="pi pi-search search-dialog__section-header__icon"></span>
+            <span class="search-dialog__section-header__search">Kết quả tìm kiếm cho: '{{ searchText }}'</span>
+        </div>
+        <ng-container *ngFor="let item of [1, 2]">
+            <ul class="search-dialog__list">
+                <li class="search-dialog__item"><p-skeleton styleClass="mb-2" borderRadius="16px" /></li>
+                <li class="search-dialog__item"><p-skeleton styleClass="mb-2" borderRadius="16px" /></li>
+                <li class="search-dialog__item"><p-skeleton styleClass="mb-2" borderRadius="16px" /></li>
+            </ul>
+        </ng-container>
+    </ng-template>
+</div>

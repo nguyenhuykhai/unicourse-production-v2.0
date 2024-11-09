@@ -1,0 +1,63 @@
+<div class="personal-info">
+    <h2 class="personal-info__title">Thông tin cá nhân</h2>
+    <p class="personal-info__description">Quản lý thông tin cá nhân của bạn.</p>
+    <h3 class="personal-info__sub-title">Thông tin cơ bản</h3>
+    <p class="personal-info__sub-description">Quản lý tên hiển thị, tên người dùng, bio và avatar của bạn.</p>
+
+    <ng-container *ngIf="!blockedUI; else loading">
+        <div class="personal-info__section">
+            <div (click)="requestOpenDialog('edit-name')" class="personal-info__item">
+                <div class="personal-info__item__info">
+                    <span class="personal-info__item__info-label">Họ và tên</span>
+                    <span class="personal-info__item__info-value">{{ user?.full_name || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-introduce')" class="personal-info__item">
+                <div class="personal-info__item__info">
+                    <span class="personal-info__item__info-label">Giới thiệu</span>
+                    <span class="personal-info__item__info-value">{{ user?.bio || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-address')" class="personal-info__item">
+                <div class="personal-info__item__info">
+                    <span class="personal-info__item__info-label">Địa chỉ</span>
+                    <span class="personal-info__item__info-value">{{ user?.address || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-phone')" class="personal-info__item">
+                <div class="personal-info__item__info">
+                    <span class="personal-info__item__info-label">Số điện thoại</span>
+                    <span class="personal-info__item__info-value">{{ user?.phone_num || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-avatar')" class="personal-info__item">
+                <div class="personal-info__item__info">
+                    <span class="personal-info__item__info-label">Ảnh đại diện</span>
+                    <div class="personal-info__item__info-avatar">
+                        <img [src]="user?.profile_image" [alt]="user?.full_name"
+                            class="personal-info__item__info-avatar-image" />
+                    </div>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="personal-info__section">
+            <div class="personal-info__item">
+                <div class="personal-info__item__info">
+                    <p-skeleton styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

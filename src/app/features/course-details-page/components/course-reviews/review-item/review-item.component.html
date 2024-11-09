@@ -1,0 +1,49 @@
+<div class="review-item">
+  <div class="review-item__profile">
+    <img class="review-item__profile-avt" src="{{ review.course_enroll.student.user?.profile_image }}" />
+
+    <div class="review-item__profile-name-rating">
+      <p class="review-item__profile-name-rating-name">{{ review.course_enroll.student.user?.full_name }}</p>
+      <div class="review-item__profile-name-rating-rating">
+        <ng-container *ngIf="review.rating">
+          <!-- Loop for filled stars -->
+          <ng-container *ngFor="let _ of createArray(review.rating); let i = index">
+            <i class="pi pi-star-fill mr-1" style="font-size: 1rem; color: #b4690e"></i>
+          </ng-container>
+        
+          <!-- Loop for empty stars -->
+          <ng-container *ngFor="let _ of createArray(5 - review.rating); let i = index">
+            <i class="pi pi-star mr-1" style="font-size: 1rem; color: #ccc"></i>
+          </ng-container>
+        </ng-container>
+        
+        <span class="ml-2">{{ convertDateToString(review) }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="review-item__content">
+    <ng-container *ngIf="review.content">
+      <ng-container *ngIf="review.content.length > 200; else under200Words">
+        <p class="review-item__content-description">
+          {{ review.content | slice : 0 : 200 }} ...
+        </p>
+        <p class="review-item__content-btn">Xem thêm</p>
+      </ng-container>
+
+      <ng-template #under200Words>
+        <div class="review-item__content">
+          <p class="review-item__content-description">
+            {{ review.content }}
+          </p>
+        </div>
+      </ng-template>
+    </ng-container>
+
+    <div class="review-item__content-feedback">
+      <p>Bạn thấy hữu ích?</p>
+      <i class="pi pi-thumbs-up" style="font-size: 1rem"></i>
+      <i class="pi pi-thumbs-down" style="font-size: 1rem"></i>
+    </div>
+  </div>
+</div>

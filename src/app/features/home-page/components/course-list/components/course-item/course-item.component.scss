@@ -1,0 +1,149 @@
+@import "../../../../../../../styles/variables";
+@import "../../../../../../../styles/font_variables";
+
+
+.course-item {
+  height: 100%;
+
+  &__container {
+    background: #00000008;
+    border-radius: 5px;
+    transition: all 0.3s;
+    height: 100%;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 8px #0000001a;
+    }
+
+    &-header {
+      position: relative;
+      cursor: pointer;
+
+      img {
+        width: 100%;
+        height: 14rem;
+        object-fit: fill;
+        object-position: initial;
+        border-radius: 5px 5px 0 0;
+      }
+
+      &-icon {
+        position: absolute;
+        top: 5%;
+        left: 3%;
+        padding: 0.5rem;
+        background-color: #0061ae;
+        border-radius: 5px;
+        font-size: 1.2rem;
+      }
+    }
+
+    &-content {
+      padding: 4% 4%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &-title {
+        cursor: pointer;
+        color: #292929;
+        font-size: 1.2rem;
+        overflow: hidden;
+        font-weight: 600;
+        word-wrap: break-word;
+        margin: 0;
+        white-space: nowrap; // Prevent text from wrapping to the next line
+        overflow: hidden; // Hide the overflow text
+        text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+        max-width: 30ch; // Set a maximum width, using 'ch' to approximately match the character count
+      }
+
+      &-amount {
+        display: flex;
+        flex-direction: row;
+        gap: 0.2rem;
+        align-items: center;
+
+        &-oldprice {
+          color: $text-gray-700;
+          text-decoration: line-through;
+        }
+
+        &-mainprice {
+          color: #f05123;
+          font-weight: 600;
+          font-size: 1.2rem;
+        }
+
+        &-coin {
+          width: 1.5rem;
+          height: 1.5rem;
+          object-fit: cover;
+        }
+      }
+
+      &-rating {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      &-lecture {
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+@media (max-width: 599px) {}
+
+/*
+*************************************************
+Style Web responsive (ipad - tablet) 768px
+*************************************************
+*/
+@media (max-width: 768px) {
+  .course-item {
+    &__container {
+      padding: 3%; 
+      &-header {
+        img {
+          height: 12rem; 
+        }
+
+        &-icon {
+          font-size: 1rem;
+        }
+      }
+
+      &-content {
+        padding: 3%; 
+        &-title {
+          font-size: 1.1rem; 
+          max-width: 25ch;
+
+        &-amount {
+          &-mainprice {
+            font-size: 1.1rem; 
+          }
+        }
+
+        &-rating {
+          font-size: 0.9rem; 
+        }
+      }
+    }
+  }
+}
+}

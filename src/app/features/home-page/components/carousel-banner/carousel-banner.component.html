@@ -1,0 +1,18 @@
+<p-carousel
+  [value]="banners"
+  [numVisible]="1"
+  [numScroll]="1"
+  orientation="horizontal"
+  [circular]="true"
+  [showNavigators]="false"
+  [autoplayInterval]="3000"
+>
+  >
+  <ng-template let-banner pTemplate="item">
+    <div class="carousel">
+      <div class="carousel__container">
+        <img (click)="openLink(banner.href)" src="{{ banner.img }}" [alt]="banner.title" class="carousel__container-img" />
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>

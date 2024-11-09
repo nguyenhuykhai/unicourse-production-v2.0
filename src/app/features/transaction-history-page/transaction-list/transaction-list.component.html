@@ -1,0 +1,237 @@
+<!-- TABLE FOR DESKTOP -->
+<p-table #dt2 [value]="payload.data" [loading]="loading" [lazy]="true" [rows]="itemsPerPage" [responsiveLayout]="'scroll'" [responsiveLayout]="'scroll'"
+  class="transaction-list desktop-only">
+
+  <ng-template pTemplate="caption">
+    <div class="transaction-caption">
+      <div>
+        <p-iconField iconPosition="left" class="ml-auto">
+          <p-inputIcon>
+            <i class="pi pi-search"></i>
+          </p-inputIcon>
+          <input (input)="handleFilterChange('SEARCH')" [(ngModel)]="searchText" pInputText type="text"
+            placeholder="Tìm kiếm giao dịch" />
+        </p-iconField>
+      </div>
+
+      <div class="transaction-caption__group-btn">
+        <p-button (click)="handleFilterChange('PAID')" label="Thanh toán thành công" [raised]="true" severity="success"
+          size="small" />
+        <p-button (click)="handleFilterChange('PENDING')" label="Đang chờ xử lý" [raised]="true" severity="warning"
+          size="small" />
+        <p-button (click)="handleFilterChange('CANCELED')" label="Thanh toán thất bại" [raised]="true" severity="danger"
+          size="small" />
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Mã giao dịch</th>
+      <th>Khóa học</th>
+      <th>Ngày</th>
+      <th>Tổng xu</th>
+      <th>Trạng thái</th>
+      <th>Hành động</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-transaction>
+    <ng-container *ngIf="!loading">
+      <tr class="transaction-item">
+        <td class="transaction-item__payment">{{ transaction.transaction_code }}</td>
+        <td class="transaction-item__course">
+          <div class="transaction-item__course-info">
+            <img [src]="transaction.transactionLineItem[0].course_mentor.image"
+              [alt]="transaction.transactionLineItem[0].course_mentor.title" class="transaction-item__course-image" />
+            <span [pTooltip]="transaction.transactionLineItem[0].course_mentor.title" tooltipPosition="top"
+              class="transaction-item__course-title">{{ transaction.transactionLineItem[0].course_mentor.title }}</span>
+          </div>
+        </td>
+        <td class="transaction-item__date">{{ convertDateTimeToText(transaction.transaction_date) }}</td>
+        <td class="transaction-item__price">
+          <ng-container *ngIf="transaction.final_amount > 0; else freeCoin">
+            {{ transaction.final_amount | number: '1.0-0' }}
+          </ng-container>
+          <ng-template #freeCoin>
+            Miễn phí
+          </ng-template>
+        </td>
+        <td class="transaction-item__status">
+          <ng-container *ngIf="transaction.status ==='CANCELED'">
+            <p-tag severity="danger" value="Thanh toán thất bại"></p-tag>
+          </ng-container>
+          <ng-container *ngIf="transaction.status ==='PAID'">
+            <p-tag severity="success" value="Thanh toán thành công"></p-tag>
+          </ng-container>
+          <ng-container *ngIf="transaction.status ==='PENDING'">
+            <p-tag severity="warning" value="Đang chờ xử lý"></p-tag>
+          </ng-container>
+        </td>
+        <td class="transaction-item__tools">
+          <div class="transaction-item__actions">
+            <ng-container *ngIf="!transaction.transactionLineItem[0].isFeedback; else allreadyFeedback">
+              <button (click)="showFeedbackOverPlay($event, transaction)"
+                class="transaction-item__button transaction-item__button--receipt">Đánh giá</button>
+            </ng-container>
+            <ng-template #allreadyFeedback>
+              <button
+                class="transaction-item__button transaction-item__button--disabled">Đã đánh giá</button>
+            </ng-template>
+            <button (click)="toggleSupportDialog()" class="transaction-item__button transaction-item__button--invoice">Hỗ
+              trợ</button>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </ng-template>
+
+  <!-- Loading Body Template -->
+  <ng-template pTemplate="loadingbody" let-columns="columns">
+    <ng-container *ngFor="let col of [].constructor(itemsPerPage)">
+      <tr class="transaction-item-card">
+        <td class="transaction-item-card__course">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="transaction-item-card__date">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="transaction-item-card__price">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="transaction-item-card__status">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="transaction-item-card__payment">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="transaction-item-card__tools">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+      </tr>
+    </ng-container>
+  </ng-template>
+</p-table>
+<div class="transaction-footer desktop-only">
+  <p-paginator [rows]="payload.limit" [totalRecords]="payload.total"
+    (onPageChange)="paginate($event)" [first]="0" class="transaction-footer__pagination"></p-paginator>
+</div>
+
+<!-- CARD-STYLE LIST FOR MOBILE -->
+<div class="transaction-list mobile-only">
+  <div class="transaction-list__mobile-header">
+    <!-- HEADER SESSION ONE -->
+    <div class="transaction-list__mobile-header__session-one">
+      <p-iconField iconPosition="left" class="ml-auto" [ngStyle]="{ width: '100%' }">
+        <p-inputIcon>
+          <i class="pi pi-search"></i>
+        </p-inputIcon>
+        <input [ngStyle]="{ width: '100%' }" pInputText type="text" placeholder="Tìm kiếm giao dịch" />
+      </p-iconField>
+    </div>
+    <!-- HEADER SESSION TWO -->
+    <div class="transaction-list__mobile-header__session-two">
+      <p-splitButton [ngStyle]="{ width: '100%' }" label="Lọc theo trạng thái" [model]="filterOptions" size="small" />
+    </div>
+  </div>
+
+  <div class="transaction-item-card" *ngFor="let transaction of payload.data">
+    <div class="transaction-item-card__header">
+      <img [src]="transaction.transactionLineItem[0].course_mentor.image"
+        [alt]="transaction.transactionLineItem[0].course_mentor.title" class="transaction-item-card__course-image" />
+      <span [pTooltip]="transaction.transactionLineItem[0].course_mentor.title" tooltipPosition="top"
+        class="transaction-item-card__title">{{ transaction.transactionLineItem[0].course_mentor.title }}</span>
+    </div>
+    <div class="transaction-item-card__details">
+      <p><strong>Ngày: &nbsp;</strong>{{ convertDateTimeToText(transaction.transaction_date) }}</p>
+      <p><strong>Tổng giá: &nbsp;</strong>{{ transaction.final_amount | number: '1.0-0' }}</p>
+      <p><strong>Trạng thái: &nbsp;</strong>
+        <ng-container *ngIf="transaction.status ==='CANCELED'">
+          <p-tag severity="danger" value="Thanh toán thất bại"></p-tag>
+        </ng-container>
+        <ng-container *ngIf="transaction.status ==='PAID'">
+          <p-tag severity="success" value="Thanh toán thành công"></p-tag>
+        </ng-container>
+        <ng-container *ngIf="transaction.status ==='PENDING'">
+          <p-tag severity="warning" value="Đang chờ xử lý"></p-tag>
+        </ng-container>
+      </p>
+      <p><strong>Mã giao dịch: &nbsp;</strong>{{ transaction.transaction_code }}</p>
+    </div>
+    <div class="transaction-item-card__actions">
+      <ng-container *ngIf="!transaction.transactionLineItem[0].isFeedback; else allreadyFeedback">
+        <button (click)="showFeedbackOverPlay($event, transaction)"
+          class="transaction-item-card__button transaction-item-card__button--receipt">Đánh giá</button>
+      </ng-container>
+      <ng-template #allreadyFeedback>
+        <button class="transaction-item-card__button transaction-item-card__button--disabled">Đã đánh giá</button>
+      </ng-template>
+      <button (click)="toggleSupportDialog()"
+        class="transaction-item-card__button transaction-item-card__button--invoice">Hỗ trợ</button>
+    </div>
+  </div>
+
+  <!-- Enhanced Pagination controls for mobile -->
+  <div class="transaction-list__pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1" class="transaction-list__pagination-button">
+      <i class="pi pi-angle-left"></i>
+    </button>
+    <span class="transaction-list__pagination-page" *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button (click)="goToPage(i + 1)" [ngClass]="{'active': currentPage === i + 1}"
+        class="transaction-list__pagination-page-button">
+        {{ i + 1 }}
+      </button>
+    </span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="transaction-list__pagination-button">
+      <i class="pi pi-angle-right"></i>
+    </button>
+  </div>
+</div>
+
+<!-- FEEDBACK DIALOG -->
+<p-overlayPanel #feedbackOverplay (onHide)="clearFeedbackForm()">
+  <ng-container *ngIf="feedbackObject">
+    <section class="feedback-container">
+      <ng-container *ngIf="feedbackObject.is_mentor; else onlineMentorCourse">
+        <ng-container *ngIf="checkDateOfCourseOffline(feedbackObject.end_date); else notAllowFeedback">
+          <h3 class="feedback-container__header">Đánh giá khóa học</h3>
+          <p-rating [(ngModel)]="feedbackObject.rating" [cancel]="false">
+            <ng-template pTemplate="onicon">
+              <i class="pi pi-star-fill" style="color: #fdbe11; font-size: 1.3rem;"></i>
+            </ng-template>
+            <ng-template pTemplate="officon">
+              <i class="pi pi-star-fill" style="color: #c0c0c0; font-size: 1.3rem;"></i>
+            </ng-template>
+          </p-rating>
+          <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="feedbackObject.content">
+                </textarea>
+          <div class="feedback-container__group-btn">
+            <p-button label="Hủy" (click)="feedbackOverplay.hide()" />
+            <p-button label="Đánh giá" (click)="handleFeedbackTransaction(feedbackObject)" />
+          </div>
+        </ng-container>
+        <ng-template #notAllowFeedback>
+          <h3>Khóa học chưa kết thúc</h3>
+        </ng-template>
+      </ng-container>
+
+      <ng-template #onlineMentorCourse>
+        <h3 class="feedback-container__header">Đánh giá khóa học</h3>
+        <p-rating [(ngModel)]="feedbackObject.rating" [cancel]="false">
+          <ng-template pTemplate="onicon">
+            <i class="pi pi-star-fill" style="color: #fdbe11; font-size: 1.3rem;"></i>
+          </ng-template>
+          <ng-template pTemplate="officon">
+            <i class="pi pi-star-fill" style="color: #c0c0c0; font-size: 1.3rem;"></i>
+          </ng-template>
+        </p-rating>
+        <textarea rows="5" cols="30" pInputTextarea [(ngModel)]="feedbackObject.content">
+              </textarea>
+        <div class="feedback-container__group-btn">
+          <p-button label="Hủy" (click)="feedbackOverplay.hide()" />
+          <p-button label="Đánh giá" (click)="handleFeedbackTransaction(feedbackObject)" />
+        </div>
+      </ng-template>
+    </section>
+  </ng-container>
+</p-overlayPanel>

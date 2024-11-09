@@ -1,0 +1,32 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.blog-content {
+    &__paragraph {
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color: $text-black;
+        white-space: normal; /* Ensure that text wraps */
+        word-wrap: break-word; /* Break long words if necessary */
+        overflow-wrap: break-word; /* Modern property for breaking words */
+
+        /* Override inline display styles */
+        span, div {
+            display: block !important; /* Force block display even if inline is applied */
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        img, table, iframe {
+            max-width: 100%; /* Ensure these elements do not overflow the container */
+            height: auto; /* Maintain aspect ratio */
+        }
+    }
+
+    &__image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 1.5rem;
+    }
+}

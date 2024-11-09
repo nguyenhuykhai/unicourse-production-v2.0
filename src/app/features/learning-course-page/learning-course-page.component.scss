@@ -1,0 +1,464 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+@import "../../../styles/breakpoints"; // Import breakpoints
+@import "../../../styles/mixins"; // Import mixin
+
+::ng-deep {
+  .p-sidebar-right {
+    min-width: 800px;
+    max-width: 100%;
+  }
+}
+
+.course-page {
+  background-color: $background-white;
+  overflow-y: hidden;
+
+  &__header {
+    position: fixed;
+    background: white;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__container {
+    display: flex;
+    margin: auto;
+    padding-top: 70px;
+    height: calc(100vh - 60px);
+    overflow-y: hidden;
+
+    &__content {
+      flex-basis: 70%;
+      overflow-y: auto;
+    }
+
+    &__sidebar {
+      flex-basis: 30%;
+      overflow-y: auto;
+    }
+  }
+
+  &__chat-bot {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+  }
+
+  &__comment {
+    position: fixed;
+    left: 6rem;
+    bottom: 0;
+  }
+
+  &__sidebar {
+    width: 50%;
+
+    &__header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      &-title {
+        font-size: $font-size-2xl;
+        font-weight: $font-weight-semibold;
+        color: $text-black;
+        margin: 0;
+      }
+
+      &-description {
+        font-size: $font-size-md;
+        font-weight: $font-weight-light;
+        color: $text-gray-900;
+        font-style: italic;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  ::ng-deep {
+    .p-dialog-mask {
+      align-items: start;
+    }
+
+    .p-dialog {
+      margin-top: 1rem;
+    }
+
+    .p-dialog-content {
+      padding: 0;
+    }
+  }
+
+  .course-page {
+    &__container {
+      flex-direction: column;
+      height: auto;
+
+      &__sidebar {
+        display: none;
+      }
+    }
+
+    &__content {
+      flex-basis: 100%;
+    }
+
+    &__footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1102;
+    }
+
+    &__chat-bot {
+      display: none;
+    }
+
+    &__comment {
+      position: fixed;
+      left: 0;
+      bottom: 5rem;
+    }
+
+    &__header-mobile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &__notification {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &-title {
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+        }
+
+        &-description {
+          font-size: $font-size-sm;
+        }
+      }
+
+      &__close {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+      }
+    }
+  }
+}
+
+@include respond-to(md) {
+  ::ng-deep {
+    .p-dialog-mask {
+      align-items: start;
+    }
+
+    .p-dialog {
+      margin-top: 1rem;
+    }
+
+    .p-dialog-content {
+      padding: 0;
+    }
+  }
+
+  .course-page {
+    &__container {
+      flex-direction: column;
+      height: auto;
+
+      &__sidebar {
+        display: none;
+      }
+    }
+
+    &__content {
+      flex-basis: 100%;
+    }
+
+    &__footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1102;
+    }
+
+    &__chat-bot {
+      display: none;
+    }
+
+    &__comment {
+      position: fixed;
+      left: 0;
+      bottom: 5rem;
+    }
+
+    &__header-mobile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &__notification {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &-title {
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+        }
+
+        &-description {
+          font-size: $font-size-sm;
+        }
+      }
+
+      &__close {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+      }
+    }
+  }
+}
+
+@include respond-to(sm) {
+  ::ng-deep {
+    .p-dialog-mask {
+      align-items: start;
+    }
+
+    .p-dialog {
+      margin-top: 1rem;
+    }
+
+    .p-dialog-content {
+      padding: 0;
+    }
+  }
+
+  .course-page {
+    &__container {
+      flex-direction: column;
+      height: auto;
+
+      &__sidebar {
+        display: none;
+      }
+    }
+
+    &__content {
+      flex-basis: 100%;
+    }
+
+    &__footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1102;
+    }
+
+    &__chat-bot {
+      display: none;
+    }
+
+    &__comment {
+      position: fixed;
+      left: 0;
+      bottom: 5rem;
+    }
+
+    &__header-mobile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &__notification {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &-title {
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+        }
+
+        &-description {
+          font-size: $font-size-sm;
+        }
+      }
+
+      &__close {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+      }
+    }
+  }
+}
+
+@include respond-to(xs) {
+  ::ng-deep {
+    .p-dialog-mask {
+      align-items: start;
+    }
+
+    .p-dialog {
+      margin-top: 1rem;
+    }
+
+    .p-dialog-content {
+      padding: 0;
+    }
+  }
+
+  .course-page {
+    &__container {
+      flex-direction: column;
+      height: auto;
+
+      &__sidebar {
+        display: none;
+      }
+    }
+
+    &__content {
+      flex-basis: 100%;
+    }
+
+    &__footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1102;
+    }
+
+    &__chat-bot {
+      display: none;
+    }
+
+    &__comment {
+      position: fixed;
+      left: 0;
+      bottom: 5rem;
+    }
+
+    &__header-mobile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &__notification {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &-title {
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+        }
+
+        &-description {
+          font-size: $font-size-sm;
+        }
+      }
+
+      &__close {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+      }
+    }
+  }
+}
+
+@include respond-to(xxs) {
+  ::ng-deep {
+    .p-dialog-mask {
+      align-items: start;
+    }
+
+    .p-dialog {
+      margin-top: 1rem;
+    }
+
+    .p-dialog-content {
+      padding: 0;
+    }
+  }
+
+  .course-page {
+    &__container {
+      flex-direction: column;
+      height: auto;
+
+      &__sidebar {
+        display: none;
+      }
+    }
+
+    &__content {
+      flex-basis: 100%;
+    }
+
+    &__footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      z-index: 1102;
+    }
+
+    &__chat-bot {
+      display: none;
+    }
+
+    &__comment {
+      position: fixed;
+      left: 0;
+      bottom: 5rem;
+    }
+
+    &__header-mobile {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      &__notification {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &-title {
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+        }
+
+        &-description {
+          font-size: $font-size-sm;
+        }
+      }
+
+      &__close {
+        position: fixed;
+        top: 2rem;
+        right: 2rem;
+      }
+    }
+  }
+}

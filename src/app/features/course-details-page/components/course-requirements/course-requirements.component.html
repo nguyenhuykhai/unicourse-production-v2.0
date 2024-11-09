@@ -1,0 +1,14 @@
+<div class="course-requirements">
+  <ng-container *ngIf="!blockedUI; else loading">
+    <h3>Yêu cầu</h3>
+    <ng-container *ngIf="course && course.requirements !== undefined">
+      <ul>
+        <ng-container *ngFor="let requirement of course.requirements">
+          <li>{{ requirement }}</li>
+        </ng-container>
+      </ul>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #loading></ng-template>
+</div>

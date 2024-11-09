@@ -1,0 +1,15 @@
+<div class="calendar__day-content">
+    <div class="calendar__day-top">
+        <ng-container *ngIf="isActive; else default">
+            <p-avatar [label]="day.dayNumber.toString()" shape="circle" [style]="{ 'background-color': '#5a9fff', 'color': '#ffffff'}" />
+        </ng-container>
+        <ng-template #default>
+            <p-avatar [label]="day.dayNumber.toString()" shape="circle" [style]="{ 'background-color': 'transparent' }" />
+        </ng-template>
+    </div>
+    <div class="calendar__day-bottom">
+        <ng-container *ngIf="day.events.length > 0">
+            <span *ngFor="let item of day.events" class="calendar__event-dot"></span>
+        </ng-container>
+    </div>
+</div>

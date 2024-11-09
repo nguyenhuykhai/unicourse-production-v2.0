@@ -1,0 +1,85 @@
+<div class="chat-bot-container">
+    <!-- WEBSITE UI: FORM HỎI ĐÁP ZONE -->
+    <p-overlayPanel #op>
+        <div class="chat-bot-container__form">
+            <!-- Header -->
+            <div class="chat-bot-container__form__header">
+                <i class="pi pi-minus chat-bot-container__form__header-icon" (click)="op.toggle($event)"></i>
+                <i class="pi pi-times chat-bot-container__form__header-icon" (click)="toggleOverlay(op, $event)"></i>
+            </div>
+
+            <!-- Khung hỏi -->
+            <textarea autofocus id="message" [(ngModel)]="questionText" rows="4" class="chat-bot-container__form__input"
+                placeholder="Nhập câu hỏi của bạn tại đây..."></textarea>
+
+            <!-- Hỏi Button -->
+            <div class="chat-bot-container__form__group-btn">
+                <button class="chat-bot-container__form__group-btn-ask" (click)="askQuestion()">
+                    <ng-container *ngIf="loading; else elseBlock">
+                        <i class="pi pi-spin pi-spinner"></i>
+                    </ng-container>
+                    <ng-template #elseBlock>
+                        <i class="pi pi-question-circle"></i>
+                    </ng-template>
+                    <span>Hỏi</span>
+                </button>
+
+                <button class="chat-bot-container__form__group-btn-ask" (click)="clearForm()">
+                    <i class="pi pi-eraser"></i>
+                    <span>Làm mới</span>
+                </button>
+            </div>
+
+            <!-- Khung AI trả lời -->
+            <label for="message" class="chat-bot-container__form__label">Phản hồi từ AI</label>
+
+            <markdown id="message" class="chat-bot-container__form__markdown" [data]="displayText">
+            </markdown>
+        </div>
+    </p-overlayPanel>
+
+    <!-- WEBSITE UI: BUTTON CHATBOT ZONE -->
+    <button class="chat-bot-container__icon-container desktop-only" (click)="op.toggle($event)" type="button">
+        <div class="chat-bot-container__icon-container-logo" pTooltip="Hỏi trợ lý Unicourse">
+            <img [ngStyle]="{ width: '2.5rem', height: '3rem' }" src="{{ LOGO }}" />
+        </div>
+
+        <span class="sr-only">Icon description</span>
+    </button>
+
+    <!-- MOBILE UI: FORM HỎI ĐÁP ZONE -->
+    <div class="chat-bot-container__mobile-form mobile-only">
+        <!-- Header -->
+        <div class="chat-bot-container__mobile-form__header">
+            <h3>Hỏi trợ lý Unicourse</h3>
+        </div>
+
+        <!-- Khung hỏi -->
+        <textarea autofocus id="message" [(ngModel)]="questionText" rows="4" class="chat-bot-container__mobile-form__input"
+            placeholder="Nhập câu hỏi của bạn tại đây..."></textarea>
+
+        <!-- Hỏi Button -->
+        <div class="chat-bot-container__mobile-form__group-btn">
+            <button class="chat-bot-container__mobile-form__group-btn-ask" (click)="askQuestion()">
+                <ng-container *ngIf="loading; else elseBlockMobile">
+                    <i class="pi pi-spin pi-spinner"></i>
+                </ng-container>
+                <ng-template #elseBlockMobile>
+                    <i class="pi pi-question-circle"></i>
+                </ng-template>
+                <span>Hỏi</span>
+            </button>
+
+            <button class="chat-bot-container__mobile-form__group-btn-ask" (click)="clearForm()">
+                <i class="pi pi-eraser"></i>
+                <span>Làm mới</span>
+            </button>
+        </div>
+
+        <!-- Khung AI trả lời -->
+        <label for="message" class="chat-bot-container__mobile-form__label">Phản hồi từ AI</label>
+
+        <markdown id="message" class="chat-bot-container__mobile-form__markdown" [data]="displayText">
+        </markdown>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="course-page__content">
+    <span class="course-page__content-tab mobile-only">
+        <p-tabMenu [model]="items" />
+    </span>
+    <div class="course-page__content-frame">
+        <iframe class="course-page__content-frame-video" [src]="videoUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="course-page__content-details">
+        <ng-container *ngIf="tabActiveIndex === 'content'; else chatBotTab">
+            <h1 class="course-page__content-title">{{ currentTopic?.title }}</h1>
+            <p class="course-page__content-subtitle">Lần cập nhật gần đây nhất {{
+                convertDateTimeToText(currentTopic?.updated_at) }}</p>
+            <p class="course-page__content-description">Tham gia các cộng đồng để cùng học hỏi, chia sẻ và "thám
+                thính"
+                xem Unicourse sắp có gì mới nhé!</p>
+            <ul>
+                <li><span>Fanpage: </span><a href="https://www.facebook.com/profile.php?id=61559287804624"
+                        target="_blank">Unicourse -
+                        Học Tập Trực Tuyến Đại Học FPT</a></li>
+            </ul>
+            <p *ngIf="!currentTopic?.element_topic?.document" class="course-page__content-footer">Made with ❤️ ・ Nền tảng học tập trực tuyến Unicourse</p>
+        </ng-container>
+        <ng-template #chatBotTab>
+            <app-chat-bot></app-chat-bot>
+        </ng-template>
+    </div>
+</div>

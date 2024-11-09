@@ -1,0 +1,53 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+
+::ng-deep {
+    .p-card-body {
+      padding: 1.25rem;
+    }
+    .p-card-content {
+      padding: 0;
+    }
+  }
+
+.course-card {
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+
+    .course-card__image {
+        width: 100%;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .course-card__info {
+        &__title {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 100ch; // Set a maximum width, using 'ch' to approximately match the character count
+            font-size: $font-size-lg;
+            font-weight: $font-weight-semibold;
+            color: $text-black;
+            cursor: pointer;
+        }
+
+        &__subtitle {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 100ch; // Set a maximum width, using 'ch' to approximately match the character count
+            color: $text-gray-700;
+            font-size: $font-size-md;
+            margin-top: 0.5rem;
+        }
+    }
+
+    .course-card__progress {
+        margin-top: 1rem;
+        height: 10px;
+        border-radius: 20px;
+    }
+}

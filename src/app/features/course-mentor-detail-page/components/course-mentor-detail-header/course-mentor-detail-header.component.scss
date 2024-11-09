@@ -1,0 +1,161 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.course-mentor-detail-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem;
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        flex: 1;
+
+        &-title {
+            font-size: $font-size-4xl;
+            font-weight: $font-weight-bold;
+            color: $text-black;
+            margin: 0;
+        }
+
+        &-description {
+            margin: 0;
+            font-size: $font-size-md;
+            line-height: $line-height-md;
+        }
+
+        &-date {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+
+            p {
+                font-size: $font-size-md;
+                margin: 0;
+
+                strong {
+                    color: $text-black;
+                }
+            }
+        }
+    }
+
+
+    &__mentor {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+
+        &-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+
+            &-name {
+                font-weight: $font-weight-medium;
+                color: $text-black;
+                font-weight: $font-weight-semibold;
+                cursor: pointer;
+            }
+
+            &-role {
+                font-size: $font-size-sm;
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    ::ng-deep {
+        .p-card .p-card-body {
+            padding: 0 1.25rem;
+        }
+    }
+
+    .course-mentor-detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+
+        &__info {
+            &-title {
+                font-size: $font-size-2xl;
+            }
+
+            &-date {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                p {
+                    font-size: $font-size-md;
+                    margin: 0;
+
+                    strong {
+                        color: $text-black;
+                    }
+                }
+
+                span {
+                    display: none;
+                }
+            }
+        }
+
+        &__mentor {
+            flex-direction: row;
+
+            &-info {
+                align-items: start;
+            }
+        }
+    }
+}
+
+@media (max-width: 599px) {
+    ::ng-deep {
+        .p-card .p-card-body {
+            padding: 0 1.25rem;
+        }
+    }
+
+    .course-mentor-detail-header {
+        gap: 1rem;
+
+        &__info {
+            &-title {
+                font-size: $font-size-2xl;
+            }
+
+            &-date {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+
+                p {
+                    font-size: $font-size-md;
+                    margin: 0;
+
+                    strong {
+                        color: $text-black;
+                    }
+                }
+
+                span {
+                    display: none;
+                }
+            }
+        }
+
+        &__mentor {
+            flex-direction: row;
+
+            &-info {
+                align-items: start;
+            }
+        }
+    }
+}

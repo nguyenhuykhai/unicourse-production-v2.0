@@ -1,0 +1,23 @@
+<div class="course-reviews">
+  <ng-container *ngIf="!blockedUI; else loading">
+    <div class="course-reviews__review-title">
+      <i class="pi pi-star-fill" style="font-size: 2rem; color: #b4690e"></i>
+      <p>{{ course?.rating }} xếp hạng khoá học</p>
+      •
+      <p>{{ feedbacks.length }} đánh giá</p>
+    </div>
+
+    <div class="course-reviews__list-review">
+      <ng-container *ngFor="let review of feedbacks">
+        <app-review-item [review]="review"></app-review-item>
+      </ng-container>
+    </div>
+
+    <div class="course-reviews__btn">
+      <button>Xem tất cả đánh giá</button>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+  </ng-template>
+</div>

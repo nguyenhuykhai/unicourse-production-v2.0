@@ -1,0 +1,203 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.cart-item {
+  display: flex;
+  padding: 10px;
+  margin-bottom: 20px;
+
+  &__image {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 15px;
+    flex: 15%;
+    cursor: pointer;
+  }
+
+  &__details {
+    flex: 45%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    margin: 0;
+    color: $text-black;
+    cursor: pointer;
+  }
+
+  &__instructor {
+    font-size: $font-size-sm;
+    line-height: $line-height-sm;
+    font-weight: $font-weight-regular;
+    color: $text-black;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &-badge {
+      background-color: $yellow-200;
+      color: black;
+      padding: 2px 5px;
+      margin-right: 10px;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-xs;
+      letter-spacing: 0;
+      font-size: $font-size-sm;
+      letter-spacing: $letter-spacing-wide;
+    }
+
+    &-stars {
+      color: $text-black;
+      font-weight: $font-weight-bold;
+      line-height: $line-height-xs;
+      letter-spacing: $letter-spacing-normal;
+      font-size: $font-size-md;
+
+      &-icon {
+        font-size: $font-size-sm;
+      }
+
+      &-subtext {
+        font-size: $font-size-sm;
+        color: $text-gray-900;
+        margin-left: 0.2rem;
+        font-weight: $font-weight-medium;
+      }
+    }
+  }
+
+  &__course-count {
+    font-size: $font-size-sm;
+    color: $text-black;
+    margin-bottom: 10px;
+
+    &-text {
+      font-size: $font-size-sm;
+      color: $text-black;
+      font-weight: $font-weight-regular;
+    }
+  }
+
+  &__container {
+    flex: 40%;
+    display: flex;
+
+    &__price {
+      flex-basis: 30%;
+      font-size: $font-size-sm;
+      color: $text-black;
+      justify-content: end;
+
+      &-coin {
+        display: flex;
+        text-align: center;
+        justify-content: end;
+
+        &-current {
+          font-weight: bold;
+        }
+
+        &-sale {
+          text-decoration: line-through;
+          color: red;
+        }
+      }
+      &-vnprice {
+        font-weight: medium;
+        text-align: end;
+        font-weight: $font-weight-regular;
+        font-size: $font-size-sm;
+      }
+    }
+
+    &__actions {
+      flex-basis: 70%;
+      display: flex;
+      flex-direction: column;
+      align-items: right;
+
+      &-wishlist,
+      &-remove {
+        color: #214ec2;
+        font-size: 14px;
+        cursor: pointer;
+        text-align: end;
+        text-decoration: none;
+        font-weight: $font-weight-semibold;
+
+        &:hover {
+          color: #00288d;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .cart-item {
+      padding: 0;
+
+      &__image {
+        width: 100%;
+        height: auto;
+        margin-bottom: 10px;
+        margin-right: 0;
+      }
+
+      &__details {
+        align-items: flex-start;
+      }
+
+      &__container {
+        flex-direction: column;
+        width: 100%;
+        justify-content: start;
+        align-items: self-start;
+
+        &__price {
+          flex-basis: 100%;
+          display: flex;
+
+          &-coin {
+            margin-right: 0.5rem;
+          }
+        }
+
+        &__actions {
+          flex-direction: row;
+          place-self: stretch;
+          margin-bottom: 0.5rem;
+
+          &-wishlist {
+            width: 100%;
+
+            &:hover {
+              color: #00288d;
+            }
+          }
+
+          &-remove {
+            text-align: start;
+
+            &:hover {
+              color: #00288d;
+            }
+          }
+        }
+      }
+    }
+  }
+}

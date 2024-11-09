@@ -1,0 +1,85 @@
+<p-card header="Xem trước">
+    <p-toast key="tst"></p-toast>
+    <section class="publish-container">
+        <!-- IMAGE ZONE -->
+        <section class="publish-container__group-one">
+            <ng-container *ngIf="imageUrl; else defaultReviewImage">
+                <div class="publish-container__group-one__preview">
+                    <img [src]="imageUrl" alt="Avatar" class="publish-container__group-one__preview__image" />
+                </div>
+            </ng-container>
+            <ng-template #defaultReviewImage>
+                <div class="publish-container__group-one__default-preview">
+                    <p class="publish-container__group-one__default-review-title">Ảnh đại diện hấp dẫn giúp bài viết của
+                        bạn cuốn hút hơn với độc giả.</p>
+                </div>
+            </ng-template>
+            <p-fileUpload #fileUploader mode="basic" chooseLabel="Tải ảnh lên" chooseIcon="pi pi-upload" name="avatar"
+                accept="image/*" [customUpload]="true" [multiple]="false" maxFileSize="1000000"
+                (onSelect)="selectFile($event)">
+            </p-fileUpload>
+        </section>
+
+        <!-- CONTENT ZONE -->
+        <section class="publish-container__group-two">
+            <div class="publish-container__group-two__input-group">
+                <ng-container *ngIf="blogPayload && blogPayload.title !== undefined; else loadingDataGroupTwo">
+                    <div>
+                        <p-floatLabel>
+                            <input (blur)="validateData(blogPayload.title, 'title')" pInputText id="title"
+                                [(ngModel)]="blogPayload.title" [ngClass]="{ 'ng-invalid ng-dirty': blogPayload.error_title}" />
+                            <label for="title">Tiêu đề khi bài viết được hiển thị</label>
+                        </p-floatLabel>
+                        <small class="error-message" *ngIf="blogPayload.error_title">{{ blogPayload.error_title }}</small>
+                    </div>
+
+                    <ng-container *ngIf="categories && categories.length; else loadingCategories">
+                        <div>
+                            <p-floatLabel>
+                                <p-multiSelect (onChange)="validateData(selectedCategories, 'categories')" [options]="categories"
+                                    [(ngModel)]="selectedCategories" optionLabel="name" placeholder="Nhãn dán cho bài viết"
+                                    [ngClass]="{ 'ng-invalid ng-dirty': blogPayload.error_categories_id}" />
+                                <label for="title">Nhãn dán cho bài viết</label>
+                            </p-floatLabel>
+                            <small class="error-message" *ngIf="blogPayload.error_categories_id">{{ blogPayload.error_categories_id }}</small>
+                        </div>
+                    </ng-container>
+                    <ng-template #loadingCategories>
+                        <p-progressSpinner></p-progressSpinner>
+                    </ng-template>
+    
+                    <div>
+                        <p-floatLabel>
+                            <textarea id="float-input" rows="3" cols="30"
+                                (blur)="validateData(blogPayload.description, 'description')" pInputTextarea
+                                [(ngModel)]="blogPayload.description"
+                                [ngClass]="{ 'ng-invalid ng-dirty': blogPayload.error_description}">
+                            </textarea>
+                            <label for="float-input">Mô tả khi bài viết được hiển thị</label>
+                        </p-floatLabel>
+                        <small class="error-message" *ngIf="blogPayload.error_description">{{ blogPayload.error_description }}</small>
+                    </div>
+    
+                    <div>
+                        <p-floatLabel>
+                            <p-inputNumber (onBlur)="validateData($event, 'min_read')" id="float-input"
+                                [(ngModel)]="blogPayload.min_read" inputId="minmax" mode="decimal" [min]="1" [max]="100"
+                                [ngClass]="{ 'ng-invalid ng-dirty': blogPayload.error_min_read}" />
+                            <label for="float-input">Thời gian đọc (phút)</label>
+                        </p-floatLabel>
+                        <small class="error-message" *ngIf="blogPayload.error_min_read">{{ blogPayload.error_min_read }}</small>
+                    </div>
+                </ng-container>
+                <ng-template #loadingDataGroupTwo>
+                    <p>LOADING...</p>
+                </ng-template>
+            </div>
+
+            <div class="publish-container__group-two__button-group">
+                <button pButton (click)="handleCreateNewPost()" pButton label="Xuất bản ngay" class="p-button-success"
+                    [disabled]="(blogPayload?.invalid_min_read || blogPayload?.invalid_categories_id || blogPayload?.invalid_description|| blogPayload?.invalid_title)" [loading]="blockedUI"></button>
+                <button pButton (click)="clear()" pButton label="Hủy" class="p-button-secondary"></button>
+            </div>
+        </section>
+    </section>
+</p-card>

@@ -1,0 +1,90 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.course-page__header {
+  padding: 0.5% 2%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-bottom: 1px solid #cfd1d2;
+
+  &__group_one {
+    align-items: center;
+    margin-right: 2%;
+  }
+
+  &__logo {
+    width: 2.5rem;
+    cursor: pointer;
+  }
+
+  &__group_two {
+    flex-grow: 1;
+    text-align: left;
+
+    &__title {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $text-black;
+    }
+  }
+
+  &__group_three {
+    display: flex;
+    align-items: center;
+
+    &__progress {
+      margin-right: 0.5rem;
+    }
+
+    &__progress-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &__progress-text {
+      font-size: $font-size-md;
+      color: $text-black;
+
+      span {
+        font-weight: $font-weight-semibold;
+      }
+    }
+  }
+
+  @media (max-width: 599px) {
+    padding: 0.5% 2%;
+
+    &__group_one {
+      margin-right: 2%;
+    }
+
+    &__group_two {
+      align-items: center;
+      margin-right: 2%;
+
+      &__title {
+        font-size: $font-size-lg;
+        font-weight: $font-weight-semibold;
+      }
+    }
+
+    &__group_three {
+      align-items: center;
+
+      &__progress {
+        margin-right: 0;
+      }
+
+      &__progress-info {
+        display: none;
+      }
+    }
+
+    &__logo {
+      width: 1.5rem;
+      cursor: pointer;
+    }
+  }
+}

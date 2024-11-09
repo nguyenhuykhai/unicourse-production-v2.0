@@ -1,0 +1,486 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+@import "../../../styles/breakpoints"; // Import breakpoints
+@import "../../../styles/mixins"; // Import mixin
+
+::ng-deep {
+    .p-sidebar-right {
+        min-width: 800px;
+        max-width: 100%;
+    }
+}
+.blog-detail {
+    .desktop-only {
+        display: block;
+    }
+
+    .mobile-only {
+        display: none;
+    }
+
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    &__comment-container {
+        width: 25%;
+
+        &__x {
+            padding: 0 3rem 0 3rem;
+            position: fixed; // Bắt đầu với position fixed
+            top: 116px; // Khoảng cách từ đầu trang
+            width: 25%; // Điều chỉnh độ rộng
+            height: calc(100vh - 116px); // Giới hạn chiều cao trong viewport
+            overflow-y: auto; // Thêm cuộn nếu nội dung quá dài
+            /* Thêm transition để khi top thay đổi, nó sẽ trượt mượt */
+            transition: top 0.01s ease-in-out; // Animation kéo dài 0.3s, kiểu ease-in-out
+
+            &__author {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                padding-bottom: 1rem;
+                margin: 2rem 0 1rem 0;
+                border-bottom: 1px solid #ccc;
+
+                &-name {
+                    font-size: $font-size-lg;
+                    font-weight: $font-weight-semibold;
+                    color: $text-black;
+                    margin: 0;
+                }
+
+                &-date {
+                    font-size: $font-size-md;
+                    color: $text-gray-900;
+                    margin: 0;
+                }
+            }
+
+            &__react {
+                display: flex;
+                flex-direction: row;
+                gap: 2rem;
+
+                &-btn {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 0.5rem;
+                    align-items: center;
+                    color: $text-gray-900;
+                    cursor: pointer;
+
+                    &-icon {
+                        font-size: $font-size-xl;
+                    }
+
+                    &-count {
+                        font-size: $font-size-xl;
+                    }
+
+                    &:hover {
+                        color: $text-black;
+                    }
+                }
+            }
+        }
+    }
+
+    &__content-container {
+        width: 50%;
+        padding: 2rem;
+
+        &__header {
+            margin-bottom: 2rem;
+        }
+
+        &__body {
+            margin-bottom: 2rem;
+        }
+
+        &__comment-btn {
+            display: block;
+            margin-top: 1rem;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: $primary-main;
+            color: white;
+        }
+    }
+
+    &__sidebar {
+        width: 25vw;
+
+        &__header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            &-title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                color: $text-black;
+                margin: 0;
+            }
+
+            &-description {
+                font-size: $font-size-md;
+                font-weight: $font-weight-light;
+                color: $text-gray-900;
+                font-style: italic;
+                margin: 0;
+            }
+        }
+    }
+}
+
+.comment-sidebar {
+    padding: 1rem;
+
+    &__list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__item {
+        padding: 1rem 0;
+        border-bottom: 1px solid #ccc;
+
+        &-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        &__user {
+            font-weight: $font-weight-semibold;
+            color: $primary-main;
+        }
+
+        &__time {
+            font-size: 0.875rem;
+            color: $text-gray-900;
+        }
+
+        &__content {
+            margin: 0;
+            font-size: 1rem;
+            color: $text-black;
+        }
+    }
+
+    &__input {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+    ::ng-deep {
+        .p-dialog-mask {
+            align-items: start;
+        }
+
+        .p-dialog {
+            margin-top: 1rem;
+        }
+    }
+
+    .blog-detail {
+        .desktop-only {
+            display: none;
+        }
+
+        .mobile-only {
+            display: flex;
+        }
+
+        padding: 1rem 1.5rem 0 1.5rem;
+
+        &__content-container {
+            width: 100%;
+            padding: 0;
+        }
+
+        &__mobile__comment-container {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            margin: 2rem 0;
+
+            &__react-btn {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: center;
+                color: $text-gray-900;
+                cursor: pointer;
+
+                &-icon {
+                    font-size: $font-size-xl;
+                }
+
+                &-count {
+                    font-size: $font-size-md;
+                }
+
+                &:hover {
+                    color: $text-black;
+                }
+            }
+        }
+
+        &__sidebar {
+            width: 90vw;
+        }
+    }
+}
+
+@include respond-to(md) {
+    ::ng-deep {
+        .p-dialog-mask {
+            align-items: start;
+        }
+
+        .p-dialog {
+            margin-top: 1rem;
+        }
+    }
+
+    .blog-detail {
+        .desktop-only {
+            display: none;
+        }
+
+        .mobile-only {
+            display: flex;
+        }
+
+        padding: 1rem 1.5rem 0 1.5rem;
+
+        &__content-container {
+            width: 100%;
+            padding: 0;
+        }
+
+        &__mobile__comment-container {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            margin: 2rem 0;
+
+            &__react-btn {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: center;
+                color: $text-gray-900;
+                cursor: pointer;
+
+                &-icon {
+                    font-size: $font-size-xl;
+                }
+
+                &-count {
+                    font-size: $font-size-md;
+                }
+
+                &:hover {
+                    color: $text-black;
+                }
+            }
+        }
+
+        &__sidebar {
+            width: 90vw;
+        }
+    }
+}
+
+@include respond-to(sm) {
+    ::ng-deep {
+        .p-dialog-mask {
+            align-items: start;
+        }
+
+        .p-dialog {
+            margin-top: 1rem;
+        }
+    }
+
+    .blog-detail {
+        .desktop-only {
+            display: none;
+        }
+
+        .mobile-only {
+            display: flex;
+        }
+
+        padding: 1rem 1.5rem 0 1.5rem;
+
+        &__content-container {
+            width: 100%;
+            padding: 0;
+        }
+
+        &__mobile__comment-container {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            margin: 2rem 0;
+
+            &__react-btn {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: center;
+                color: $text-gray-900;
+                cursor: pointer;
+
+                &-icon {
+                    font-size: $font-size-xl;
+                }
+
+                &-count {
+                    font-size: $font-size-md;
+                }
+
+                &:hover {
+                    color: $text-black;
+                }
+            }
+        }
+
+        &__sidebar {
+            width: 90vw;
+        }
+    }
+}
+
+@include respond-to(xs) {
+    ::ng-deep {
+        .p-dialog-mask {
+            align-items: start;
+        }
+
+        .p-dialog {
+            margin-top: 1rem;
+        }
+    }
+
+    .blog-detail {
+        .desktop-only {
+            display: none;
+        }
+
+        .mobile-only {
+            display: flex;
+        }
+
+        padding: 1rem 1.5rem 0 1.5rem;
+
+        &__content-container {
+            width: 100%;
+            padding: 0;
+        }
+
+        &__mobile__comment-container {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            margin: 2rem 0;
+
+            &__react-btn {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: center;
+                color: $text-gray-900;
+                cursor: pointer;
+
+                &-icon {
+                    font-size: $font-size-xl;
+                }
+
+                &-count {
+                    font-size: $font-size-md;
+                }
+
+                &:hover {
+                    color: $text-black;
+                }
+            }
+        }
+
+        &__sidebar {
+            width: 90vw;
+        }
+    }
+}
+
+@include respond-to(xxs) {
+    ::ng-deep {
+        .p-dialog-mask {
+            align-items: start;
+        }
+
+        .p-dialog {
+            margin-top: 1rem;
+        }
+    }
+
+    .blog-detail {
+        .desktop-only {
+            display: none;
+        }
+
+        .mobile-only {
+            display: flex;
+        }
+
+        padding: 1rem 1.5rem 0 1.5rem;
+
+        &__content-container {
+            width: 100%;
+            padding: 0;
+        }
+
+        &__mobile__comment-container {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            margin: 2rem 0;
+
+            &__react-btn {
+                display: flex;
+                flex-direction: row;
+                gap: 0.5rem;
+                align-items: center;
+                color: $text-gray-900;
+                cursor: pointer;
+
+                &-icon {
+                    font-size: $font-size-xl;
+                }
+
+                &-count {
+                    font-size: $font-size-md;
+                }
+
+                &:hover {
+                    color: $text-black;
+                }
+            }
+        }
+
+        &__sidebar {
+            width: 90vw;
+        }
+    }
+}

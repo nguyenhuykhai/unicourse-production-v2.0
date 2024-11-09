@@ -1,0 +1,58 @@
+<div class="course-instructor">
+  <h3>Giảng viên</h3>
+  <div class="course-instructor__intro">
+    <h3 (click)="goToLecturerProfile()">
+      Thầy giáo {{ lecturer?.user?.full_name }}
+    </h3>
+    <span>Giảng viên Unicourse</span>
+  </div>
+
+  <div class="course-instructor__image-stats">
+    <div class="course-instructor__image-stats-image-link">
+      <ng-container *ngIf="!lecturer; else lecturerAvatar">
+        <img
+          src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/User%2Fdefault-avatar.png?alt=media&token=e9ad363c-de79-4457-9fa5-1864a911c686"
+          alt="Giảng viên"
+        />
+      </ng-container>
+      <ng-template #lecturerAvatar>
+        <img
+          [src]="lecturer?.user?.profile_image"
+          [alt]="lecturer?.user?.full_name"
+        />
+      </ng-template>
+    </div>
+
+    <div class="course-instructor__image-stats-list-stat">
+      <!-- <div class="course-instructor__image-stats-list-stat-item">
+        <i class="pi pi-star-fill"></i>
+        <span>4.5 đánh giá giảng viên</span>
+      </div> -->
+
+      <!-- <div class="course-instructor__image-stats-list-stat-item">
+        <i class="pi pi-trophy"></i>
+        <span>92 đánh giá</span>
+      </div> -->
+
+      <div class="course-instructor__image-stats-list-stat-item">
+        <i class="pi pi-users"></i>
+        <span>{{ lecturer?.total_enrollments }} học viên</span>
+      </div>
+
+      <div class="course-instructor__image-stats-list-stat-item">
+        <i class="pi pi-video"></i>
+        <span>{{ lecturer?.total_courses }} khoá học</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="course-instructor__job-title">
+    <p>
+      Tại Unicourse, chúng tôi tự hào giới thiệu một đội ngũ giảng viên đa dạng
+      và giàu kinh nghiệm, đồng lòng với mục tiêu tạo ra một môi trường học tập
+      đầy sáng tạo và chất lượng cao. Với sự đa dạng về lĩnh vực chuyên môn và
+      nền tảng giáo dục, các giảng viên của chúng tôi mang đến cho bạn những
+      trải nghiệm học tập đa chiều và phong phú.
+    </p>
+  </div>
+</div>

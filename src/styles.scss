@@ -1,0 +1,74 @@
+/* Import PrimeNG styles */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+// import Quill styles in styles.scss
+@import "../node_modules/quill/dist/quill.core.css";
+@import "../node_modules/quill/dist/quill.snow.css";
+
+// Import custom variables
+@import "./styles/variables";
+@import "./styles/font_variables";
+
+@layer reset {
+  /* Reset CSS: This layer is used to reset browser styles for consistent rendering */
+  body,
+  html {
+    overflow-x: hidden;
+    margin: 0 !important; /* The !important is removed for cleaner code, but you can add it back if needed */
+    padding: 0 !important;
+    font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px; /* Consistent font size across the application */
+    color: #4d4d4d;
+    h3 {
+      $font-size-xl: 1.2rem;
+      font-weight: $font-weight-bold;
+      color: black;
+    }
+
+    h2 {
+      color: black;
+    }
+  }
+}
+
+@layer primeng {
+  /* PrimeNG layer: Specific custom styles for PrimeNG components can be added here */
+}
+
+/* Global Styles */
+body,
+html {
+  font-family: var(
+    --system-ui
+  ); /* Using CSS variables for font families, defined in the :root selector */
+}
+
+:root {
+  --system-ui: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-code: "SF Mono", monospace; /* The code font variable is now properly defined here */
+
+  // Background colors
+  $background-light-1: #d8efff;
+  $background-light-2: #c8e8ff;
+  $background-light-3: #b3e0ff;
+  $background-light-4: #a7dcfe;
+  $background-light-5: #97d5fe;
+
+  // Primary colors
+  $primary-lighter: #e67fff;
+  $primary-100: #bae7ff;
+  $primary-200: #91d5ff;
+  $primary-light: #69c0ff;
+  $primary-400: #40a9ff;
+  $primary-main: #1890ff;
+  $primary-dark: #096dd9;
+  $primary-700: #0050b3;
+  $primary-darker: #003a8c;
+  $primary-900: #002766;
+}

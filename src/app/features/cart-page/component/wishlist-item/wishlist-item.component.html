@@ -1,0 +1,52 @@
+<div class="cart-item">
+  <ng-container *ngIf="item">
+    <img routerLink="/courses/{{item.course_mentor?.course?.id}}" routerLinkActive="active"
+      [src]="item.course_mentor?.course?.thumbnail" alt="{{ item.course_mentor?.title }}" class="cart-item__image">
+    <div class="cart-item__details">
+      <h3 routerLink="/courses/{{item.course_mentor?.course?.id}}" routerLinkActive="active" class="cart-item__title">{{
+        item.course_mentor?.course?.title }}</h3>
+      <p class="cart-item__instructor">Bởi {{ item.course_mentor?.course?.lecturer?.user?.full_name }}</p>
+      <div class="cart-item__rating">
+        <!-- <span class="cart-item__rating-badge">Bán chạy nhất</span> -->
+        <span class="cart-item__rating-stars">
+          <p-rating [(ngModel)]="item.avg_rating" [readonly]="true" [cancel]="false">
+            <ng-template pTemplate="onicon">
+              <i class="pi pi-star-fill" style="color: #fdbe11; font-size: 0.8rem;"></i>
+            </ng-template>
+            <ng-template pTemplate="officon">
+              <i class="pi pi-star-fill" style="color: #c0c0c0; font-size: 0.8rem;"></i>
+            </ng-template>
+          </p-rating>
+          <span class="cart-item__rating-stars-subtext">({{ item.total_number_ratings }} đánh
+            giá)</span>
+        </span>
+      </div>
+      <!-- <div class="cart-item__course-count">
+        <span class="cart-item__course-count-text">{{ item.course_mentor?.course?._count?.chapter }} bài giảng
+          <i class="pi pi-circle-fill" style="font-size: 5px; color: #000000;"></i>
+          Tất cả trình độ
+        </span>
+      </div> -->
+    </div>
+
+    <div class="cart-item__container">
+      <div class="cart-item__container__actions">
+        <a (click)="removeCourseInWishList(item)" class="cart-item__container__actions-remove">Xóa</a>
+        <ng-container *ngIf="item.course_mentor && item.course_mentor.amount > 0">
+          <a (click)="addToCartFromWishlist(item)" class="cart-item__container__actions-wishlist">Chuyển vào giỏ
+            hàng</a>
+        </ng-container>
+      </div>
+      <span class="cart-item__container__price">
+        <div class="cart-item__container__price-coin">
+          <span class="cart-item__container__price-coin-current">{{ item.course_mentor?.amount | number: '1.0-0'
+            }}</span>
+          <lord-icon _ngcontent-ng-c2761734748="" src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+            style="width: 20px; height: 20px; margin-left: 0.2rem;"></lord-icon>
+        </div>
+        <div class="cart-item__container__price-vnprice">{{'('}}{{ item.course_mentor?.amount| currency:
+          'VND':'symbol':'1.0-0' }}{{')'}}</div>
+      </span>
+    </div>
+  </ng-container>
+</div>

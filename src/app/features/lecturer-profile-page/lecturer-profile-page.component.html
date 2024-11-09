@@ -1,0 +1,120 @@
+<div *ngIf="this.lecturerProfile" class="instructor-container">
+  <!-- Phần 1: Thông tin giảng viên -->
+  <div class="instructor-left">
+    <h2 class="instructor-name">{{ this.lecturerProfile.user.full_name }}</h2>
+    <p class="instructor-title">Giảng viên</p>
+
+    <div class="instructor-stats">
+      <div class="stat">
+        <p>Tổng số khóa học</p>
+        <h3>{{ this.lecturerProfile.total_courses }}</h3>
+      </div>
+      <div class="stat">
+        <p>Số lượng học viên</p>
+        <h3>{{ this.lecturerProfile.total_enrollments }}</h3>
+      </div>
+    </div>
+
+    <div class="instructor-bio">
+      <h3 class="instructor-bio-title">Giới thiệu về tôi</h3>
+      <p>
+        {{ this.lecturerProfile.info_description }}
+      </p>
+    </div>
+
+    <div class="instructor-skills-certifications">
+      <h3 class="instructor-skills-certifications-title">Kỹ năng</h3>
+      <ul class="certification-list">
+        <li class="certification-list-item" *ngFor="let skill of this.lecturerProfile.skill_json.skills">
+          <!-- Icon certificate -->
+          <div class="certification-list-item-icon">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Course%2Fcert-course.png?alt=media&token=d6570635-c7c3-40b1-a116-47f844fd2306"
+              alt="Certificate" />
+          </div>
+
+          <!-- Course info -->
+          <div class="certification-list-item-info">
+            <!-- Course name -->
+            <h4 class="certification-list-item-info-title">{{ skill.name }}</h4>
+            <!-- Issued -->
+            <p class="certification-list-item-info-issued"><strong>Cấp độ:&nbsp;</strong>{{ skill.level }}</p>
+          </div>
+        </li>
+      </ul>
+
+      <h3 class="instructor-skills-certifications-title">Chứng chỉ</h3>
+      <ul class="certification-list">
+        <li class="certification-list-item" *ngFor="let skill of this.lecturerProfile.skill_json.certifications">
+          <!-- Icon certificate -->
+          <div class="certification-list-item-icon">
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Course%2Fcert-specialization.png?alt=media&token=b1f5f577-dd00-4765-a0b2-264477b90055"
+              alt="Certificate" />
+          </div>
+
+          <!-- Course info -->
+          <div class="certification-list-item-info">
+            <!-- Course name -->
+            <h4 class="certification-list-item-info-title">{{ skill.name }}</h4>
+            <!-- Issued -->
+            <p class="certification-list-item-info-issued"><strong>Năm cấp:&nbsp;</strong>{{ skill.year }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="courses">
+      <h3>Khóa học của tôi</h3>
+
+      <div *ngFor="let course of this.lecturerProfile.course" class="course">
+        <img (click)="this.goToCourseDetail(course.id)" src="{{ course.thumbnail }}" alt="{{ course.title }}" />
+        <div class="course-info">
+          <h4 (click)="this.goToCourseDetail(course.id)">{{ course.title }}</h4>
+          <p class="instructor">{{ this.lecturerProfile.user.full_name }}</p>
+          <!-- <div class="rating">
+            <span>4.7</span>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+            <span>({{ course.students_enrolled || 0 }})</span>
+          </div> -->
+          <!-- <p class="course-details">
+            56.5 giờ học • 592 học viên • Tất cả trình độ
+          </p> -->
+          <p class="price">
+            <span class="current-price">{{
+              course.price | number: '1.0-0'
+              }}
+            </span>
+            <lord-icon class="course-item__container-content-amount-coin" src="https://cdn.lordicon.com/lxizbtuq.json"
+              trigger="hover" style="width: 20px; height: 20px; margin-right: 0.1rem;"></lord-icon>
+          </p>
+          <!-- <span class="bestseller">Bestseller</span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Phần 2: Hình ảnh giảng viên và liên kết xã hội -->
+  <div class="instructor-right">
+    <div class="instructor-image">
+      <img
+        [src]="this.lecturerProfile.user.profile_image"
+        [alt]="this.lecturerProfile.user.full_name" />
+    </div>
+    <div class="instructor-social">
+      <a href="{{ this.lecturerProfile.user.facebook_url }}" class="social-link">
+        <i class="fab fa-facebook-f"></i> Facebook
+      </a>
+      <a href="{{ this.lecturerProfile.user.linkedin_url }}" class="social-link">
+        <i class="fab fa-linkedin-in"></i> LinkedIn
+      </a>
+      <a href="{{ this.lecturerProfile.user.github_url }}" class="social-link">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+  </div>
+</div>

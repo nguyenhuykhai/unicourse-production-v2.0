@@ -1,0 +1,50 @@
+<div class="social-info">
+    <h3 class="social-info__title">Thông tin mạng xã hội</h3>
+    <p class="social-info__description">Quản lý liên kết tới các trang mạng xã hội của bạn.</p>
+    <ng-container *ngIf="!blockedUI; else loading">
+        <div class="social-info__section">
+            <div (click)="requestOpenDialog('edit-website')" class="social-info__item">
+                <div class="social-info__item__info">
+                    <span class="social-info__item__info-label">Trang web cá nhân</span>
+                    <span class="social-info__item__info-value">{{ user?.self_intro_url || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-github')" class="social-info__item">
+                <div class="social-info__item__info">
+                    <span class="social-info__item__info-label">GitHub</span>
+                    <span class="social-info__item__info-value">{{ user?.github_url || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-linkedin')" class="social-info__item">
+                <div class="social-info__item__info">
+                    <span class="social-info__item__info-label">LinkedIn</span>
+                    <span class="social-info__item__info-value">{{ user?.linkedin_url || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+            <div (click)="requestOpenDialog('edit-facebook')" class="social-info__item">
+                <div class="social-info__item__info">
+                    <span class="social-info__item__info-label">Facebook</span>
+                    <span class="social-info__item__info-value">{{ user?.facebook_url || 'Chưa cập nhật' }}</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="social-info__section">
+            <div class="social-info__item">
+                <div class="social-info__item__info">
+                    <p-skeleton styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+                    <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

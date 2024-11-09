@@ -1,0 +1,33 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.user-activities {
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  &__title {
+    font-size: $font-size-xl;
+    margin: 0;
+    font-weight: $font-weight-bold;
+    color: $text-black;
+  }
+  &__text {
+    font-size: $font-size-md;
+    color: $text-gray-900;
+    line-height: $line-height-md;
+    text-align: justify;
+  }
+
+  @media (max-width: 599px) {
+    &__title {
+      font-size: $font-size-lg;
+    }
+
+    &__text {
+      font-size: $font-size-xs;
+    }
+  }
+}

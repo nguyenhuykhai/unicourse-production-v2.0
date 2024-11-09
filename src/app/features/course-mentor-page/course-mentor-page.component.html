@@ -1,0 +1,14 @@
+<div id="targetDiv" class="course-mentor-container">
+    <!-- Content here -->
+    <app-course-mentor-content [courseMentor]="courseMentor" [blockedUI]="blockedUI"></app-course-mentor-content>
+
+    <!-- Sidebar here -->
+    <app-course-mentor-sidebar [courseMentor]="courseMentor" [blockedUI]="blockedUI"
+        [enrollIds]="enrollIds"></app-course-mentor-sidebar>
+
+    <!-- List sessions here -->
+    <app-course-mentor-list [courseMentor]="courseMentor" [blockedUI]="blockedUI"></app-course-mentor-list>
+
+    <!-- Mentor here -->
+    <app-course-mentor-info [courseMentor]="courseMentor" [blockedUI]="blockedUI"></app-course-mentor-info>
+</div>

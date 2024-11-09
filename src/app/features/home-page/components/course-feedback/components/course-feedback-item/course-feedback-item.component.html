@@ -1,0 +1,31 @@
+<div *ngIf="this.courseFeedback" class="feedback">
+  <div class="feedback__container">
+    <div class="feedback__container-icon">
+      <script src="https://cdn.lordicon.com/lordicon.js"></script>
+      <lord-icon
+        src="https://cdn.lordicon.com/vvfttqos.json"
+        trigger="loop"
+        delay="1000"
+        style="width: 64px; height: 64px"
+      >
+      </lord-icon>
+    </div>
+
+    <div class="feedback__container-content">
+      <p>
+        {{ this.courseFeedback.content }}
+      </p>
+    </div>
+
+    <div class="feedback__container-user">
+      <p-avatar
+        routerLinkActive="active" routerLink="/profile/{{ courseFeedback.course_enroll.student.user?.id }}"
+        [image]="courseFeedback.course_enroll.student.user?.profile_image"
+        styleClass="mr-2"
+        shape="circle"
+        size="large"
+      />
+      <p routerLinkActive="active" routerLink="/profile/{{ courseFeedback.course_enroll.student.user?.id }}">{{ courseFeedback.course_enroll.student.user?.full_name }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,95 @@
+<div class="course-page__sidebar">
+    <ng-container *ngIf="!blocked; else loading">
+        <ul class="course-page__sidebar__sessions">
+            <li class="course-page__sidebar__sessions__session" *ngFor="let session of learningChapter">
+                <div class="course-page__sidebar__sessions__session-header" (click)="toggleSession(session)">
+                    {{ session.title }}
+                    <ng-container *ngIf="session.expanded; else collapsed">
+                        <i class="course-page__sidebar__sessions__session-header__icon pi pi-angle-up"></i>
+                    </ng-container>
+                    <ng-template #collapsed>
+                        <i class="course-page__sidebar__sessions__session-header__icon pi pi-angle-down"></i>
+                    </ng-template>
+                </div>
+                <ul class="course-page__sidebar__sessions__session-lessons" *ngIf="session.expanded">
+                    <ng-container *ngFor="let lesson of session.topic">
+                        <!-- ACTIVE LESSON -->
+                        <ng-container *ngIf="lesson.id === currentTopic?.id; else defaultLesson">
+                            <li id="lesson-{{lesson.id}}" (click)="handleMoveLesson(lesson)"
+                                class="course-page__sidebar__sessions__session-lessons__lesson lesson-active">
+                                <div
+                                    class="course-page__sidebar__sessions__session-lessons__lesson-title lesson-active__title">
+                                    {{
+                                    lesson.title
+                                    }}
+                                </div>
+                                <div class="course-page__sidebar__sessions__session-lessons__lesson-duration">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="compact-disc"
+                                        class="course-page__sidebar__sessions__session-lessons__lesson-duration__icon"
+                                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path [ngStyle]="{ color: '#1890ff' }" fill="currentColor"
+                                            d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM80.72 256H79.63c-9.078 0-16.4-8.011-15.56-17.34C72.36 146 146.5 72.06 239.3 64.06C248.3 63.28 256 70.75 256 80.09c0 8.35-6.215 15.28-14.27 15.99C164.7 102.9 103.1 164.3 96.15 241.4C95.4 249.6 88.77 256 80.72 256zM256 351.1c-53.02 0-96-43-96-95.1s42.98-96 96-96s96 43 96 96S309 351.1 256 351.1zM256 224C238.3 224 224 238.2 224 256s14.3 32 32 32c17.7 0 32-14.25 32-32S273.7 224 256 224z">
+                                        </path>
+                                    </svg>
+                                    <ng-container *ngIf="lesson.element_topic?.video !== null">
+                                        <p
+                                            class="course-page__sidebar__sessions__session-lessons__lesson-duration__time lesson-active__time">
+                                            {{
+                                            convertDurationToText(lesson.element_topic?.video?.duration) }}</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="lesson.element_topic?.question_bank !== null">
+                                        <p
+                                            class="course-page__sidebar__sessions__session-lessons__lesson-duration__time lesson-active__time">
+                                            {{
+                                            convertDurationToText(lesson.element_topic?.question_bank?.duration) }}</p>
+                                    </ng-container>
+                                </div>
+                            </li>
+                        </ng-container>
+                        <!-- NON ACTIVE LESSON -->
+                        <ng-template #defaultLesson>
+                            <li (click)="handleMoveLesson(lesson)"
+                                class="course-page__sidebar__sessions__session-lessons__lesson">
+
+                                <div class="course-page__sidebar__sessions__session-lessons__lesson-title">{{
+                                    lesson.title
+                                    }}
+                                </div>
+                                <div class="course-page__sidebar__sessions__session-lessons__lesson-duration">
+                                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="compact-disc"
+                                        class="course-page__sidebar__sessions__session-lessons__lesson-duration__icon"
+                                        role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path [ngStyle]="{ color: '#1890ff' }" fill="currentColor"
+                                            d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256s256-114.6 256-256S397.4 0 256 0zM80.72 256H79.63c-9.078 0-16.4-8.011-15.56-17.34C72.36 146 146.5 72.06 239.3 64.06C248.3 63.28 256 70.75 256 80.09c0 8.35-6.215 15.28-14.27 15.99C164.7 102.9 103.1 164.3 96.15 241.4C95.4 249.6 88.77 256 80.72 256zM256 351.1c-53.02 0-96-43-96-95.1s42.98-96 96-96s96 43 96 96S309 351.1 256 351.1zM256 224C238.3 224 224 238.2 224 256s14.3 32 32 32c17.7 0 32-14.25 32-32S273.7 224 256 224z">
+                                        </path>
+                                    </svg>
+                                    <ng-container *ngIf="lesson.element_topic?.video !== null">
+                                        <p
+                                            class="course-page__sidebar__sessions__session-lessons__lesson-duration__time">
+                                            {{
+                                            convertDurationToText(lesson.element_topic?.video?.duration) }}</p>
+                                    </ng-container>
+                                    <ng-container *ngIf="lesson.element_topic?.question_bank !== null">
+                                        <p
+                                            class="course-page__sidebar__sessions__session-lessons__lesson-duration__time">
+                                            {{
+                                            convertDurationToText(lesson.element_topic?.question_bank?.duration) }}</p>
+                                    </ng-container>
+                                </div>
+                            </li>
+                        </ng-template>
+                    </ng-container>
+                </ul>
+            </li>
+        </ul>
+    </ng-container>
+    <ng-template #loading>
+        <div *ngFor="let _ of [1, 2, 3]" class="w-full xl:w-6 p-3">
+            <p-skeleton styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px"></p-skeleton>
+            <p-skeleton width="10rem" height="4rem" borderRadius="16px"></p-skeleton>
+        </div>
+    </ng-template>
+</div>

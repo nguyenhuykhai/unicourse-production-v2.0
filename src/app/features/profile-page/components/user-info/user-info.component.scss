@@ -1,0 +1,42 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.user-info {
+  text-align: left;
+  padding-left: 1rem;
+
+  &__avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+
+  &__name {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-black;
+    margin-bottom: 0;
+  }
+
+  &__role {
+    font-size: $font-size-md;
+    color: $text-black;
+    margin-top: 0.5rem;
+  }
+
+  @media (max-width: 599px) {
+    &__avatar {
+      width: 100px;
+      height: 100px;
+    }
+
+    &__name {
+      font-size: $font-size-xl;
+    }
+
+    &__role {
+      font-size: $font-size-sm;
+    }
+  }
+}

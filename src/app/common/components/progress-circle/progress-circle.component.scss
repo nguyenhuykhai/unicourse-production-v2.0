@@ -1,0 +1,46 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/font_variables";
+
+.progress-circle-container {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  height: fit-content;
+}
+
+.progress-circle {
+  transform: rotate(-90deg);
+  /* Rotates the progress circle so it starts from the top */
+}
+
+.progress-circle__background,
+.progress-circle__value {
+  fill: none;
+}
+
+.progress-circle__background {
+  stroke: #e6e6e6;
+  /* Light gray background for the circle */
+}
+
+.progress-circle__value {
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.progress-circle__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $text-black;
+  /* Change this as needed */
+}
+
+@media (max-width: 599px) {
+  .progress-circle__text {
+    font-size: $font-size-md;
+    font-weight: $font-weight-semibold;
+  }
+}

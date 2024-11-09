@@ -1,0 +1,36 @@
+<div class="course-page__header">
+    <!-- Cụm phần thứ 1: Logo -->
+    <div class="course-page__header__group_one">
+        <img class="course-page__header__logo" [src]="LOGO" alt="logo" routerLink="/" />
+    </div>
+
+    <!-- Cụm phần thứ 2: Course Title -->
+    <div class="course-page__header__group_two">
+        <ng-container *ngIf="!blocked; else loading">
+            <p class="course-page__header__group_two__title">{{ header }}</p>
+        </ng-container>
+        <ng-template #loading>
+            <div class="w-full xl:w-6 p-3">
+                <p-skeleton styleClass="mb-2" borderRadius="16px" />
+            </div>
+        </ng-template>
+    </div>
+
+    <!-- Cụm phần thứ 3: Progress and Actions -->
+    <div class="course-page__header__group_three">
+        <!-- Circle tiến độ học tập -->
+        <circle-progress #circleProgressComponent [percent]="updateProgress(learningProgress?.totalCompletedTopic, learningProgress?.totalTopic )" [radius]="20" [outerStrokeWidth]="3" [outerStrokeColor]="'#1890ff'"
+            [innerStrokeWidth]="3" [animation]="true" [titleFontSize]="'12'" [subtitleFontWeight]="'400'" [units]="'%'"
+            [showSubtitle]="false" [showInnerStroke]="true" [innerStrokeColor]="'#e7e8ea'" [space]="-3"
+            [animationDuration]="300" [renderOnClick]="false" class="course-page__header__group_three__progress">
+        </circle-progress>
+
+        <!-- Thông tin tiến độ học tập -->
+        <div class="course-page__header__group_three__progress-info">
+            <span class="course-page__header__group_three__progress-text">
+                <span>{{ learningProgress?.totalCompletedTopic || 0 }}/{{learningProgress?.totalTopic || 0 }}</span>
+                bài học
+            </span>
+        </div>
+    </div>
+</div>

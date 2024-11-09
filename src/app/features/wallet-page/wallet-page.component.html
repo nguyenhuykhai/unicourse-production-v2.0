@@ -1,0 +1,35 @@
+<div class="wallet-page">
+    <div class="wallet-page__header">
+        <h1 class="wallet-page__title">Nơi tiếp nhận nạp xu</h1>
+        <p class="wallet-page__subtitle">
+            "Quét mã QR để nạp điểm vào tài khoản của bạn ngay lập tức!"
+        </p>
+    </div>
+
+    <div class="wallet-page__content">
+        <h2 class="wallet-page__content-title">
+            Mời bạn nhập thông tin để nạp xu
+        </h2>
+
+        <div class="wallet-page__form">
+            <label class="wallet-page__label" for="coinAmount">Số xu cần nạp</label>
+            <input type="number" id="coinAmount" class="wallet-page__input" min="0" placeholder="0"
+                [(ngModel)]="coinAmount" />
+            <p class="wallet-page__hint">2,000 xu ~ 2,000đ</p>
+            <ng-container *ngIf="!blockedUI; else loading">
+                <button (click)="createPaymentLink()" class="wallet-page__button">
+                    Nạp xu ngay
+                </button>
+            </ng-container>
+            <ng-template #loading>
+                <button class="wallet-page__button disable">
+                    <span>
+                        <p [ngStyle]="{ margin: 0 }">Tải dữ liệu</p>
+                        <p-progressSpinner styleClass="w-1rem h-1rem" strokeWidth="8"
+                            animationDuration=".5s" />
+                    </span>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+</div>

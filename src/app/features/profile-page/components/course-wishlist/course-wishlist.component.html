@@ -1,0 +1,10 @@
+<div class="course-list">
+    <div class="course-list__course" *ngFor="let wishlist of wishlistCourses">
+        <img routerLink="/courses/{{wishlist.course_mentor?.course?.id}}" routerLinkActive="active" class="course-list__course-image" [src]="wishlist?.course_mentor?.image"
+            alt="{{ wishlist.course_mentor?.title }}" />
+        <div class="course-list__course-content">
+            <h3 routerLink="/courses/{{wishlist.course_mentor?.course?.id}}" class="course-list__course-content-title">{{ wishlist.course_mentor?.title }}</h3>
+            <p class="course-list__course-content-description">{{ wishlist.course_mentor?.description }}</p>
+        </div>
+    </div>
+</div>

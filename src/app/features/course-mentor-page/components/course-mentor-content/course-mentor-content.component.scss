@@ -1,0 +1,103 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.course-mentor {
+  &__content {
+    grid-template-columns: 5fr 2fr;
+    position: relative;
+    background-color: $cover-image-background-color;
+
+    &-info {
+      width: 75%;
+      padding: 5% 15%;
+      color: white;
+
+      &-title {
+        font-size: $font-size-7xl;
+      }
+
+      &-subtitle {
+        font-size: $font-size-md;
+      }
+
+      &-icon {
+        position: absolute;
+        right: 45%;
+        animation: downto 0.5s infinite;
+        cursor: pointer;
+        z-index: 100;
+        svg {
+          width: 50px;
+        }
+      }
+
+      &-bage-ratings-enrollment {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+
+        &-item {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 0.5rem;
+          a {
+            text-decoration: underline;
+            color: #c0c4fc;
+          }
+        }
+      }
+
+      &-author {
+        a {
+          text-decoration: underline;
+          color: #c0c4fc;
+        }
+      }
+    }
+  }
+}
+
+@keyframes downto {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(10%);
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+@media (max-width: 599px) {
+  .course-mentor {
+    &__content {
+      &-info {
+        width: 100%;
+        padding: 5% 5%;
+
+        &-title {
+          font-size: $font-size-4xl;
+        }
+
+        &-subtitle {
+          font-size: $font-size-md;
+        }
+
+        &-icon {
+          right: 10%;
+        }
+
+        &-bage-ratings-enrollment {
+          &-item {
+            font-size: $font-size-xs;
+          }
+        }
+      }
+    }
+  }
+}

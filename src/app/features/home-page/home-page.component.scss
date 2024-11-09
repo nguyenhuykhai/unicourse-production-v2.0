@@ -1,0 +1,104 @@
+:host ::ng-deep .p-paginator {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+$font_title: 2rem;
+
+.carousel {
+  position: relative;
+  &__icon {
+    cursor: pointer;
+    position: absolute;
+    right: 20%;
+    bottom: -5%;
+    animation: downto 0.5s infinite;
+    svg {
+      width: 50px;
+    }
+  }
+}
+
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  &__section-background {
+    background-image: url("../../../assets/images/home-page/section-bg-img.jpg");
+    background-size: cover;
+  }
+  &__course-fee {
+    padding: 0% 10%;
+    &-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      h2 {
+        margin: 0;
+        font-size: $font_title;
+      }
+      p {
+        margin-top: 0;
+        color: #333333;
+      }
+    }
+  }
+
+  &__course-free {
+    padding: 0% 10%;
+    &-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      h2 {
+        margin: 0;
+        font-size: $font_title;
+      }
+      p {
+        margin-top: 0;
+        color: #333333;
+      }
+    }
+  }
+
+  &__section-blog {
+    padding: 0% 10%;
+    &-title {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      h2 {
+        margin: 0;
+        font-size: $font_title;
+      }
+      p {
+        margin-top: 0;
+        color: #333333;
+      }
+    }
+  }
+
+  &__course-feedback {
+    padding: 0% 10%;
+    h2 {
+      margin-top: 0;
+      font-size: 2.2rem;
+      text-align: center;
+      width: 100%;
+    }
+  }
+  &__becoming-lecturer {
+    padding: 0% 10%;
+    margin-bottom: 4%;
+  }
+}
+
+@keyframes downto {
+  0% {
+    transform: translateY(0%);
+  }
+  50% {
+    transform: translateY(10%);
+  }
+}

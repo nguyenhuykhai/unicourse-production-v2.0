@@ -1,0 +1,16 @@
+<div
+  *ngIf="
+    this.dataBlogs && this.dataBlogs.data && this.dataBlogs.data.length > 0
+  "
+  class="section-blog"
+>
+  <ng-container>
+    <app-blog-item
+      class="section-blog__item"
+      *ngFor="let blog of dataBlogs.data"
+      [dataBlog]="blog"
+    ></app-blog-item>
+  </ng-container>
+</div>
+
+<a [routerLink]="['/blog']" class="section-blog__btn">Đọc thêm</a>

@@ -1,0 +1,67 @@
+:host ::ng-deep {
+  .p-dock {
+    z-index: 1000;
+    align-items: end;
+    position: fixed;
+    .p-dock-list-container {
+      background: none;
+      border: none;
+    }
+    .p-dock-link {
+      img {
+        width: 5rem;
+      }
+    }
+  }
+}
+
+.main {
+  padding-bottom: 2%;
+}
+
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+@media (max-width: 599px) {
+  :host ::ng-deep {
+    .p-dock {
+      z-index: 1000;
+      margin-top: 35vh;
+      align-items: center;
+      position: fixed;
+      .p-dock-list-container {
+        background: none;
+        border: none;
+        height: auto;
+      }
+      .p-dock-link {
+        img {
+          width: 5rem;
+        }
+      }
+    }
+  }
+
+  ::ng-deep .p-scrolltop {
+    z-index: 1000;
+    margin-bottom: 70px;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+  
+  .mobile-only {
+    display: block;
+  }
+}

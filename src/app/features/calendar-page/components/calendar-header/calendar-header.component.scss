@@ -1,0 +1,40 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.calendar__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid $border-color;
+}
+
+.calendar__title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: $text-black;
+}
+
+.calendar__nav {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.calendar__nav-btn {
+    padding: 0.5rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.calendar__nav-icon {
+    width: 1em;
+    height: 1em;
+    fill: gray;
+}
+
+@media (max-width: 599px) {
+    .calendar__title {
+        font-size: $font-size-md;
+    }
+}

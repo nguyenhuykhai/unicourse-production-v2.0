@@ -1,0 +1,129 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+
+.question-and-answer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    &__header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        font-size: $font-size-7xl;
+        font-weight: $font-weight-extrabold;
+        color: $text-black;
+        margin-bottom: 10px;
+        line-height: 1;
+    }
+
+    &__subtitle {
+        color: $text-gray-800;
+        font-style: italic;
+        line-height: $line-height-lg;
+        font-weight: $font-weight-semibold;
+        font-size: $font-size-xl;
+    }
+
+    &__content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+// Style for FAQ
+.faq {
+    display: flex;
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+
+    &__questions {
+        flex: 1;
+        border-right: 1px solid #e0e0e0;
+
+        .faq__question {
+            font-size: $font-size-md;
+            font-weight: $font-weight-semibold;
+            color: $text-black;
+            padding: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &:hover {
+                background-color: $background-gray-200;
+                color: $text-black;
+            }
+
+            &.active {
+                background-color: $text-btn-gray-900;
+                color: $text-white;
+            }
+        }
+    }
+
+    &__answers {
+        flex: 2;
+        padding: 20px;
+        overflow: auto;
+        max-height: 40rem;
+
+        .faq__step-title {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            margin-bottom: 5px;
+        }
+
+        p {
+            margin-bottom: 15px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .question-and-answer {
+        padding: 1rem;
+
+        &__title {
+            font-size: $font-size-4xl;
+        }
+
+        &__subtitle {
+            font-size: $font-size-xs;
+        }
+
+        &__content {
+            flex-direction: column;
+            padding: 0;
+            box-shadow: none;
+        }
+    }
+
+    .faq {
+        flex-direction: column;
+
+        &__questions,
+        &__answers {
+            border: none;
+        }
+
+        &__questions {
+            max-height: 20rem;
+            padding: 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+    }
+}

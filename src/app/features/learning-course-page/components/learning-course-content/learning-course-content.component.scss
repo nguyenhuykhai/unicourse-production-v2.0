@@ -1,0 +1,56 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.course-page__content {
+  flex: 1;
+  overflow-y: auto;
+
+  &>div {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+  }
+
+  &-background-video {
+    display: flex;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #000000;
+    position: relative;
+    /* Make it relative to center the spinner */
+
+    &__spinner {
+      position: absolute;
+      /* Corrected from display */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* Centers the spinner */
+    }
+  }
+
+  &-details {
+    background-color: #fff;
+    height: auto !important;
+    padding: 0 2rem !important;
+  }
+
+  @media (max-width: 599px) {
+    &>div {
+      padding-bottom: 56.25%;
+      /* 16:9 ratio */
+    }
+
+    &-details {
+      padding: 0 0.5rem !important;
+    }
+  }
+}

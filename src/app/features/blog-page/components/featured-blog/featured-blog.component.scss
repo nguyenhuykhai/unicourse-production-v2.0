@@ -1,0 +1,156 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+::ng-deep {
+    .p-tag {
+        background-color: $background-gray-200;
+    }
+
+    .p-tag-value {
+        color: $text-gray-900;
+    }
+}
+
+.featured-blog {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+
+    &__main {
+        flex: 50%;
+
+        &__image {
+            width: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        &__content {
+            margin-top: 1rem;
+
+            &__author {
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                &__meta {
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-semibold;
+                    color: $text-black;
+                    margin: 0;
+                }
+            }
+
+
+            &__title {
+                color: $text-black;
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+                line-height: $font-size-4xl;
+                padding-bottom: 1%;
+                margin: 0;
+                cursor: pointer;
+            }
+
+            &__description {
+                font-size: $font-size-sm;
+                color: $text-black;
+                line-height: $line-height-md;
+                margin: 0;
+                padding-bottom: 1%;
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 70ch; // Set a maximum width, using 'ch' to approximately match the character count
+            }
+
+            &__tag-group {
+                display: flex;
+                gap: 0.5rem;
+            }
+        }
+    }
+
+    &__sidebar {
+        flex: 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+
+        &__post {
+            display: flex;
+            gap: 1rem;
+
+            &__image {
+                flex-basis: 50%;
+                cursor: pointer;
+
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            &__content {
+                flex-basis: 50%;
+
+                &__author {
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    &__meta {
+                        font-size: $font-size-sm;
+                        font-weight: $font-weight-semibold;
+                        color: $text-black;
+                        margin: 0;
+                    }
+                }
+
+                &__title {
+                    color: $text-black;
+                    font-size: $font-size-xl;
+                    font-weight: $font-weight-bold;
+                    line-height: $font-size-4xl;
+                    padding-bottom: 2%;
+                    margin: 0;
+                    cursor: pointer;
+                }
+
+                &__subTitle {
+                    font-size: $font-size-sm;
+                    color: $text-black;
+                    line-height: $line-height-md;
+                    text-align: justify;
+                    margin: 0;
+                    padding-bottom: 2%;
+                    white-space: wrap;
+                    overflow: hidden; // Hide the overflow text
+                    text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                    max-width: 70ch; // Set a maximum width, using 'ch' to approximately match the character count
+                }
+
+                &__tag-group {
+                    display: flex;
+                    gap: 0.5rem;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 599px) {
+        flex-direction: column;
+
+        &__main {
+            flex: 1;
+        }
+
+        &__sidebar {
+            flex: 1;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            &__post {
+                flex: 1 1 45%;
+            }
+        }
+    }
+}

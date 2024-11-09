@@ -1,0 +1,32 @@
+<div class="course-page__content">
+    <ng-container *ngIf="!blocked; else loading">
+        <!-- VIDEO ZONE -->
+        <ng-container *ngIf="videoUrl !== undefined">
+            <app-video [videoUrl]="videoUrl" [currentTopic]="currentTopic" (tabActive)="changeTabActive($event)"></app-video>
+        </ng-container>
+
+        <!-- QUESTION ZONE -->
+        <ng-container *ngIf="currentTopic?.element_topic?.question_bank && questionBank">
+            <app-question-bank (questionStateChange)="handleEmitQuestionStateChange($event)" [currentTopic]="currentTopic" [questionBank]="questionBank"></app-question-bank>
+        </ng-container>
+
+        <!-- DOCUMENT ZONE -->
+        <ng-container *ngIf="currentTopic?.element_topic?.document">
+            <app-document [tabActiveIndex]="tabActiveIndex" [currentTopic]="currentTopic"></app-document>
+        </ng-container>
+    </ng-container>
+    <ng-template #loading>
+        <div class="course-page__content-background-video">
+            <p-progressSpinner class="course-page__content-background-video__spinner" ariaLabel="loading" />
+        </div>
+        <div class="course-page__content-details">
+            <div class="w-full xl:w-6 p-3">
+                <p-skeleton styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+                <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
+            </div>
+        </div>
+    </ng-template>
+</div>

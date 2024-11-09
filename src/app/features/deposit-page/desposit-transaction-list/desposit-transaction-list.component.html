@@ -1,0 +1,173 @@
+<!-- TABLE FOR DESKTOP -->
+<p-table #dt2 [value]="payload.data" [loading]="loading" [lazy]="true" [rows]="itemsPerPage" [responsiveLayout]="'scroll'" class="deposit-list desktop-only">
+
+  <ng-template pTemplate="caption">
+    <div class="deposit-caption">
+      <div class="deposit-caption__total">
+        <lord-icon src="https://cdn.lordicon.com/jtiihjyw.json" trigger="hover" class="deposit-caption__total-coin">
+        </lord-icon>
+        <span class="deposit-caption__total-title">{{ user?.wallet?.balance | number: '1.0-0' }} <span>xu đang có</span></span>
+      </div>
+
+      <div class="flex gap-2">
+        <p-button label="Reset" [outlined]="true" icon="pi pi-filter-slash" (onClick)="handleFilterChange('ALL')" />
+        <p-button label="Nạp thêm xu" icon="pi pi-wallet" routerLink="/wallet" routerLinkActive="active" />
+      </div>
+    </div>
+
+    <div class="deposit-caption">
+      <div></div>
+      <div class="deposit-caption__group-btn">
+        <p-button (click)="handleFilterChange('PAID')" label="Thanh toán thành công" [raised]="true" severity="success" size="small"/>
+        <p-button (click)="handleFilterChange('PENDING')" label="Đang chờ xử lý" [raised]="true" severity="warning" size="small"/>
+        <p-button (click)="handleFilterChange('CANCELED')" label="Thanh toán thất bại" [raised]="true" severity="danger" size="small"/>
+      </div>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Nạp xu vào ví</th>
+      <th>Ngày nạp</th>
+      <th>Tổng giá (VNĐ)</th>
+      <th>Trạng thái</th>
+      <th>Phương thức thanh toán</th>
+      <th>Hành động</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-transaction>
+    <ng-container *ngIf="!loading">
+      <tr class="deposit-item-card">
+        <td class="deposit-item-card__course">
+          <div class="deposit-item-card__course-info">
+            <lord-icon class="deposit-item-card__course-coin" src="https://cdn.lordicon.com/lxizbtuq.json"
+              trigger="hover"></lord-icon>
+            <span class="deposit-item-card__course-title">{{ transaction.amount | number: '1.0-0' }}</span>
+          </div>
+        </td>
+        <td class="deposit-item-card__date">{{ convertDateTimeToText(transaction.created_at) }}</td>
+        <td class="deposit-item-card__price">{{ transaction.amount | currency: 'VND':'symbol':'1.0-0' }}</td>
+        <td class="deposit-item-card__status">
+          <ng-container *ngIf="transaction.status === 'CANCELED'">
+            <p-tag severity="danger" value="Thanh toán thất bại"></p-tag>
+          </ng-container>
+          <ng-container *ngIf="transaction.status === 'PAID'">
+            <p-tag severity="success" value="Thanh toán thành công"></p-tag>
+          </ng-container>
+          <ng-container *ngIf="transaction.status === 'PENDING'">
+            <p-tag severity="warning" value="Đang chờ xử lý"></p-tag>
+          </ng-container>
+        </td>
+        <td class="deposit-item-card__payment">{{ transaction.payment_method.name }}</td>
+        <td class="deposit-item-card__tools">
+          <div class="deposit-item-card__actions">
+            <button (click)="toggleSupportDialog()" class="deposit-item-card__button deposit-item-card__button--invoice">Hỗ trợ</button>
+          </div>
+        </td>
+      </tr>
+    </ng-container>
+  </ng-template>
+
+  <!-- Loading Body Template -->
+  <ng-template pTemplate="loadingbody" let-columns="columns">
+    <ng-container *ngFor="let col of [].constructor(itemsPerPage)">
+      <tr class="deposit-item-card">
+        <td class="deposit-item-card__course">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="deposit-item-card__date">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="deposit-item-card__price">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="deposit-item-card__status">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="deposit-item-card__payment">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+        <td class="deposit-item-card__tools">
+          <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+        </td>
+      </tr>
+    </ng-container>
+  </ng-template>
+</p-table>
+<div class="deposit-footer desktop-only">
+  <p-paginator [rows]="payload.limit" [totalRecords]="payload.total"
+    (onPageChange)="paginate($event)" [first]="0" class="deposit-footer__pagination"></p-paginator>
+</div>
+
+<!-- CARD-STYLE LIST FOR MOBILE -->
+<div class="deposit-list mobile-only">
+  <div class="deposit-list__mobile-header">
+    <!-- HEADER SESSION ONE -->
+    <div class="deposit-list__mobile-header__session-one">
+      <div class="deposit-list__mobile-header__session-one__mobile-total">
+        <lord-icon src="https://cdn.lordicon.com/jtiihjyw.json" trigger="hover"
+          class="deposit-list__mobile-header__session-one__mobile-total-coin"></lord-icon>
+        <span class="deposit-list__mobile-header__session-one__mobile-total-title">{{ user?.wallet?.balance | number: '1.0-0' }} <span>xu</span></span>
+      </div>
+      <p-button label="Nạp thêm xu" icon="pi pi-wallet" routerLink="/wallet" routerLinkActive="active" size="small"
+        class="deposit-list__mobile-header__session-one__mobile-button" />
+    </div>
+    <!-- HEADER SESSION TWO -->
+    <div class="deposit-list__mobile-header__session-two">
+      <p-splitButton label="Lọc theo trạng thái" [model]="filterOptions" size="small"/>
+    </div>
+  </div>
+
+  <div class="deposit-item-card" *ngFor="let transaction of payload.data">
+    <ng-container *ngIf="loading; else defaultMobileState">
+      <div class="deposit-item-card__details">
+        <p-skeleton styleClass="mb-2" borderRadius="16px" />
+        <p-skeleton width="10rem" styleClass="mb-2" borderRadius="16px" />
+        <p-skeleton width="5rem" styleClass="mb-2" borderRadius="16px" />
+        <p-skeleton height="2rem" styleClass="mb-2" borderRadius="16px" />
+      </div>
+      <div class="deposit-item-card__actions">
+        <p-skeleton width="10rem" height="4rem" borderRadius="16px" />
+      </div>
+    </ng-container>
+    <ng-template #defaultMobileState>
+      <div class="deposit-item-card__details">
+        <p [ngStyle]="{ marginTop: 0 }"><strong>Nạp: &nbsp;</strong>{{ transaction.amount | number: '1.0-0' }} xu</p>
+        <p><strong>Ngày: &nbsp;</strong>{{ convertDateTimeToText(transaction.created_at) }}</p>
+        <p><strong>Tổng giá: &nbsp;</strong>{{ transaction.amount | currency: 'VND':'symbol':'1.0-0' }}</p>
+        <p><strong>Trạng thái: &nbsp;</strong>
+          <ng-container *ngIf="transaction.status === 'CANCELED'">
+            <p-tag severity="danger" value="Thanh toán thất bại"></p-tag>
+          </ng-container>
+          <ng-container *ngIf="transaction.status === 'PAID'">
+            <p-tag severity="success" value="Thanh toán thành công"></p-tag>
+          </ng-container>
+          <ng-container *ngIf="transaction.status === 'PENDING'">
+            <p-tag severity="warning" value="Đang chờ xử lý"></p-tag>
+          </ng-container>
+        </p>
+        <p><strong>Phương thức thanh toán: &nbsp;</strong>{{ transaction.payment_method.name }}</p>
+      </div>
+      <div class="deposit-item-card__actions">
+        <button (click)="toggleSupportDialog()" class="deposit-item-card__button deposit-item-card__button--invoice">Hỗ trợ</button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- Enhanced Pagination controls for mobile -->
+  <div class="deposit-list__pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1" class="deposit-list__pagination-button">
+      <i class="pi pi-angle-left"></i>
+    </button>
+    <span class="deposit-list__pagination-page" *ngFor="let page of [].constructor(totalPages); let i = index">
+      <button (click)="goToPage(i + 1)" [ngClass]="{'active': currentPage === i + 1}"
+        class="deposit-list__pagination-page-button">
+        {{ i + 1 }}
+      </button>
+    </span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages" class="deposit-list__pagination-button">
+      <i class="pi pi-angle-right"></i>
+    </button>
+  </div>
+</div>

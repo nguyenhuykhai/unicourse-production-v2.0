@@ -1,0 +1,142 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+
+.wallet-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg');
+    /* Corrected here */
+    background-size: cover;
+    /* Optional: ensures the background image covers the entire area */
+    background-repeat: no-repeat;
+    /* Optional: prevents the background from repeating */
+
+    &__header {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    &__title {
+        font-size: $font-size-7xl;
+        font-weight: $font-weight-extrabold;
+        color: $text-black;
+        margin-bottom: 10px;
+        line-height: 1;
+    }
+
+    &__subtitle {
+        color: $text-gray-800;
+        font-style: italic;
+        line-height: $line-height-lg;
+        font-weight: $font-weight-semibold;
+        font-size: $font-size-xl;
+    }
+
+    &__content {
+        width: 100%;
+        max-width: 600px;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &__content-title {
+        line-height: $line-height-lg;
+        font-size: $font-size-xl;
+        font-weight: $font-weight-medium;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    &__label {
+        font-size: $font-size-md;
+        color: $text-black;
+        font-weight: $font-weight-semibold;
+        margin-bottom: 10px;
+    }
+
+    &__input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid $border-color-light;
+        border-radius: 4px;
+        margin-bottom: 10px;
+        font-size: $font-size-md;
+
+        &:focus {
+            border: 1px solid $primary-400;
+            outline: none;
+        }
+    }
+
+    &__hint {
+        font-size: $font-size-sm;
+        color: $text-gray-900;
+        margin-bottom: 20px;
+    }
+
+    &__button {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: $primary-main;
+        color: $text-white;
+        border: none;
+        cursor: pointer;
+        font-size: $font-size-md;
+        font-weight: $font-weight-bold;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        span {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        &:hover {
+            background-color: $primary-dark;
+        }
+    }
+}
+
+.disable {
+    cursor: not-allowed;
+    background-color: $primary-light;
+    &:hover {
+        background-color: $primary-light;
+    }
+}
+
+@media (max-width: 768px) {
+    .wallet-page {
+        padding: 20px;
+
+        &__title {
+            font-size: $font-size-4xl;
+        }
+
+        &__subtitle {
+            font-size: $font-size-xs;
+        }
+
+        &__content {
+            width: 100%;
+            padding: 15px;
+        }
+
+        &__button {
+            width: 100%;
+        }
+    }
+}

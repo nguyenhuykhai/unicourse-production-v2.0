@@ -1,0 +1,22 @@
+<div class="progress-circle-container">
+    <svg class="progress-circle" [attr.width]="radius * 2" [attr.height]="radius * 2" [attr.viewBox]="'0 0 ' + radius * 2 + ' ' + radius * 2">
+      <!-- Background circle (static) -->
+      <circle class="progress-circle__background" 
+              [attr.cx]="radius" [attr.cy]="radius" 
+              [attr.r]="radius - strokeWidth / 2" 
+              [attr.stroke-width]="strokeWidth" />
+      
+      <!-- Progress circle (dynamic) -->
+      <circle class="progress-circle__value" 
+              [style.strokeDasharray]="circumference" 
+              [style.strokeDashoffset]="dashoffset"
+              [attr.cx]="radius" [attr.cy]="radius" 
+              [attr.r]="radius - strokeWidth / 2" 
+              [attr.stroke-width]="strokeWidth"
+              [attr.stroke]="color" />
+    </svg>
+  
+    <!-- Progress value in the center of the circle -->
+    <div class="progress-circle__text">{{ value }}%</div>
+  </div>
+  

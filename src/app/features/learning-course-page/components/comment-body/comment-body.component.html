@@ -1,0 +1,188 @@
+<div class="comment-body">
+    <!-- Input for new comment -->
+    <ng-container *ngIf="user">
+        <div class="comment-body__header-container">
+            <p-avatar image="{{ user.profile_image }}" size="large" shape="circle"></p-avatar>
+
+            <ng-container *ngIf="toggleEditor; else DisplayNormalInput">
+                <div class="comment-body__header-container__edit-container">
+                    <editor class="comment-body__header-container__edit-container__input"
+                        [(ngModel)]="editorContentComment" apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                        [init]="{
+                              plugins: 'lists link image table code help wordcount'
+                            }"></editor>
+
+                    <div class="comment-body__header-container__edit-container__group-btn">
+                        <p-button [disabled]="preventEventComment" (click)="toggleEditorComment()" label="Hủy" [outlined]="true" />
+                        <p-button [disabled]="preventEventComment" (click)="handleAddComment()" label="Bình luận" [raised]="true" />
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #DisplayNormalInput>
+                <div class="comment-body__header-container__toggle-edit" (click)="toggleEditorComment()">
+                    <p>Nhập bình luận của bạn...</p>
+                </div>
+            </ng-template>
+        </div>
+    </ng-container>
+
+    <!-- MAIN COMMENT ZONE -->
+    <div class="comment-body__list">
+        <ng-container *ngIf="comments && comments.length > 0; else emptyComments">
+            <div *ngFor="let item of comments" class="comment-body__item">
+                <!-- User info zone -->
+                <div class="comment-body__item-header">
+                    <p-avatar [image]="item.user.profile_image" size="large" shape="circle"></p-avatar>
+                    <div class="comment-body__item-header__user">{{ item.user.full_name }}</div>
+                    <div class="comment-body__item-header__time">{{ publishedAtString(item.createdAt) }}</div>
+                </div>
+
+                <!-- Content zone -->
+                <div class="comment-body__item-container">
+                    <div class="comment-body__item-container__content" [innerHTML]="sanitizeContent(item.content)">
+                    </div>
+                </div>
+
+                <!-- React and report zone -->
+                <div class="comment-body__item__more-option">
+                    <div class="comment-body__item__more-option__like">Thích</div>
+                    <div (click)="toggleReplyComment(item)" class="comment-body__item__more-option__reply">Phản hồi</div>
+                    <span (click)="toggleReportOverPlay($event, item)"
+                        class="pi pi-ellipsis-h comment-body__item__more-option__report"></span>
+                </div>
+
+                <!-- Reply comment zone -->
+                <ng-container *ngIf="toggleReply && commentReply?.id === item.id">
+                    <div class="comment-body__item__edit-container">
+                        <editor class="comment-body__item__edit-container__input"
+                                [(ngModel)]="editorContentReply" apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                                [init]="{
+                                      plugins: 'lists link image table code help wordcount'
+                                    }"></editor>
+        
+                            <div class="comment-body__item__edit-container__group-btn">
+                                <p-button [disabled]="preventEventComment" (click)="toggleReplyComment(item)" label="Hủy" [outlined]="true" />
+                                <p-button [disabled]="preventEventComment" (click)="handleReplyComment(item)" label="Bình luận" [raised]="true" />
+                            </div>
+                    </div>
+                </ng-container>
+
+                <!-- Edit comment zone -->
+                <ng-container *ngIf="isEditComment && item.id === currentReportComment?.id">
+                    <div class="comment-body__item__edit">
+                        <editor class="comment-body__item__edit__input" [(ngModel)]="updateCommentContent"
+                            apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz" [init]="{
+                                  plugins: 'lists link image table code help wordcount'
+                                }"></editor>
+                        <div class="comment-body__item__edit__group-btn">
+                            <p-button [disabled]="preventEventComment" (click)="toggleEditComment(false)" label="Hủy" [outlined]="true" />
+                            <p-button [disabled]="preventEventComment" (click)="handleEditComment()" label="Lưu" [raised]="true" />
+                        </div>
+                    </div>
+                </ng-container>
+
+                <!-- REPLY COMMENT ZONE -->
+                <ng-container *ngIf="item.numberOfReplies">
+                    <ng-container *ngIf="item.children; else defautlReplies">
+                        <div class="comment-body__item__more-children-replies">
+                            <ng-container *ngFor="let childrendItem of item.children">
+                                <div class="comment-body__item__more-children-replies-childrendItem">
+                                    <!-- Children User info zone -->
+                                    <div class="comment-body__item__more-children-replies-childrendItem__header">
+                                        <p-avatar [image]="childrendItem.user.profile_image" size="large" shape="circle"></p-avatar>
+                                        <div class="comment-body__item__more-children-replies-childrendItem__header__user">{{ childrendItem.user.full_name
+                                            }}</div>
+                                        <div class="comment-body__item__more-children-replies-childrendItem__header__time">{{
+                                            publishedAtString(childrendItem.createdAt) }}</div>
+                                    </div>
+                                    
+                                    <!-- Children Content zone -->
+                                    <div class="comment-body__item__more-children-replies-childrendItem__main">
+                                        <!-- REPLY MAIN COMMENT -->
+                                        <ng-container *ngIf="childrendItem.parent_comment && !childrendItem.sub_comment; else replyToReply">
+                                            <h3 *ngIf="childrendItem.parent_comment.user.id !== childrendItem.user.id"
+                                                class="comment-body__item__more-children-replies-childrendItem__main__author-replied">&#64;{{
+                                                childrendItem.parent_comment.user.full_name }}</h3>
+                                        </ng-container>
+                                        <!-- REPLY CHILDREN COMMENT -->
+                                        <ng-template #replyToReply>
+                                            <h3 *ngIf="childrendItem.sub_comment?.user?.id !== childrendItem.user?.id && childrendItem.sub_comment"
+                                                class="comment-body__item__more-children-replies-childrendItem__main__author-replied">
+                                                &#64;{{ childrendItem.sub_comment.user.full_name }}</h3>
+                                        </ng-template>
+                                        <div class="comment-body__item__more-children-replies-childrendItem__main__content"
+                                            [innerHTML]="sanitizeContent(childrendItem.content)"></div>
+                                    </div>
+                                    
+                                    <!-- Childrend React and report zone -->
+                                    <div class="comment-body__item__more-children-replies-childrendItem__more-option">
+                                        <div class="comment-body__item__more-children-replies-childrendItem__more-option__like">Thích</div>
+                                        <div (click)="toggleReplyComment(childrendItem)" class="comment-body__item__more-children-replies-childrendItem__more-option__reply">Phản hồi</div>
+                                        <span (click)="toggleReportOverPlay($event, childrendItem)"
+                                            class="pi pi-ellipsis-h comment-body__item__more-children-replies-childrendItem__more-option__report"></span>
+                                    </div>
+
+                                    <!-- Childrend Reply comment zone -->
+                                    <ng-container *ngIf="toggleReply && commentReply?.id === childrendItem.id">
+                                        <div class="comment-body__item__more-children-replies-childrendItem__edit-container">
+                                            <editor class="comment-body__item__more-children-replies-childrendItem__edit-container__input"
+                                                    [(ngModel)]="editorContentReply" apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                                                    [init]="{
+                                                          plugins: 'lists link image table code help wordcount'
+                                                        }"></editor>
+                            
+                                                <div class="comment-body__item__more-children-replies-childrendItem__edit-container__group-btn">
+                                                    <p-button [disabled]="preventEventComment" (click)="toggleReplyComment(childrendItem)" label="Hủy" [outlined]="true" />
+                                                    <p-button [disabled]="preventEventComment" (click)="handleReplyComment(childrendItem)" label="Bình luận" [raised]="true" />
+                                                </div>
+                                        </div>
+                                    </ng-container>
+
+                                    <!-- Childrend Edit comment zone -->
+                                    <ng-container *ngIf="isEditComment && currentReportComment?.id === childrendItem.id">
+                                        <div class="comment-body__item__more-children-replies-childrendItem__edit-container">
+                                            <editor class="comment-body__item__more-children-replies-childrendItem__edit-container__input"
+                                                    [(ngModel)]="updateCommentContent" apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                                                    [init]="{
+                                                          plugins: 'lists link image table code help wordcount'
+                                                        }"></editor>
+                            
+                                                <div class="comment-body__item__more-children-replies-childrendItem__edit-container__group-btn">
+                                                    <p-button [disabled]="preventEventComment" (click)="toggleEditComment(false)" label="Hủy" [outlined]="true" />
+                                                    <p-button [disabled]="preventEventComment" (click)="handleEditComment()" label="Lưu" [raised]="true" />
+                                                </div>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+
+                    <ng-template #defautlReplies>
+                        <p (click)="fetchChildren(item)" class="comment-body__item__more-replies">Xem thêm {{
+                            item.numberOfReplies }} câu trả lời</p>
+                    </ng-template>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-template #emptyComments>
+            <div class="comment-body__empty">Chưa có bình luận nào</div>
+        </ng-template>
+    </div>
+</div>
+
+<!-- Group Overplay panel -->
+<p-overlayPanel #reportOverplay>
+    <ng-container *ngIf="reportType === 'USER_OWN_COMMENT'; else reportOverlayDefault">
+        <div class="overplay">
+            <div class="overplay__item" (click)="toggleEditComment(true)">Chỉnh sửa bình luận</div>
+            <div class="overplay__item" (click)="handleDeleteCommentBasedOnType()">Xóa bình luận</div>
+        </div>
+    </ng-container>
+    <ng-template #reportOverlayDefault>
+        <div class="overplay">
+            <div class="overplay__item" (click)="handleReportComment()">Báo cáo bình luận</div>
+        </div>
+    </ng-template>
+</p-overlayPanel>

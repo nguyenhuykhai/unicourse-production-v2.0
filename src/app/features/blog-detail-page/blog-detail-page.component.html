@@ -1,0 +1,93 @@
+<div id="targetDiv" class="blog-detail">
+    <ng-container *ngIf="!blockedUI && blog && comments && likes; else loading">
+        <!-- Desktop: React Comment Sidebar -->
+        <div class="blog-detail__comment-container desktop-only">
+            <div class="blog-detail__comment-container__x">
+                <div class="blog-detail__comment-container__x__author">
+                    <h3 class="blog-detail__comment-container__x__author-name">{{ blog.author.full_name }}</h3>
+                    <p class="blog-detail__comment-container__x__author-date">Thành viên từ {{ convertDateToString(blog.author.created_at) }}</p>
+                </div>
+                <div class="blog-detail__comment-container__x__react">
+                    <span class="blog-detail__comment-container__x__react-btn">
+                        <ng-container *ngIf="userLiked && userLiked.is_liked === true; else webUnLiked">
+                            <span (click)="handleLikeBlog()" style="color: red" class="pi pi-heart-fill blog-detail__comment-container__x__react-btn-icon"></span>
+                        </ng-container>
+                        <ng-template #webUnLiked>
+                            <span (click)="handleLikeBlog()" class="pi pi-heart blog-detail__comment-container__x__react-btn-icon"></span>
+                        </ng-template>
+                        <span class="blog-detail__comment-container__x__react-btn-count">{{ likes.total_likes }}</span>
+                    </span>
+                    <span (click)="toggleComments('desktop')" class="blog-detail__comment-container__x__react-btn">
+                        <span class="pi pi-comment blog-detail__comment-container__x__react-btn-icon"></span>
+                        <span class="blog-detail__comment-container__x__react-btn-count">{{ comments.length }}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="blog-detail__content-container">
+            <div class="blog-detail__content__header">
+                <app-blog-header [blog]="blog" [blockedUI]="blockedUI"></app-blog-header>
+            </div>
+
+            <div class="blog-detail__content__body">
+                <app-blog-content [blog]="blog" [blockedUI]="blockedUI"></app-blog-content>
+            </div>
+
+            <!-- Mobile: React Comment Sidebar -->
+            <div class="blog-detail__mobile__comment-container mobile-only">
+                <span class="blog-detail__mobile__comment-container__react-btn">
+                    <ng-container *ngIf="userLiked && userLiked.is_liked; else webUnLiked">
+                        <span (click)="handleLikeBlog()" style="color: red" class="pi pi-heart-fill blog-detail__mobile__comment-container__react-btn-icon"></span>
+                    </ng-container>
+                    <ng-template #webUnLiked>
+                        <span (click)="handleLikeBlog()" class="pi pi-heart blog-detail__mobile__comment-container__react-btn-icon"></span>
+                    </ng-template>
+                    <span class="blog-detail__mobile__comment-container__react-btn-count">{{ likes.total_likes }}</span>
+                </span>
+                <span (click)="toggleComments('mobile')" class="blog-detail__mobile__comment-container__react-btn">
+                    <span class="pi pi-comment blog-detail__mobile__comment-container__react-btn-icon"></span>
+                    <span class="blog-detail__mobile__comment-container__react-btn-count">{{ comments.length }}</span>
+                </span>
+            </div>
+        </div>
+
+        <!-- Comment Sidebar for Laptop/Tablet -->
+        <p-sidebar [(visible)]="displaySidebar" [transitionOptions]="'400ms'" position="right"
+            class="blog-detail__sidebar desktop-only">
+            <ng-template pTemplate="header">
+                <div class="blog-detail__sidebar__header">
+                    <h3 class="blog-detail__sidebar__header-title">3 bình luận</h3>
+                    <p class="blog-detail__sidebar__header-description">(Nếu thấy bình luận spam, các bạn bấm report
+                        giúp
+                        admin nhé)</p>
+                </div>
+            </ng-template>
+            <app-comment-sidebar [comments]="comments" (deleteCommentId)="handleDeleteComment($event)" (updateComment)="handleUpdateComment($event)" (addComment)="handleAddComment($event)" (closeDialog)="onDialogClose()"></app-comment-sidebar>
+        </p-sidebar>
+
+        <!-- Comment Dialog for Mobile -->
+        <p-dialog [(visible)]="displayDialog" [dismissableMask]="true" [style]="{width: '90vw'}"
+            [transitionOptions]="'400ms'" modal="true" (onHide)="onDialogClose()">
+            <app-comment-sidebar [comments]="comments" (deleteCommentId)="handleDeleteComment($event)" (updateComment)="handleUpdateComment($event)" (addComment)="handleAddComment($event)" (closeDialog)="onDialogClose()"></app-comment-sidebar>
+        </p-dialog>
+    </ng-container>
+    <ng-template #loading>
+        <div [ngStyle]="{ width: '100%', margin: '2%'}" class="border-round border-1 surface-border p-4 surface-card">
+            <div class="flex mb-3">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div>
+                    <p-skeleton width="10rem" styleClass="mb-2" />
+                    <p-skeleton width="5rem" styleClass="mb-2" />
+                    <p-skeleton height=".5rem" />
+                </div>
+            </div>
+            <p-skeleton width="100%" height="150px" />
+            <div class="flex justify-content-between mt-3">
+                <p-skeleton width="4rem" height="2rem" />
+                <p-skeleton width="4rem" height="2rem" />
+            </div>
+        </div>
+    </ng-template>
+</div>

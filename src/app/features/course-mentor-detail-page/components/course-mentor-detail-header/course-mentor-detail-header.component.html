@@ -1,0 +1,47 @@
+<div class="course-mentor-detail-header">
+    <ng-container *ngIf="!blockedUI; else loading">
+        <div class="course-mentor-detail-header__info">
+            <!-- Course Mentor Name -->
+            <h1 class="course-mentor-detail-header__info-title">
+                {{ enrollCourseDetail?.course_mentor?.title }}
+            </h1>
+            <!-- Course Mentor Description -->
+            <p class="course-mentor-detail-header__info-description">
+                {{ enrollCourseDetail?.course_mentor?.description }}
+            </p>
+            <!-- Course Mentor Date Range -->
+            <div class="course-mentor-detail-header__info-date">
+                <p><strong>Bắt đầu:</strong> {{ enrollCourseDetail?.course_mentor?.start_date | date: 'dd/MM/yyyy' }}
+                </p>
+                <span>-</span>
+                <p><strong>Kết thúc:</strong> {{ enrollCourseDetail?.course_mentor?.end_date | date: 'dd/MM/yyyy' }}</p>
+            </div>
+        </div>
+        <div class="course-mentor-detail-header__mentor">
+            <p-avatar routerLinkActive="active"
+                routerLink="/profile/{{ enrollCourseDetail?.course_mentor?.mentor?.user?.id }}"
+                [image]="enrollCourseDetail?.course_mentor?.mentor?.user?.profile_image" size="xlarge" shape="circle"
+                [ngStyle]="{ cursor: 'pointer' }" />
+            <div class="course-mentor-detail-header__mentor-info">
+                <span routerLinkActive="active"
+                    routerLink="/profile/{{ enrollCourseDetail?.course_mentor?.mentor?.user?.id }}"
+                    class="course-mentor-detail-header__mentor-info-name">{{
+                    enrollCourseDetail?.course_mentor?.mentor?.user?.full_name }}</span>
+                <span class="course-mentor-detail-header__mentor-info-role">Mentor</span>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #loading>
+        <div class="course-mentor-detail-header__info">
+            <p-skeleton width="100%" styleClass="mb-2" />
+            <p-skeleton width="75%" styleClass="mb-2"/>
+        </div>
+        <div class="course-mentor-detail-header__mentor">
+            <p-skeleton shape="circle" size="5rem" />
+            <div class="course-mentor-detail-header__mentor-info">
+                <p-skeleton width="10rem" styleClass="mb-2" />
+                <p-skeleton width="5rem" styleClass="mb-2" />
+            </div>
+        </div>
+    </ng-template>
+</div>

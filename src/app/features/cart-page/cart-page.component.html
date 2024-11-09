@@ -1,0 +1,65 @@
+<div class="cart-page">
+  <p-blockUI [blocked]="blockedUI"><p-progressSpinner></p-progressSpinner>
+  </p-blockUI>
+  <div class="cart-page-container">
+    <h1 class="cart-page-container__title">Giỏ hàng</h1>
+    <ng-container *ngIf="cart; else emptyCart">
+      <div class="cart-page-container__group-middle">
+
+        <!-- CART INFO ZONE -->
+        <div class="cart-page-container__group-middle-item">
+
+          <!-- CART ITEM ZONE -->
+          <div class="cart-page-container__group-middle-item__summary">
+            <p class="cart-page-container__group-middle-item__summary-text">{{ cart.cartItem.length }} khóa học trong
+              giỏ hàng</p>
+            <div *ngFor="let item of cart.cartItem" class="cart-page-container__group-middle-item__summary-item">
+              <app-cart-item [item]="item" (addCourseToWishList)="addCourseInWishList(item)"
+                (removeCourseFromCart)="handleRemoveCourseFromCart(item)"></app-cart-item>
+            </div>
+          </div>
+
+          <!-- WISHLIST ZONE -->
+          <h2 class="cart-page-container__group-middle-item__wishlist-title">Gần đây được thêm vào danh sách mong ước
+          </h2>
+          <div *ngFor="let item of wishlist" class="cart-page-container__group-middle-item__item">
+            <app-wishlist-item [item]="item" (removeCourse)="handleRemoveCourseFromWishList(item)"
+              (addToCart)="handleAddToCart(item)"></app-wishlist-item>
+          </div>
+        </div>
+
+        <!-- PAYMENT ZONE -->
+        <div class="cart-page-container__group-middle-payment">
+          <app-payment [item]="cart" (isRefresh)="handleRefreshData()"></app-payment>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #emptyCart>
+      <div class="cart-page-container__group-middle-empty">
+        <img src="assets/images/cart/cart-empty-logo.webp" alt="Empty cart"
+          class="cart-page-container__group-middle-empty-image">
+        <h2 class="cart-page-container__group-middle-empty-title">Giỏ hàng của bạn còn trống</h2>
+        <button routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/"
+          class="cart-page-container__group-middle-empty-button">Tiếp tục mua sắm</button>
+      </div>
+    </ng-template>
+
+    <ng-container *ngIf="feeCourses && feeCourses.data; else loadingRecommendCourse">
+      <h2 class="cart-page-container__recommendations-title">Bạn cũng có thể thích</h2>
+      <div class="cart-page-container__recommendations">
+        <div *ngFor="let item of feeCourses.data" class="cart-page-container__recommendation-item">
+          <app-recommendation-item [item]="item" (addToCart)="handleAddToCart($event)"></app-recommendation-item>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loadingRecommendCourse>
+      <div class="w-full pt-6">
+        <p-skeleton styleClass="mb-2" />
+        <p-skeleton width="100%" styleClass="mb-2" />
+        <p-skeleton width="100%" styleClass="mb-2" />
+        <p-skeleton height="100%" styleClass="mb-2" />
+        <p-skeleton width="100%" height="4rem" />
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="calendar__header">
+    <span class="calendar__title">{{ currentVNMonth }}, {{ currentYear }}</span>
+    <div class="calendar__nav">
+        <p-button icon="pi pi-angle-left" [rounded]="true" [text]="true" severity="secondary" size="large" (click)="previousMonth()" />
+        <p-button icon="pi pi-angle-right" [rounded]="true" [text]="true" severity="secondary" size="large" (click)="nextMonth()" />
+    </div>
+</div>

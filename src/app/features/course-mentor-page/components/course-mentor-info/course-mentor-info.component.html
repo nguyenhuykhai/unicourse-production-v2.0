@@ -1,0 +1,34 @@
+<div class="course-mentor-info">
+    <ng-container *ngIf="!blockedUI; else loading">
+        <h3>Người hướng dẫn</h3>
+        <div class="course-mentor-info__intro">
+          <h3>Mentor {{ courseMentor?.mentor?.user?.full_name }}</h3>
+          <span>Mentor Unicourse | {{ courseMentor?.mentor?.info_description }}</span>
+        </div>
+      
+        <div class="course-mentor-info__image-stats">
+          <div class="course-mentor-info__image-stats-image-link">
+              <img [src]="courseMentor?.mentor?.user?.profile_image" alt="Mentor" />
+          </div>
+        </div>
+      
+        <div class="course-mentor-info__job-title">
+          <p>
+            Tại Unicourse, chúng tôi tự hào giới thiệu một đội ngũ giảng viên đa dạng
+            và giàu kinh nghiệm, đồng lòng với mục tiêu tạo ra một môi trường học tập
+            đầy sáng tạo và chất lượng cao. Với sự đa dạng về lĩnh vực chuyên môn và
+            nền tảng giáo dục, các giảng viên của chúng tôi mang đến cho bạn những
+            trải nghiệm học tập đa chiều và phong phú.
+          </p>
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <p-skeleton styleClass="mb-2" />
+      <p-skeleton width="10rem" styleClass="mb-2" />
+      <p-skeleton width="5rem" styleClass="mb-2" />
+      <p-skeleton height="2rem" styleClass="mb-2" />
+      <p-skeleton width="10rem" height="4rem" />
+    </ng-template>
+  </div>
+  

@@ -1,0 +1,161 @@
+<div class="setting-page">
+    <p-toast key="tst"></p-toast>
+    <div class="setting-page__sidebar">
+        <app-account-settings (changeTab)="handleChangeTab($event)"></app-account-settings>
+    </div>
+    <div class="setting-page__content">
+        <!-- PERSONAL INFO ZONE -->
+        <ng-container *ngIf="settingTab === 'personal-info'">
+            <app-personal-info [blockedUI]="blockedUI" [user]="user"
+                (openDialogRequest)="openDialog($event)"></app-personal-info>
+            <app-social-info [blockedUI]="blockedUI" [user]="user"
+                (openDialogRequest)="openDialog($event)"></app-social-info>
+        </ng-container>
+
+        <!-- ACCOUNT SETTINGS ZONE -->
+        <ng-container *ngIf="settingTab === 'password-and-security'">
+            <app-security-settings [blockedUI]="blockedUI" [user]="user"
+                (openDialogRequest)="openDialog($event)"></app-security-settings>
+        </ng-container>
+
+        <!-- DANGER ZONE ZONE -->
+        <ng-container *ngIf="settingTab === 'danger-zone'">
+            <app-danger-zone [user]="user"></app-danger-zone>
+        </ng-container>
+    </div>
+
+    <p-dialog *ngIf="profileDialog !== undefined" header="{{ profileDialog.header }}" [modal]="true"
+        [(visible)]="visible"
+        [style]="{ 'padding': '10px 20px', 'max-width': 'min(420px, calc(100% - 32px))', 'background': '#fff' }"
+        [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="headless">
+            <div class="dialog-header">
+                <h4 class="dialog-header__title">{{ profileDialog.header }}</h4>
+                <button pButton type="button" icon="pi pi-times" severity="secondary"
+                    class="p-button-text dialog-header__close-btn" (click)="closeDialog()"></button>
+            </div>
+            <h5 class="dialog-description">{{ profileDialog.description }}</h5>
+            <div class="dialog-content">
+                <ng-container *ngIf="profileDialog.type === 'file'; else inputText">
+                    <!-- EDIT AVATAR -->
+                    <app-avatar-upload 
+                        [user]="user"
+                        (toastObject)="showToast($event)"
+                        (data)="callUpdateProfileService($event)"></app-avatar-upload>
+                </ng-container>
+                <ng-template #inputText>
+                    <!-- EDIT TEXT -->
+                    <ng-container *ngIf="profileDialog.type === 'text'">
+                    
+                        <!-- EDIT ADDRESS -->
+                        <ng-container *ngIf="profileDialog.field === 'address'; else defaultText">
+                            <div>
+                                <label class="dialog-content__label">Chọn thành phố:</label>
+                                <p-dropdown [options]="provinces" [(ngModel)]="selectedCity" (onChange)="selectCity($event.value)"
+                                    optionLabel="name" placeholder="Tỉnh/Thành phố..." class="dialog-content__dropdown" />
+                                <p class="dialog-content__error" *ngIf="errorCity">
+                                    {{ errorCity }}
+                                </p>
+                            </div>
+                            <div>
+                                <label class="dialog-content__label">Chọn quận:</label>
+                                <p-dropdown [options]="selectedCity?.districts" [(ngModel)]="selectedDistrict"
+                                    (onChange)="selectDistrict($event.value)" optionLabel="name" placeholder="Quận/Huyện..."
+                                    class="dialog-content__dropdown" />
+                                <p class="dialog-content__error" *ngIf="errorDistrict">
+                                    {{ errorDistrict }}
+                                </p>
+                            </div>
+                            <div [ngStyle]="{ marginBottom: '0.5rem' }">
+                                <label class="dialog-content__label">Chọn phường:</label>
+                                <p-dropdown [options]="selectedDistrict?.wards" [(ngModel)]="selectedWard" (onChange)="selectWard($event.value)"
+                                    optionLabel="name" placeholder="Phường/Xã..." class="dialog-content__dropdown" />
+                                <p class="dialog-content__error" *ngIf="errorWard">
+                                    {{ errorWard }}
+                                </p>
+                            </div>
+                        </ng-container>
+
+                        <!-- EDIT DEFAULT TEXT -->
+                        <ng-template #defaultText>
+                            <label class="dialog-content__label">{{ profileDialog.label }}</label>
+                            <input pInputText class="dialog-content__input" [(ngModel)]="profileDialog.value"
+                                [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid(profileDialog)}"
+                                [placeholder]="profileDialog.placeholder" />
+                            <p class="dialog-content__error" *ngIf="isFieldInvalid(profileDialog)">
+                                {{ error }}
+                            </p>
+                        </ng-template>
+                    </ng-container>
+
+                    <!-- EDIT TEXTAREA -->
+                    <ng-container *ngIf="profileDialog.type === 'textarea'">
+                        <label class="dialog-content__label">{{ profileDialog.label }}</label>
+                        <textarea class="dialog-content__textarea" rows="5" cols="30" pInputTextarea [autoResize]="true"
+                            [(ngModel)]="profileDialog.value"
+                            [ngClass]="{'ng-invalid ng-dirty': isFieldInvalid(profileDialog)}" >
+                        </textarea>
+                        <p class="dialog-content__hint" *ngIf="profileDialog.hint">{{ profileDialog.hint }}</p>
+                        <p class="dialog-content__error" *ngIf="isFieldInvalid(profileDialog)">
+                            {{ error }}
+                        </p>
+                    </ng-container>
+
+                    <!-- PASSWORD ZONE -->
+                    <ng-container *ngIf="profileDialog.type === 'edit-password'">
+                        <label class="dialog-content__label">Nhập mật khẩu hiện tại</label>
+                        <p-password id="password" autofocus [feedback]="false" [toggleMask]="true" aria-describedby="password-help"
+                            class="dialog-content__password" [(ngModel)]="profileDialog.oldPassword"
+                            (onBlur)="isFieldInvalid(profileDialog)"
+                            [ngClass]="{'ng-invalid ng-dirty': errorOldPassword }" />
+                        <p class="dialog-content__error" *ngIf="errorOldPassword">
+                            {{ errorOldPassword }}
+                        </p>
+                    
+                        <label class="dialog-content__label">Nhập mật khẩu mới</label>
+                        <p-password id="password" [feedback]="false" [toggleMask]="true" aria-describedby="password-help"
+                            class="dialog-content__password" [(ngModel)]="profileDialog.newPassword"
+                            (onBlur)="isFieldInvalid(profileDialog)"
+                            [ngClass]="{'ng-invalid ng-dirty': errorNewPassword }" />
+                        <p class="dialog-content__error" *ngIf="errorNewPassword">
+                            {{ errorNewPassword }}
+                        </p>
+                    
+                        <label class="dialog-content__label">Nhập mật lại khẩu mới</label>
+                        <p-password id="password" [feedback]="false" [toggleMask]="true" aria-describedby="password-help"
+                            class="dialog-content__password" [(ngModel)]="profileDialog.confirmPassword"
+                            (onBlur)="isFieldInvalid(profileDialog)"
+                            [ngClass]="{'ng-invalid ng-dirty': errorConfirmPassword }" />
+                        <p class="dialog-content__error" *ngIf="errorConfirmPassword">
+                            {{ errorConfirmPassword }}
+                        </p>
+                    </ng-container>
+
+                    <ng-container *ngIf="profileDialog.type === 'add-password'">
+                        <label class="dialog-content__label">Nhập mật khẩu mới</label>
+                        <p-password id="password" [feedback]="false" [toggleMask]="true" aria-describedby="password-help"
+                            class="dialog-content__password" [(ngModel)]="profileDialog.newPassword"
+                            (onBlur)="isFieldInvalid(profileDialog)"
+                            [ngClass]="{'ng-invalid ng-dirty': errorNewPassword }" />
+                        <p class="dialog-content__error" *ngIf="errorNewPassword">
+                            {{ errorNewPassword }}
+                        </p>
+                    
+                        <label class="dialog-content__label">Nhập mật lại khẩu mới</label>
+                        <p-password id="password" [feedback]="false" [toggleMask]="true" aria-describedby="password-help"
+                            class="dialog-content__password" [(ngModel)]="profileDialog.confirmPassword"
+                            (onBlur)="isFieldInvalid(profileDialog)"
+                            [ngClass]="{'ng-invalid ng-dirty': errorConfirmPassword }" />
+                        <p class="dialog-content__error" *ngIf="errorConfirmPassword">
+                            {{ errorConfirmPassword }}
+                        </p>
+                    </ng-container>
+
+                    <div class="dialog-footer">
+                        <button pButton type="button" label="Lưu lại" (click)="handleUpdateProfile()"></button>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>

@@ -1,0 +1,188 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.confirm-dialog {
+    &__container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-y: auto;
+        overflow-x: hidden;
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 50;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Add a semi-transparent background */
+    }
+
+    &__content {
+        position: relative;
+        padding: 1rem;
+        width: 100%;
+        max-width: 400px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+
+        &-title {
+            color: $text-black;
+            flex-grow: 1;
+            text-align: left;
+            font-size: $font-size-xl;
+            font-weight: $font-weight-semibold;
+            line-height: $line-height-md;
+            margin: 0;
+        }
+
+        &-icon {
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+
+            /* Color depending on the type */
+            &--info {
+                color: #2196f3;
+            }
+
+            &--error {
+                color: #f44336;
+            }
+
+            &--warning {
+                color: #ffb700;
+            }
+
+            &--success {
+                color: #00b944;
+            }
+        }
+
+        &-close-btn {
+            background-color: transparent;
+            color: #9ca3af;
+            font-size: 1.2rem;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin-left: auto;
+
+            &:hover {
+                color: #333;
+            }
+        }
+    }
+
+    &__body {
+        padding-top: 1rem;
+        padding-bottom: 1.5rem;
+        text-align: center;
+
+        &-icon {
+            font-size: 2rem;
+            margin: auto;
+            width: 3rem;
+            height: 3rem;
+
+            /* Color depending on the type */
+            &--info {
+                color: #2196f3;
+            }
+
+            &--error {
+                color: #f44336;
+            }
+
+            &--warning {
+                color: #ffb700;
+            }
+
+            &--success {
+                color: #00b944;
+            }
+        }
+
+        &-message {
+            margin-bottom: 1.5rem;
+            color: $text-black;
+            font-size: $font-size-lg;
+            font-weight: $font-weight-medium;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+
+        &-btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+            width: 45%;
+            border: 1px solid transparent;
+
+            &--cancel {
+                background-color: #fff;
+                color: #333;
+                border-color: #d1d5db;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #f3f4f6;
+                }
+            }
+
+            &--none {
+
+            }
+
+            &--confirm {
+                /* Default to info color, will change dynamically */
+                background-color: #2196f3;
+                color: #fff;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: darken(#2196f3, 10%);
+                }
+
+                &.error {
+                    background-color: #f44336;
+
+                    &:hover {
+                        background-color: darken(#f44336, 10%);
+                    }
+                }
+
+                &.warning {
+                    background-color: #ffb700;
+
+                    &:hover {
+                        background-color: darken(#ffb700, 10%);
+                    }
+                }
+
+                &.success {
+                    background-color: #00b944;
+
+                    &:hover {
+                        background-color: darken(#00b944, 10%);
+                    }
+                }
+            }
+        }
+    }
+}

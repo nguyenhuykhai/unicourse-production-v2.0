@@ -1,0 +1,47 @@
+<div class="course-page">
+    <app-learning-course-header [blocked]="blockedUI" [header]="courseMentor?.title"
+        [learningProgress]="learningProgress" class="course-page__header"></app-learning-course-header>
+    <div class="course-page__container">
+        <app-learning-course-content (questionStateChange)="handleQuestionStateChange($event)" [blocked]="blockedUI"
+            [data]="videoObject" [currentTopicId]="currentTopic?.id" [currentChapterId]="currentChapter?.id" [courseMentorId]="courseMentor?.id"
+            [chapters]="courseMentor?.chapter" class="course-page__container__content"></app-learning-course-content>
+        <app-learning-course-sidebar (moveLesson)="handleMoveLesson($event)" [blocked]="blockedUI"
+            [chapters]="courseMentor?.chapter" [currentTopic]="currentTopic"
+            class="course-page__container__sidebar"></app-learning-course-sidebar>
+    </div>
+    <app-learning-course-footer (moveLesson)="handleMoveLesson($event)"
+        (moveNextOrPrevLesson)="handleMoveNextOrPrevLesson($event)" [blocked]="blockedUI"
+        [chapters]="courseMentor?.chapter" [currentChapterId]="currentChapter?.id" [currentTopic]="currentTopic"
+        class="course-page__footer">
+    </app-learning-course-footer>
+    <app-confirm-dialog></app-confirm-dialog>
+    <ng-container *ngIf="questionState !== 'IN_PROGRESS'">
+        <app-chat-bot class="course-page__chat-bot"></app-chat-bot>
+    </ng-container>
+
+    <app-comment (toggleComments)="toggleComments($event)" class="course-page__comment"></app-comment>
+    <!-- WEBSITE UI: SIDE BAR COMMENT ZONE -->
+    <p-sidebar [(visible)]="displaySidebar" [transitionOptions]="'400ms'" position="right"
+        class="course-page__sidebar desktop-only">
+        <ng-template pTemplate="header">
+            <div class="course-page__sidebar__header">
+                <h3 class="course-page__sidebar__header-title">{{ comments?.length || 0 }} bình luận</h3>
+                <p class="course-page__sidebar__header-description">
+                    (Nếu thấy bình luận spam, các bạn bấm report giúp admin nhé)
+                </p>
+            </div>
+        </ng-template>
+        <app-comment-body [currentTopic]="currentTopic" (addComment)="handleAddCommentTopic($event)" [blockedUI]="blockedUIComment" [preventEventComment]="preventEventComment" [comments]="comments"></app-comment-body>
+    </p-sidebar>
+
+    <!-- Comment Dialog for Mobile -->
+    <p-dialog [(visible)]="displayDialog" [dismissableMask]="true" [style]="{width: '90vw'}" [transitionOptions]="'400ms'"
+        modal="true" (onHide)="onDialogClose()">
+        <ng-template pTemplate="header">
+            <div class="course-page__header-mobile__notification">
+                <h3 class="course-page__header-mobile__notification-title">{{ comments?.length || 0 }} bình luận</h3>
+            </div>
+        </ng-template>
+        <app-comment-body [currentTopic]="currentTopic" (addComment)="handleAddCommentTopic($event)" [blockedUI]="blockedUIComment" [preventEventComment]="preventEventComment" [comments]="comments"></app-comment-body>
+    </p-dialog>
+</div>

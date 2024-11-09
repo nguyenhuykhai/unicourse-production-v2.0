@@ -1,0 +1,74 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.course-mentor-detail-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__session {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+
+        &-title {
+            flex: 1;
+        }
+
+        &-date {
+            width: 35%;
+            text-align: end;
+        }
+    }
+
+    &__body-session {
+        align-content: center;
+
+        &__attendance {
+            display: flex;
+            flex-direction: row;
+            gap: 0.5rem;
+        }
+    }
+}
+
+.desktop-only {
+    display: block;
+}
+
+.mobile-only {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+}
+
+@media (max-width: 599px) {
+    .course-mentor-detail-info {
+        &__session {
+            &-title {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                max-width: 20ch;
+            }
+        }
+    }
+
+    .desktop-only {
+        display: none;
+    }
+
+    .mobile-only {
+        display: block;
+    }
+}

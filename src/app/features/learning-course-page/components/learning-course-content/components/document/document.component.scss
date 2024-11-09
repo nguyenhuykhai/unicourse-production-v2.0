@@ -1,0 +1,270 @@
+@import "../../../../../../../styles/variables";
+@import "../../../../../../../styles/font_variables";
+@import "../../../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../../../styles/mixins"; // Import mixin
+
+.document-container {
+    height: auto !important;
+    padding: 0 2rem !important;
+    line-height: $line-height-md;
+
+    hr {
+        border: none;
+        border-color: transparent;
+        height: 1px;
+        background-color: $border-color-divider;
+        margin: 2rem 0;
+    }
+
+    &__content {
+        &-title {
+            font-size: $font-size-4xl;
+            font-weight: $font-weight-bold;
+            margin-bottom: 0.5rem;
+            color: $text-black;
+        }
+
+        &-subtitle {
+            font-size: $font-size-md;
+            color: $text-gray-900;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+
+            span {
+                font-weight: $font-weight-semibold;
+                color: $text-black;
+            }
+
+            li {
+                font-size: $font-size-md;
+                margin-bottom: 0.5rem;
+
+                a {
+                    color: $primary-main;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        &-footer {
+            font-size: $font-size-md;
+            color: $text-gray-900;
+            text-align: center;
+            margin-top: 4rem;
+        }
+    }
+
+    &-description {
+        font-size: $font-size-md;
+        color: $text-gray-900;
+        margin-top: 1rem;
+    }
+
+    &__body {
+        color: $text-black;
+    }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+    .document-container {
+        height: auto !important;
+        padding: 0 0.5rem !important;
+        margin-bottom: 5rem;
+
+        &__content {
+            &-title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                line-height: $line-height-sm;
+                margin-bottom: 0.5rem;
+            }
+
+            &-subtitle {
+                font-size: $font-size-md;
+                margin-top: 0;
+            }
+
+            &-details {
+                padding: 0 0.5rem !important;
+                overflow: auto;
+            }
+
+            &-footer {
+                text-align: left;
+            }
+        }
+
+        &-description {
+            font-size: $font-size-lg;
+            line-height: $line-height-lg;
+            margin-top: 1rem;
+        }
+
+    }
+}
+
+@include respond-to(md) {
+    .document-container {
+        height: auto !important;
+        padding: 0 0.5rem !important;
+        margin-bottom: 5rem;
+
+        &__content {
+            &-title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                line-height: $line-height-sm;
+                margin-bottom: 0.5rem;
+            }
+
+            &-subtitle {
+                font-size: $font-size-md;
+                margin-top: 0;
+            }
+
+            &-description {
+                font-size: $font-size-lg;
+                line-height: $line-height-lg;
+                margin-top: 1rem;
+            }
+
+            &-details {
+                padding: 0 0.5rem !important;
+                overflow: auto;
+            }
+
+            &-footer {
+                text-align: left;
+            }
+        }
+
+    }
+}
+
+@include respond-to(sm) {
+    .document-container {
+        height: auto !important;
+        padding: 0 0.5rem !important;
+        margin-bottom: 5rem;
+
+        &__content {
+            &-title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                line-height: $line-height-sm;
+                margin-bottom: 0.5rem;
+            }
+
+            &-subtitle {
+                font-size: $font-size-md;
+                margin-top: 0;
+            }
+
+            &-description {
+                font-size: $font-size-lg;
+                line-height: $line-height-lg;
+                margin-top: 1rem;
+            }
+
+            &-details {
+                padding: 0 0.5rem !important;
+                overflow: auto;
+            }
+
+            &-footer {
+                text-align: left;
+            }
+        }
+
+    }
+}
+
+@include respond-to(xs) {
+    .document-container {
+        height: auto !important;
+        padding: 0 0.5rem !important;
+        margin-bottom: 5rem;
+
+        &__content {
+            &-title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                line-height: $line-height-sm;
+                margin-bottom: 0.5rem;
+            }
+
+            &-subtitle {
+                font-size: $font-size-md;
+                margin-top: 0;
+            }
+
+            &-description {
+                font-size: $font-size-lg;
+                line-height: $line-height-lg;
+                margin-top: 1rem;
+            }
+
+            &-details {
+                padding: 0 0.5rem !important;
+                overflow: auto;
+            }
+
+            &-footer {
+                text-align: left;
+            }
+        }
+
+    }
+}
+
+@include respond-to(xxs) {
+    .document-container {
+        height: auto !important;
+        padding: 0 0.5rem !important;
+        margin-bottom: 5rem;
+
+        &__content {
+            &-title {
+                font-size: $font-size-2xl;
+                font-weight: $font-weight-semibold;
+                line-height: $line-height-sm;
+                margin-bottom: 0.5rem;
+            }
+
+            &-subtitle {
+                font-size: $font-size-md;
+                margin-top: 0;
+            }
+
+            &-description {
+                font-size: $font-size-lg;
+                line-height: $line-height-lg;
+                margin-top: 1rem;
+            }
+
+            &-details {
+                padding: 0 0.5rem !important;
+                overflow: auto;
+            }
+
+            &-footer {
+                text-align: left;
+            }
+        }
+
+    }
+}

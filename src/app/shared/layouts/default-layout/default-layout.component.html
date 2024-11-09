@@ -1,0 +1,28 @@
+<p-scrollTop icon="pi pi-arrow-up" />
+<app-confirm-dialog></app-confirm-dialog>
+<app-header></app-header>
+
+<div class="main">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer></app-footer>
+
+<!-- Dialog Form -->
+<app-sign-in-form-dialog></app-sign-in-form-dialog>
+
+<div class="dock-window desktop-only">
+  <p-dock [model]="itemsDesktop" [position]="'left'">
+    <ng-template pTemplate="item" let-item>
+      <img [src]="item.icon" [alt]="item.label" width="100%" />
+    </ng-template>
+  </p-dock>
+</div>
+
+<div class="dock-window mobile-only">
+  <p-dock [model]="itemsMobile" [position]="'left'">
+    <ng-template pTemplate="item" let-item>
+      <img [src]="item.icon" [alt]="item.label" width="100%" />
+    </ng-template>
+  </p-dock>
+</div>

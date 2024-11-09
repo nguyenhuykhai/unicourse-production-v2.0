@@ -1,0 +1,20 @@
+<div class="transaction-history-page">
+    <div class="transaction-history-page__header">
+        <h1 class="transaction-history-page__title">Lịch sử giao dịch</h1>
+        <p class="transaction-history-page__subtitle">"Xem chi tiết lịch sử giao dịch và nhớ đánh giá để nhận thêm xu
+            bạn nhé!"</p>
+    </div>
+
+    <div class="transaction-history-page__content">
+        <ng-container *ngIf="payloadTransactionHistory; else loading">
+            <app-transaction-list [filterTransactionHistory]="filter" [payloadTransactionHistory]="payloadTransactionHistory"
+                (onPageChange)="onPageChange($event)" (filter)="onChangeFilter($event)"></app-transaction-list>
+        </ng-container>
+        <ng-template #loading>
+            <p-blockUI [blocked]="blockedUI">
+                <p-progressSpinner></p-progressSpinner>
+            </p-blockUI>
+        </ng-template>
+        
+    </div>
+</div>

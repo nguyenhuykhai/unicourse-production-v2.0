@@ -1,0 +1,90 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.danger-zone {
+    &__title {
+        font-size: $font-size-4xl;
+        font-weight: $font-weight-bold;
+        color: $text-black;
+        margin: 10px 0;
+    }
+
+    &__description {
+        font-size: $font-size-md;
+        color: $text-gray-900;
+        margin-bottom: 30px;
+    }
+
+    &__content {
+        font-size: $font-size-lg;
+        color: $text-black;
+        text-align: justify;
+        line-height: $line-height-xl;
+        margin-bottom: 30px;
+
+        strong {
+            font-weight: $font-weight-bold;
+            color: red;
+        }
+    }
+
+    &__otp {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 30px;
+        width: 30%;
+
+        &-label {
+            font-size: $font-size-md;
+            font-weight: $font-weight-bold;
+            color: $text-black;
+        }
+    }
+
+    &__btn {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .danger-zone {
+        &__otp {
+            width: 100%;
+        }
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .danger-zone {
+        &__otp {
+            width: 100%;
+        }
+    }
+
+    .mobile-only {
+        display: block;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+}

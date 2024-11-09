@@ -1,0 +1,97 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+@import "../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../styles/mixins"; // Import mixin
+
+.course-requirements {
+  padding: 0% 15%;
+  width: 75%;
+
+  h2 {
+    font-size: $font-size-4xl;
+    font-weight: 700;
+  }
+
+  ul {
+    li {
+      font-size: $font-size-md;
+      font-weight: $font-weight-medium;
+      line-height: $line-height-lg;
+    }
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .course-requirements {
+    padding: 0% 5%;
+    width: 100%;
+
+    ul {
+      li {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}
+
+@include respond-to(md) {
+  .course-requirements {
+    padding: 0% 5%;
+    width: 100%;
+
+    ul {
+      li {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}
+
+@include respond-to(sm) {
+  .course-requirements {
+    padding: 0% 5%;
+    width: 100%;
+
+    ul {
+      li {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}
+
+@include respond-to(xs) {
+  .course-requirements {
+    padding: 0% 5%;
+    width: 100%;
+
+    ul {
+      li {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}
+
+@include respond-to(xxs) {
+  .course-requirements {
+    padding: 0% 5%;
+    width: 100%;
+
+    ul {
+      li {
+        font-size: $font-size-md;
+      }
+    }
+  }
+}

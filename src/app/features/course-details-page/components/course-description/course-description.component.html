@@ -1,0 +1,20 @@
+<div class="course-description">
+  <ng-container *ngIf="!blockedUI; else loading">
+    <h3>Mô tả khóa học</h3>
+    <div
+      class="course-description__content"
+      [innerHTML]="safeHtml"
+      [ngClass]="{ collapsed: !isExpanded, expanded: isExpanded }"
+    ></div>
+    <button (click)="toggleExpand()">
+      <i
+        class="pi"
+        [ngClass]="isExpanded ? 'pi-angle-up' : 'pi-angle-down'"
+        style="font-size: 1rem"
+      ></i>
+      {{ isExpanded ? "Thu gọn" : "Mở rộng" }}
+    </button>
+  </ng-container>
+
+  <ng-template #loading></ng-template>
+</div>

@@ -1,0 +1,30 @@
+<div class="recommendation-item">
+  <img routerLink="/courses/{{item.id}}" routerLinkActive="active" [src]="item.thumbnail" alt="{{ item.title }}" class="recommendation-item__image">
+  <div class="recommendation-item__details">
+    <h3 routerLink="/courses/{{item.id}}" routerLinkActive="active" class="recommendation-item__title" [pTooltip]="item.title" tooltipPosition="top">{{ item.title }}</h3>
+    <p routerLink="/lecturer/{{item.lecturer.id}}" routerLinkActive="active" class="recommendation-item__description">Bởi {{ item.lecturer.user?.full_name }}</p>
+    <div class="recommendation-item__rating">
+      <span class="recommendation-item__rating-stars">
+        <p-rating [(ngModel)]="item.average_rating" [readonly]="true" [cancel]="false" >
+          <ng-template pTemplate="onicon">
+            <i class="pi pi-star-fill" style="color: #fdbe11"></i>
+          </ng-template>
+          <ng-template pTemplate="officon">
+            <i class="pi pi-star-fill" style="color: #c0c0c0"></i>
+          </ng-template>
+        </p-rating>
+        <p>({{ item.total_number_ratings }} đánh giá)</p>
+      </span>
+    </div>
+    <div class="recommendation-item__price">
+      <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+            style="width: 20px; height: 20px; margin-left: 0.2rem;"></lord-icon>
+      <span *ngIf="item.price > 0" class="recommendation-item__price-coin">{{ item.price | number: '1.0-0' }}</span>
+      <!-- <span *ngIf="item.price > 0" class="recommendation-item__price-vnprice">{{'('}}{{ item.vnprice | currency: 'VND':'symbol':'1.0-0' }}{{')'}}</span> -->
+      <span *ngIf="item.price === 0" class="recommendation-item__price-free">Miễn phí</span>
+    </div>
+    <button class="recommendation-item__button">
+      <span routerLink="/courses/{{item.id}}" routerLinkActive="active" class="recommendation-item__button-text">Xem chi tiết</span>
+    </button>
+  </div>
+</div>

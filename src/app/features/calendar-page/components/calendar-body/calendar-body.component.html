@@ -1,0 +1,107 @@
+<table class="calendar__table">
+    <thead>
+        <tr>
+            <th *ngFor="let day of daysOfWeek" class="calendar__th">
+                <span class="calendar__day-full">{{ day.full }}</span>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let week of weeks">
+            <td *ngFor="let day of week" (click)="toggleEventOverPlay($event, day)" class="calendar__day">
+                <ng-container *ngIf="!blockedUI; else loading">
+                    <app-calendar-day [currentMonth]="currentMonth" [currentYear]="currentYear" [day]="day"></app-calendar-day>
+                </ng-container>
+                <ng-template #loading>
+                    <div class="calendar__day__loading">
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
+                    </div>
+                </ng-template>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<p-overlayPanel #op>
+    <div class="calendar-dialog">
+        <div>
+            <span class="font-medium text-900 block mb-2">Lịch học của bạn</span>
+        </div>
+        <div class="calendar-dialog__body">
+            <ul class="list-none p-0 m-0 flex flex-column gap-3 calendar-dialog__body-ul">
+                <ng-container *ngIf="dayDisplayOverplay && dayDisplayOverplay.events.length > 0; else emptyEvents">
+                    <li *ngFor="let item of dayDisplayOverplay?.events" class="calendar-dialog__body-ul__item">
+                        <p-card class="calendar-dialog__body-ul__item-card">
+                            <ng-template pTemplate="header">
+                                <p routerLinkActive="active" routerLink="/calendar/{{ dayDisplayOverplay.id }}" class="calendar-dialog__body-ul__item-card__header">{{ dayDisplayOverplay.title }}</p>
+                            </ng-template>
+                            <!-- Group one: Date, time, room info -->
+                            <div class="calendar-dialog__body-ul__item-card__group-one">
+                                <div class="desktop-only">
+                                    <span class="font-medium text-900 block mb-2">Ngày</span>
+                                    <p class="m-0">{{ dayDisplayOverplay.start_date | date: 'dd/MM/yyyy' }}</p>
+                                </div>
+                                <p-divider class="desktop-only" layout="vertical"></p-divider>
+                                <div>
+                                    <span class="font-medium text-900 block mb-2">Thời gian</span>
+                                    <p class="m-0">{{ convertTimeToDisplay(item?.mentor_session?.start_time) }} - {{ convertTimeToDisplay(item?.mentor_session?.end_time) }}</p>
+                                </div>
+                                <p-divider layout="vertical"></p-divider>
+                                <div>
+                                    <span class="font-medium text-900 block mb-2">Phòng học</span>
+                                    <p class="m-0">{{ item?.mentor_session?.room?.name }}</p>
+                                </div>
+                            </div>
+                            <!-- Group two: Course info -->
+                            <div>
+                                <span class="font-medium text-900 block mb-2">Nội dung học</span>
+                                <p class="m-0">{{ item.name }}</p>
+                            </div>
+                            <!-- Group three: Location info -->
+                            <div>
+                                <span class="font-medium text-900 block mb-2">Địa điểm</span>
+                                <p class="m-0">{{ item.center?.address }}</p>
+                            </div>
+                            <!-- Group four: Mentor info -->
+                            <div class="calendar-dialog__body-ul__item-card__group-four">
+                                <span class="font-medium text-900 block mb-2">Người hướng dẫn</span>
+                                <div class="flex align-items-center gap-2 calendar-dialog__body-ul__item-card__group-four__mentor-container">
+                                    <p-avatar routerLinkActive="active" routerLink="/profile/{{ item.mentor?.user?.id }}" [image]="item.mentor?.user?.profile_image" shape="circle" class="calendar-dialog__body-ul__item-card__group-four__mentor-container__avatar" />
+                                    <div>
+                                        <span routerLinkActive="active" routerLink="/profile/{{ item.mentor?.user?.id }}" class="calendar-dialog__body-ul__item-card__group-four__mentor-container__name">{{ item.mentor?.user?.full_name }}</span>
+                                        <div class="text-sm text-color-secondary">{{ item.mentor?.user?.email }}</div>
+                                    </div>
+                                    <div class="flex align-items-center gap-2 text-color-secondary ml-auto text-sm">
+                                        <span>Mentor</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Group five: Attendance status -->
+                            <div>
+                                <span class="font-medium text-900 block mb-2">Trạng thái</span>
+                                <ng-container *ngIf="item.participant?.status === 'absent'">
+                                    <p-tag severity="danger" value="Vắng mặt" [rounded]="true" />
+                                </ng-container>
+                                <ng-container *ngIf="item.participant?.status === 'present'">
+                                    <p-tag severity="success" value="Đã điểm danh" [rounded]="true" />
+                                </ng-container>
+                                <ng-container *ngIf="item.participant?.status === 'not_started'">
+                                    <p-tag severity="secondary" value="Chưa bắt đầu" [rounded]="true" />
+                                </ng-container>
+                            </div>
+                        </p-card>
+                    </li>
+                </ng-container>
+                <ng-template #emptyEvents>
+                    <li class="calendar-dialog__body-ul__item">
+                        <div class="calendar-dialog__body-ul__item-card__empty">
+                            <p class="m-0">Không có lịch học nào</p>
+                        </div>
+                    </li>
+                </ng-template>
+            </ul>
+        </div>
+    </div>
+</p-overlayPanel>

@@ -1,0 +1,266 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/font_variables";
+
+.deposit-list {
+    width: 100%;
+    margin: auto;
+
+    &.desktop-only {
+        display: block;
+    }
+
+    &.mobile-only {
+        display: none;
+    }
+
+    .deposit-caption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__total {
+            display: flex;
+            align-items: center;
+
+            &-title {
+                font-size: $font-size-4xl;
+                color: $text-black;
+                margin-right: 10px;
+
+                span {
+                    font-size: $font-size-md;
+                    color: $text-black;
+                }
+            }
+
+            &-coin {
+                width: 70px;
+                height: 70px;
+                margin-right: 10px;
+                border-radius: 4px;
+                object-fit: cover;
+            }
+        }
+
+        &__group-btn {
+            display: flex;
+            gap: 0.5rem;
+        }
+    }
+
+    // Additional styles for mobile header
+    &__mobile-header {
+        padding: 15px;
+        background-color: $background-light;
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 20px;
+
+        &__session-one {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &__mobile-total {
+                display: flex;
+                align-items: center;
+
+                &-title {
+                    font-size: $font-size-md;
+                    font-weight: $font-weight-semibold;
+                    color: $text-black;
+                    margin-left: 10px;
+                }
+
+                &-coin {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 4px;
+                    object-fit: cover;
+                }
+            }
+
+            &__mobile-button {
+                margin-left: auto;
+                background-color: $primary-main;
+                color: $text-white;
+                font-size: $font-size-md;
+                border-radius: 4px;
+
+                &:hover {
+                    background-color: $primary-dark;
+                }
+            }
+        }
+
+        &__session-two {
+            margin-top: 1rem;
+        }
+    }
+}
+
+.deposit-item-card {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+
+    &__course {
+
+        &-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            gap: 0.5rem;
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        font-size: $font-size-md;
+        color: $primary-main;
+        margin-left: 10px;
+        text-decoration: none;
+        flex-grow: 1;
+    }
+
+    &__course-image {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    &__details {
+        margin-bottom: 10px;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__button {
+        padding: 5px 15px;
+        font-size: $font-size-sm;
+        border: 1px solid $border-color;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &--receipt {
+            background-color: $primary-light;
+            color: $text-white;
+
+            &:hover {
+                background-color: $primary-dark;
+            }
+        }
+
+        &--invoice {
+            background-color: #fff;
+            color: $text-black;
+
+            &:hover {
+                background-color: $background-gray-200;
+            }
+        }
+    }
+}
+
+.deposit-list__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    &-button {
+        padding: 10px;
+        margin: 0 10px;
+        border: 1px solid $border-color;
+        background-color: #fff;
+        cursor: pointer;
+        font-size: $font-size-md;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        transition: background-color 0.3s, border-color 0.3s;
+
+        &:hover {
+            background-color: $primary-light;
+            border-color: $primary-dark;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        i {
+            font-size: $font-size-md;
+            color: $text-black;
+        }
+    }
+
+    &-page {
+        margin: 0 5px;
+    }
+
+    &-page-button {
+        background: none;
+        border: none;
+        font-size: $font-size-md;
+        color: $primary-main;
+        cursor: pointer;
+
+        &.active {
+            font-weight: $font-weight-bold;
+            color: $primary-dark;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.deposit-footer {
+    width: 100%;
+    background-color: #fff;
+
+    &__pagination {
+        margin: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    ::ng-deep {
+        .p-splitbutton {
+            width: 100%;
+        }
+        .p-tieredmenu {
+            width: 100%;
+        }
+    }
+
+    .deposit-list.desktop-only {
+        display: none;
+    }
+
+    .deposit-footer {
+        display: none;
+    }
+
+    .deposit-list.mobile-only {
+        display: block;
+    }
+}

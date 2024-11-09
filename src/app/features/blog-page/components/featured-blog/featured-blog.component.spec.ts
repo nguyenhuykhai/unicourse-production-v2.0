@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { FeaturedBlogComponent } from './featured-blog.component';
+
+describe('FeaturedBlogComponent', () => {
+  let component: FeaturedBlogComponent;
+  let fixture: ComponentFixture<FeaturedBlogComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [FeaturedBlogComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(FeaturedBlogComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

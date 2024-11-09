@@ -1,0 +1,110 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+@import "../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../styles/mixins"; // Import mixin
+
+.comment-container {
+  display: flex;
+  justify-content: center;
+
+  &__icon-container {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+
+    &-logo {
+      height: 5rem;
+      width: 5rem;
+      background-color: $background-chat-bot;
+      border-radius: 100%;
+      align-content: center;
+    }
+  }
+}
+
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .comment-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}
+
+@include respond-to(md) {
+  .comment-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}
+
+@include respond-to(sm) {
+  .comment-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}
+
+@include respond-to(xs) {
+  .comment-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}
+
+@include respond-to(xxs) {
+  .comment-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+}

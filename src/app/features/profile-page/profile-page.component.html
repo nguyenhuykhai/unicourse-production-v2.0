@@ -1,0 +1,125 @@
+<div class="profile-page">
+  <ng-container *ngIf="!blockedUI; else loading">
+
+    <!-- AUTH USER ZONE -->
+    <ng-container *ngIf="mode === 'auth_user' && student">
+      <header class="profile-page__header">
+        <div class="profile-page__header-container">
+          <img class="profile-page__header-container-image" src="assets/images/profile/bg-profile.webp"
+            alt="Profile Header Image" />
+          <div class="profile-page__header-container-user-info">
+            <app-user-info [student]="student"></app-user-info>
+          </div>
+        </div>
+      </header>
+      <div class="profile-page__break-line"></div>
+      <div class="profile-page__content">
+        <div class="profile-page__content-left">
+          <app-user-introduction [createdAt]="student.created_at"></app-user-introduction>
+          <app-user-activities></app-user-activities>
+        </div>
+        <div class="profile-page__content-right">
+          <div class="profile-page__section profile-page__section--courses">
+            <h2 class="profile-page__section-title">Các khóa học đã tham gia</h2>
+            <app-course-list [enrolledCourses]="enrolledCourses"></app-course-list>
+          </div>
+          <div class="profile-page__section profile-page__section--courses">
+            <h2 class="profile-page__section-title">Danh sách khoá học yêu thích</h2>
+            <app-course-wishlist [wishlistCourses]="student.wishlist"></app-course-wishlist>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <!-- UNAUTH USER ZONE -->
+    <ng-container *ngIf="mode === 'unauth_user' && unAuthUser">
+      <header class="profile-page__header">
+        <div class="profile-page__header-container">
+          <img class="profile-page__header-container-image" src="assets/images/profile/bg-profile.webp"
+            alt="Profile Header Image" />
+          <div class="profile-page__header-container-user-info">
+            <app-user-info [user]="unAuthUser"></app-user-info>
+          </div>
+        </div>
+      </header>
+      <div class="profile-page__break-line"></div>
+      <div class="profile-page__content">
+        <div class="profile-page__content-left">
+          <app-user-introduction [createdAt]="unAuthUser.created_at"></app-user-introduction>
+          <app-user-activities></app-user-activities>
+        </div>
+        <div class="profile-page__content-right">
+          <div class="profile-page__section profile-page__section--courses">
+            <h2 class="profile-page__section-title">Các khóa học đã tham gia</h2>
+            <app-course-list *ngIf="unAuthUser.student && unAuthUser.student.course_enroll"
+              [enrolledCourses]="unAuthUser.student.course_enroll"></app-course-list>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+  </ng-container>
+
+  <!-- LOADING ZONE -->
+  <ng-template #loading>
+    <header class="profile-page__loading-header-container">
+      <div class="profile-page__loading-header-container__item">
+        <div class="flex mb-3">
+          <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+          <div>
+            <p-skeleton width="10rem" styleClass="mb-2" />
+            <p-skeleton width="5rem" styleClass="mb-2" />
+            <p-skeleton height=".5rem" />
+          </div>
+        </div>
+        <p-skeleton width="100%" height="150px" />
+        <div class="flex justify-content-between mt-3">
+          <p-skeleton width="4rem" height="2rem" />
+          <p-skeleton width="4rem" height="2rem" />
+        </div>
+      </div>
+    </header>
+    <div class="profile-page__loading-content-container">
+        <div class="profile-page__loading-content-container__item">
+          <ul class="m-0 p-0 list-none">
+            <li class="mb-3">
+              <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                  <p-skeleton width="100%" styleClass="mb-2" />
+                  <p-skeleton width="75%" />
+                </div>
+              </div>
+            </li>
+            <li class="mb-3">
+              <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                  <p-skeleton width="100%" styleClass="mb-2" />
+                  <p-skeleton width="75%" />
+                </div>
+              </div>
+            </li>
+            <li class="mb-3">
+              <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                  <p-skeleton width="100%" styleClass="mb-2" />
+                  <p-skeleton width="75%" />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="flex">
+                <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                <div style="flex: 1">
+                  <p-skeleton width="100%" styleClass="mb-2" />
+                  <p-skeleton width="75%" />
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </ng-template>
+</div>

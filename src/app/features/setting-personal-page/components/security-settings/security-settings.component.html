@@ -1,0 +1,26 @@
+<div class="security-setting">
+    <h2 class="security-setting__title">Mật khẩu và bảo mật</h2>
+    <p class="security-setting__description">Quản lý mật khẩu và cài đặt bảo mật.</p>
+    <h3 class="security-setting__sub-title">Đăng nhập & khôi phục</h3>
+    <p class="security-setting__sub-description">Quản lý mật khẩu của bạn.</p>
+    <div class="security-setting__section">
+        <ng-container *ngIf="checkAccountIsHavePassword(); else notHavePassword">
+            <div (click)="requestOpenDialog('edit-password')" class="security-setting__item">
+                <div class="security-setting__item__info">
+                    <span class="security-setting__item__info-label">Đổi mật khẩu</span>
+                    <span class="security-setting__item__info-value">Chưa đổi mật khẩu</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+        </ng-container>
+        <ng-template #notHavePassword>
+            <div (click)="requestOpenDialog('add-password')" class="security-setting__item">
+                <div class="security-setting__item__info">
+                    <span class="security-setting__item__info-label">Thêm mật khẩu</span>
+                    <span class="security-setting__item__info-value">Chưa đổi mật khẩu</span>
+                </div>
+                <i class="pi pi-angle-right"></i>
+            </div>
+        </ng-template>
+    </div>
+</div>

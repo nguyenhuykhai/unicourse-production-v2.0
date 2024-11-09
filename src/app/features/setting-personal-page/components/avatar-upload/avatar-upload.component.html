@@ -1,0 +1,33 @@
+<div class="avatar-upload">
+    <!-- Display file information if a file is selected -->
+    <div *ngIf="selectedFile" class="file-info">
+        <p>Tên file: <span>{{ selectedFile.name }}</span></p>
+        <p>Kích thước file: <span>{{ selectedFile.size / 1024 | number:'1.0-2' }} KB</span></p>
+        <!-- Convert bytes to KB -->
+        <p>Loại file: <span>{{ selectedFile.type }}</span></p>
+    </div>
+
+    <div class="avatar-upload__preview">
+        <img [src]="imageUrl" alt="Avatar" class="avatar-upload__image" />
+    </div>
+
+    <!-- PrimeNG File Upload Component -->
+    <ng-container *ngIf="disableSubmitBtn; else submitBtn">
+        <p-fileUpload #fileUploader mode="basic" chooseLabel="Tải ảnh lên" chooseIcon="pi pi-upload" name="avatar"
+            accept="image/*" [customUpload]="true" [multiple]="false" maxFileSize="1000000"
+            (uploadHandler)="selectFile($event)">
+        </p-fileUpload>
+    </ng-container>
+
+    <!-- Optional: Show upload percentage -->
+    <div *ngIf="percentage > 0 && percentage < 100">
+        Đang tải lên: {{ percentage }}%
+    </div>
+
+    <ng-template #submitBtn>
+        <button (click)="updateAvatar()" type="button" class="avatar-upload__button">
+            <i class="pi pi-save mr-2"></i>
+            Lưu lại
+        </button>
+    </ng-template>
+</div>

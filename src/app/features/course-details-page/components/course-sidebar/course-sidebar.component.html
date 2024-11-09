@@ -1,0 +1,189 @@
+<div class="course-sidebar">
+  <ng-container *ngIf="!blockedUI; else loadingZone">
+    <!-- INTRODUCTION SECTION -->
+    <div class="course-sidebar__introduction">
+      <img [src]="course?.thumbnail" [alt]="course?.title" class="course-sidebar__introduction-thumbnail" />
+    </div>
+
+    <!-- PURCHASE SECTION -->
+    <div class="course-sidebar__purchase-section">
+      <div class="course-sidebar__purchase-section-container">
+        <div class="course-sidebar__purchase-section-container-buy-box">
+
+          <!-- FREE COURSE ZONE -->
+          <ng-container *ngIf="courseMentorOnline[0]?.amount === 0; else feeCourse">
+            <h2 class="course-sidebar__purchase-section-container-buy-box-price">
+              Miễn phí
+            </h2>
+            <div class="course-sidebar__purchase-section-container-buy-box__container">
+              <button (click)="handleEnrollCourse(courseMentorOnline[0])"
+                class="course-sidebar__purchase-section-container-buy-box__container-add-to-cart">
+                <p>Học ngay</p>
+              </button>
+
+              <ng-container *ngIf="checkCourseInWishList(); else notInWishList">
+                <button (click)="removeCourseInWishList()" [ngStyle]="{ width: '20%' }" type="button"
+                  class="course-sidebar__purchase-section-container-buy-box__container-remove-from-wishlist">
+                  <i
+                    class="pi pi-heart-fill course-sidebar__purchase-section-container-buy-box__container-remove-from-wishlist-icon"></i>
+                </button>
+              </ng-container>
+
+              <ng-template #notInWishList>
+                <button (click)="addCourseInWishList()" [ngStyle]="{ width: '20%' }" type="button"
+                  class="course-sidebar__purchase-section-container-buy-box__container-add-to-wishlist">
+                  <i
+                    class="pi pi-heart course-sidebar__purchase-section-container-buy-box__container-remove-from-wishlist-icon"></i>
+                </button>
+              </ng-template>
+            </div>
+          </ng-container>
+
+          <!-- FEE COURSE ZONE -->
+          <ng-template #feeCourse>
+            <div class="course-sidebar__purchase-section-container-buy-box-price">
+              <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+                style="width: 30px; height: 30px; margin-right: 0.1rem;"></lord-icon>
+              <h2 class="course-sidebar__purchase-section-container-buy-box-price__amount">
+                {{ courseMentorOnline[0]?.amount | number: '1.0-0' }}
+              </h2>
+            </div>
+            <div class="course-sidebar__purchase-section-container-buy-box__container">
+              <!-- LOADING STATE -->
+              <ng-container *ngIf="loading; else loadingFinish">
+                <button (click)="handleEnrollCourse(courseMentorOnline[0])"
+                  class="course-sidebar__purchase-section-container-buy-box__container-add-to-cart">
+                  <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+                </button>
+              </ng-container>
+
+              <!-- DEFAULT STATE -->
+              <ng-template #loadingFinish>
+                <!-- IF COURSE IS ENROLLED -->
+                <ng-container *ngIf="checkCourseInEnrollList(courseMentorOnline[0]); else notEnrollCourse">
+                  <!-- LOADING ENROLLED STATE -->
+                  <ng-container *ngIf="loadingEnrollCourse; else defaultBtn">
+                    <button class="course-sidebar__purchase-section-container-buy-box__container-add-to-cart">
+                      <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+                    </button>
+                  </ng-container>
+                  <!-- DEFAULT STATE -->
+                  <ng-template #defaultBtn>
+                    <button (click)="handleEnrollCourse(courseMentorOnline[0])"
+                      class="course-sidebar__purchase-section-container-buy-box__container-add-to-cart">
+                      <p>Học ngay</p>
+                    </button>
+                  </ng-template>
+
+                </ng-container>
+
+                <!-- IF COURSE IS NOT ENROLLED -->
+                <ng-template #notEnrollCourse>
+                  <!-- COURSE INSIDE CART -->
+                  <ng-container *ngIf="isExistedCourseInsideCart; else defaultCourse">
+                    <button (click)="handleRemoveCourseFromCart()"
+                      class="course-sidebar__purchase-section-container-buy-box__container-add-to-cart"
+                      [ngClass]="loadingEnrollCourse ? 'disable' : ''">
+                      <p>Bỏ khỏi giỏ hàng</p>
+                    </button>
+                  </ng-container>
+                  <!-- COURSE NOT INSIDE CART -->
+                  <ng-template #defaultCourse>
+                    <button (click)="handleAddToCart(courseMentorOnline[0])"
+                      class="course-sidebar__purchase-section-container-buy-box__container-add-to-cart"
+                      [ngClass]="loadingEnrollCourse ? 'disable' : ''">
+                      <p>Thêm vào giỏ hàng</p>
+                    </button>
+                  </ng-template>
+                </ng-template>
+
+                <!-- COURSE IN WISHLIST -->
+                <ng-container *ngIf="checkCourseInWishList(); else notInWishList">
+                  <button [ngClass]="loadingEnrollCourse ? 'disable' : ''" [ngStyle]="{ width: '20%' }" type="button"
+                    (click)="removeCourseInWishList()"
+                    class="course-sidebar__purchase-section-container-buy-box__container-remove-from-wishlist">
+                    <i
+                      class="pi pi-heart-fill course-sidebar__purchase-section-container-buy-box__container-remove-from-wishlist-icon"></i>
+                  </button>
+                </ng-container>
+
+                <!-- COURSE NOT IN WISHLIST -->
+                <ng-template #notInWishList>
+                  <button [ngClass]="loadingEnrollCourse ? 'disable' : ''" [ngStyle]="{ width: '20%' }" type="button"
+                    (click)="addCourseInWishList()"
+                    class="course-sidebar__purchase-section-container-buy-box__container-add-to-wishlist">
+                    <i
+                      class="pi pi-heart course-sidebar__purchase-section-container-buy-box__container-remove-from-wishlist-icon"></i>
+                  </button>
+                </ng-template>
+              </ng-template>
+            </div>
+
+            <!-- LOADING ENROLL COURSE STATE -->
+            <ng-container *ngIf="loadingEnrollCourse; else defaultBtn">
+              <button *ngIf="!checkCourseInEnrollList(courseMentorOnline[0])"
+                class="course-sidebar__purchase-section-container-buy-box-buy-now">
+                <p-progressSpinner styleClass="w-4rem h-4rem" strokeWidth="8" animationDuration=".5s" />
+              </button>
+            </ng-container>
+
+            <!-- DEFAULT ENROLL COURSE STATE -->
+            <ng-template #defaultBtn>
+              <button *ngIf="!checkCourseInEnrollList(courseMentorOnline[0])"
+                (click)="handleBuyCourse(courseMentorOnline[0])"
+                class="course-sidebar__purchase-section-container-buy-box-buy-now">
+                <p>Mua ngay</p>
+              </button>
+            </ng-template>
+          </ng-template>
+        </div>
+
+        <!-- <div class="course-sidebar__purchase-section-container-cta">
+          <button class="course-sidebar__purchase-section-container-cta-button">
+            <p>Yêu thích</p>
+          </button>
+          <button class="course-sidebar__purchase-section-container-cta-button">
+            <p>Chia sẻ</p>
+          </button>
+          <button class="course-sidebar__purchase-section-container-cta-button">
+            <p>Khuyến mãi</p>
+          </button>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Extra Package Section -->
+    <div class="course-sidebar__buy-extra-package">
+      <h2>Bạn Có Muốn Nâng Cao Kiến Thức?</h2>
+
+      <div class="course-sidebar__buy-extra-package-list-options">
+        <ng-container *ngFor="let item of courseMentorOffine; let i = index">
+          <div class="course-sidebar__buy-extra-package-list-options-item">
+            <h3 routerLinkActive="active" routerLink="/course-mentor/{{ item.course_id }}/{{ item.id }}">
+              <i class="pi pi-caret-right" style="color: green"></i>
+              [Gói {{ i + 1 }}] - {{ item._count?.mentor_session }} Buổi - {{ item.title }}
+            </h3>
+            <p>{{ item.description }}</p>
+            <span class="course-sidebar__buy-extra-package-list-options-item__amount">
+              <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+                style="width: 20px; height: 20px; margin-right: 0.1rem;"></lord-icon>
+              <span>{{ item.amount | number: '1.0-0' }} (đã bao gồm khoá học online)</span>
+            </span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loadingZone>
+    <div class="course-sidebar__introduction desktop-only">
+      <p-skeleton width="100%" height="150px" />
+    </div>
+    <div class="course-sidebar__purchase-section">
+      <p-skeleton styleClass="mb-2" />
+      <p-skeleton width="10rem" styleClass="mb-2" />
+      <p-skeleton width="5rem" styleClass="mb-2" />
+      <p-skeleton height="2rem" styleClass="mb-2" />
+    </div>
+  </ng-template>
+</div>

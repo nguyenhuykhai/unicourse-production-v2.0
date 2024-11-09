@@ -1,0 +1,88 @@
+<div class="comment-sidebar">
+
+    <!-- Header for mobile -->
+    <div class="comment-sidebar__header-mobile mobile-only">
+        <div class="comment-sidebar__header-mobile__notification">
+            <h3 class="comment-sidebar__header-mobile__notification-title">{{ comments?.length || 0 }} bình luận</h3>
+        </div>
+
+        <div (click)="closeDialogForMobile()" class="comment-sidebar__header-mobile__close">
+            <span class="pi pi-times"></span>
+        </div>
+    </div>
+
+    <!-- Input for new comment -->
+    <ng-container *ngIf="user">
+        <div class="comment-sidebar__header-container">
+            <p-avatar image="{{ user.profile_image }}" size="large" shape="circle"></p-avatar>
+    
+            <ng-container *ngIf="toggleEditor; else DisplayNormalInput">
+                <div class="comment-sidebar__header-container__edit-container">
+                    <editor class="comment-sidebar__header-container__edit-container__input" [(ngModel)]="editorContentComment"
+                        apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz" [init]="{
+                              plugins: 'lists link image table code help wordcount'
+                            }"></editor>
+    
+                    <div class="comment-sidebar__header-container__edit-container__group-btn">
+                        <p-button (click)="toggleEditorComment()" label="Hủy" [outlined]="true" />
+                        <p-button (click)="handleAddComment()" label="Bình luận" [raised]="true" />
+                    </div>
+                </div>
+            </ng-container>
+    
+            <ng-template #DisplayNormalInput>
+                <div class="comment-sidebar__header-container__toggle-edit" (click)="toggleEditorComment()">
+                    <p>Nhập bình luận của bạn...</p>
+                </div>
+            </ng-template>
+        </div>
+    </ng-container>
+
+    <!-- Comment List -->
+    <div class="comment-sidebar__list">
+        <ng-container *ngIf="comments && comments.length > 0; else emptyComments">
+            <div *ngFor="let item of comments" class="comment-sidebar__item">
+                <div class="comment-sidebar__item-header">
+                    <p-avatar routerLinkActive="active" routerLink="/profile/{{ item.user.id }}" [image]="item.user.profile_image" size="large" shape="circle"></p-avatar>
+                    <div routerLinkActive="active" routerLink="/profile/{{ item.user.id }}" class="comment-sidebar__item-header__user">{{ item.user.full_name }}</div>
+                </div>
+                <div class="comment-sidebar__item__content" [innerHTML]="sanitizeContent(item.content)"></div>
+                <div class="comment-sidebar__item__more-option">
+                    <div class="comment-sidebar__item__more-option__time">{{ publishedAtString(item.created_at) }}</div>
+                    <span (click)="toggleReportOverPlay($event, item)" class="pi pi-ellipsis-h comment-sidebar__item__more-option__report"></span>
+                </div>
+                <!-- Edit comment zone -->
+                <ng-container *ngIf="isEditComment && item.id === currentReportComment?.id">
+                    <div class="comment-sidebar__item__edit">
+                        <editor class="comment-sidebar__item__edit__input" [(ngModel)]="updateCommentContent"
+                            apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz" [init]="{
+                                  plugins: 'lists link image table code help wordcount'
+                                }"></editor>
+                        <div class="comment-sidebar__item__edit__group-btn">
+                            <p-button (click)="toggleEditComment(false)" label="Hủy" [outlined]="true" />
+                            <p-button (click)="handleEditComment()" label="Lưu" [raised]="true" />
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+        <ng-template #emptyComments>
+            <div class="comment-sidebar__empty">Chưa có bình luận nào</div>
+        </ng-template>
+    </div>
+</div>
+
+<!-- Group Overplay panel -->
+<p-overlayPanel #reportOverplay>
+    <ng-container *ngIf="reportType === 'USER_OWN_COMMENT'; else reportOverlayDefault">
+        <div class="overplay">
+            <div class="overplay__item" (click)="toggleEditComment(true)">Chỉnh sửa bình luận</div>
+            <div class="overplay__item" (click)="handleDeleteComment()">Xóa bình luận</div>
+        </div>
+    </ng-container>
+    <ng-template #reportOverlayDefault>
+        <div class="overplay">
+            <div class="overplay__item" (click)="handleReportComment()">Báo cáo bình luận</div>
+        </div>
+    </ng-template>
+</p-overlayPanel>

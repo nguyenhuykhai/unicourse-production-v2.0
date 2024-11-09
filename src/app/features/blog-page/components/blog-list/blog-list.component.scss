@@ -1,0 +1,77 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.blog-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    &__post {
+        flex: 1 1 30%;
+        display: flex;
+        flex-direction: column;
+        max-width: 30%;
+
+        &__image {
+            width: 100%;
+            height: 20rem;
+            border-radius: 8px;
+            cursor: pointer;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: fill;
+            }
+        }
+
+        &__content {
+            &__author {
+                padding: 2% 0;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                &__meta {
+                    font-size: $font-size-sm;
+                    font-weight: $font-weight-semibold;
+                    color: $text-black;
+                    margin: 0;
+                }
+            }
+
+            &__title {
+                color: $text-black;
+                font-size: $font-size-xl;
+                font-weight: $font-weight-bold;
+                line-height: $font-size-4xl;
+                padding-bottom: 1%;
+                margin: 0;
+                cursor: pointer;
+            }
+
+            &__subTitle {
+                font-size: $font-size-sm;
+                color: $text-black;
+                line-height: $line-height-md;
+                margin: 0;
+                padding-bottom: 1%;
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 50ch; // Set a maximum width, using 'ch' to approximately match the character count
+            }
+
+            &__tag-group {
+                display: flex;
+                gap: 0.5rem;
+            }
+        }
+    }
+
+    @media (max-width: 599px) {
+        &__post {
+            flex: 1 1 100%;
+            max-width: 100%;
+        }
+    }
+}

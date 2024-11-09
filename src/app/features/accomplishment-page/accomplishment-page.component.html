@@ -1,0 +1,56 @@
+<div class="accomplishment">
+    <div class="accomplishment__header">
+        <h1 class="accomplishment__title">Chứng nhận của tôi</h1>
+        <p class="accomplishment__subtitle">
+            "Hãy xem những chứng nhận mà tôi đã đạt được trong quá trình học tập và làm việc của mình"
+        </p>
+    </div>
+
+    <div class="accomplishment__content">
+        <ng-container *ngIf="!blockedUI; else loading">
+            <ng-container *ngIf="user && user.certificate && user.certificate.length > 0; else emptyCertificate">
+                <div class="accomplishment__content-item" *ngFor="let accomplishment of user?.certificate">
+                    <!-- Icon certificate -->
+                     <div class="accomplishment__content-item-icon">
+                         <img
+                             src="https://firebasestorage.googleapis.com/v0/b/unicourse-f4020.appspot.com/o/Course%2Fcert-specialization.png?alt=media&token=b1f5f577-dd00-4765-a0b2-264477b90055"
+                             alt="Certificate"/>
+                     </div>
+        
+                    <!-- Course info -->
+                    <div class="accomplishment__content-item-info">
+                        <!-- Course name -->
+                        <h3 class="accomplishment__content-item-info-title">{{ accomplishment.title }}</h3>
+                        <!-- Issued -->
+                        <p class="accomplishment__content-item-info-issued"><strong>Ngày cấp:&nbsp;</strong>{{ accomplishment.issued_date | date: 'dd/MM/yyyy' }}</p>
+                    </div>
+        
+                    <!-- Group Button -->
+                     <div class="accomplishment__content-item-btn">
+                        <p-button class="accomplishment__content-item-btn desktop-only" label="Tải chứng nhận" (click)="openLink(accomplishment.certification_url)"/>
+                        <p-button class="accomplishment__content-item-btn mobile-only" icon="pi pi-download" (click)="openLink(accomplishment.certification_url)"/>
+                     </div>
+                </div>
+            </ng-container>
+            <ng-template #emptyCertificate>
+                <div class="accomplishment__content-empty">
+                    <img src="assets/images/accomplishment/empty-box.svg" alt="Empty certificate"/>
+                    <p class="accomplishment__content-empty__title">Chưa có chứng nhận nào, hãy bắt đầu học ngay để nhận chứng nhận từ Unicourse</p>
+                    <p-button routerLinkActive="active" routerLink="/" label="Bắt đầu ngay" icon="pi pi-arrow-right" [raised]="true" iconPos="right" />
+                </div>
+            </ng-template>
+        </ng-container>
+
+        <ng-template #loading>
+            <div class="accomplishment__content-item" *ngFor="let item of [1,2,3]">
+                <div class="flex">
+                    <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                    <div style="flex: 1">
+                        <p-skeleton width="100%" styleClass="mb-2" />
+                        <p-skeleton width="75%" />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+</div>

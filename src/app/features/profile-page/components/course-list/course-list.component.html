@@ -1,0 +1,12 @@
+<div class="course-list">
+  <div class="course-list__course" *ngFor="let item of enrolledCourses">
+    <img routerLink="/courses/{{ item.course_mentor.course?.id }}" routerLinkActive="active"
+      class="course-list__course-image" [src]="item.course_mentor.image"
+      alt="{{ item.course_mentor.title }}" />
+    <div class="course-list__course-content">
+      <h3 routerLink="/courses/{{ item.course_mentor.course?.id }}" class="course-list__course-content-title">{{
+        item.course_mentor.title }}</h3>
+      <p class="course-list__course-content-description">{{ item.course_mentor.description }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,138 @@
+<footer class="footer">
+  <!-- Cụm phần tử đầu -->
+  <div class="footer__group_one">
+    <div class="footer__contact">
+      <img routerLinkActive="active" routerLink="/" class="footer__contact-logo" [ngStyle]="{ cursor: 'pointer' }" src="{{ LOGO_FOOTER }}" alt="logo" />
+      <a class="footer__contact-phone" [ngStyle]="{ cursor: 'pointer' }" href="tel:0942.833.463">094 283 34 63</a>
+      <a class="footer__contact-email" [ngStyle]="{ cursor: 'pointer' }" href="mailto:unicourse.learningplatform@gmail.com">
+        unicourse.learningplatform&#64;gmail.com
+      </a>
+      <p class="footer__contact-address">
+        Số 1/2G Ấp Tiền Lân, Xã Bà Điểm, Huyện Hóc Môn, Thành phố Hồ Chí Minh, Việt Nam
+      </p>
+    </div>
+
+    <div class="footer__section">
+      <h2 class="footer__section-title">Khóa học</h2>
+      <p class="footer__section-item">Khóa theo chuyên ngành</p>
+      <p class="footer__section-item">Khóa học miễn phí</p>
+      <p class="footer__section-item">Quiz sau mỗi khóa học</p>
+    </div>
+
+    <div class="footer__section">
+      <h2 class="footer__section-title">Cộng đồng</h2>
+      <p class="footer__section-item">Học viên</p>
+      <p class="footer__section-item">Giảng viên</p>
+      <p class="footer__section-item">Chat Room</p>
+      <p class="footer__section-item">Blog</p>
+    </div>
+
+    <div class="footer__section">
+      <h2 class="footer__section-title">Quick links</h2>
+      <p class="footer__section-item">Trang chủ</p>
+      <p class="footer__section-item">Bài viết</p>
+      <p class="footer__section-item">Khóa học</p>
+      <p class="footer__section-item">Cộng đồng IT</p>
+    </div>
+
+    <div class="footer__section">
+      <h2 class="footer__section-title">More</h2>
+      <p class="footer__section-item">Ủng hộ Unicourse</p>
+      <p class="footer__section-item">Chính sách</p>
+      <p class="footer__section-item">Hỗ trợ</p>
+      <p class="footer__section-item">
+        Lĩnh vực: Công nghệ, giáo dục, lập trình.
+      </p>
+    </div>
+  </div>
+
+  <!-- Cụm phần tử thứ 2 -->
+  <div class="footer__group_two">
+    <div class="footer__payment">
+      <div class="footer__payment-group">
+        <div class="footer__payment-group-one">
+          <h2 class="footer__payment-group-one-title">Thanh toán</h2>
+          <div class="footer__payment-group-one-methods">
+            <img
+              class="footer__payment-group-one-logo"
+              src="assets/icons/payment/VietQR_Logo.webp"
+              alt="vietqr_logo"
+            />
+            <img
+              class="footer__payment-group-one-customize-logo"
+              src="assets/icons/payment/Apple_Pay-White-Logo.wine.svg"
+              alt="apple_pay_logo"
+            />
+            <img
+              class="footer__payment-group-one-customize-logo"
+              src="assets/icons/payment/google-pay-primary-logo-logo-svgrepo-com.svg"
+              alt="apple_pay_logo"
+            />
+          </div>
+        </div>
+        <div class="footer__payment-group-two">
+          <div class="footer__payment-group-two-methods">
+            <img (click)="openLink('https://apps.apple.com/vn/app/unicourse/id6736771264')"
+              class="footer__payment-group-two-download-apple-store-logo"
+              src="assets/icons/download/Download_on_the_App_Store_Badge.svg"
+              alt="download-apple_store-badge"
+            />
+            <img (click)="showDialog()"
+              class="footer__payment-group-two-download-google-play-logo"
+              src="assets/icons/download/google-play-badge-logo-svgrepo-com.svg"
+              alt="download-goole_play-badge"
+            />
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Cụm phần tử thứ 3 -->
+  <div class="footer__group_three">
+    <div class="footer__headquarters">
+      <h2 class="footer__headquarters-title">TRỤ SỞ CHÍNH</h2>
+      <p class="footer__headquarters-address">
+        Số 1/2G Ấp Tiền Lân, Xã Bà Điểm, Huyện Hóc Môn, Thành phố Hồ Chí Minh, Việt Nam
+      </p>
+    </div>
+  </div>
+
+  <!-- Cụm phần tử thứ 4 -->
+  <div class="footer__group_four">
+    <div class="footer__legal">
+      <p class="footer__legal-text">
+        ©2024 Unicourse.co là nền tảng giáo dục xây dựng bởi nhóm sinh viên FPT
+        <br />
+        Sử dụng nội dung ở trang này và dịch vụ tại
+        <a class="footer__legal-link">Unicourse</a>
+        có nghĩa là bạn đồng ý với
+        <a routerLink="/policy" routerLinkActive="active" class="footer__legal-link">Thỏa thuận sử dụng</a>
+        và
+        <a routerLink="/policy" routerLinkActive="active" class="footer__legal-link">Chính sách bảo mật</a>
+        của chúng tôi.
+      </p>
+      <!-- Social -->
+      <div class="footer__social">
+        <a (click)="openLink('https://www.facebook.com/profile.php?id=61559287804624')">
+          <lord-icon
+            src="https://cdn.lordicon.com/tvdywkru.json"
+            trigger="hover"
+            style="width: 50px; height: 50px; cursor: pointer;"
+          >
+          </lord-icon>
+        </a>
+
+        <a (click)="openLink('https://www.tiktok.com/@_unicourse')">
+          <lord-icon
+            src="https://cdn.lordicon.com/njdhzovn.json"
+            trigger="hover"
+            style="width: 50px; height: 50px; cursor: pointer;"
+          >
+          </lord-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

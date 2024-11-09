@@ -1,0 +1,103 @@
+<div #landingPage class="course-detail__landing-page">
+  <ng-container *ngIf="!blockedUI; else loading">
+    <div class="course-detail__landing-page-what-will-you-learn">
+      <h3>Bạn sẽ học được gì?</h3>
+
+      <div class="course-detail__landing-page-what-will-you-learn-list">
+        <ng-container *ngFor="let item of course?.learning_outcome; let i = index">
+          <div class="course-detail__landing-page-what-will-you-learn-list-item">
+            <i class="pi pi-check" style="font-size: 1rem"></i>
+            <p>{{ item }}</p>
+          </div>
+        </ng-container>
+      </div>
+
+      <div id="targetDiv" class="course-detail__landing-page-course-content">
+        <h3 class="course-detail__landing-page-course-content-header">
+          Nội dung khoá học
+        </h3>
+
+        <div class="course-detail__landing-page-course-content-sub-header">
+          <p>{{ chapterObject.chapters.length + 1 }} chương • {{ chapterObject.totalLesson }} bài học</p>
+        </div>
+
+        <p-accordion class="course-detail__landing-page-course-content-section w-full" expandIcon="pi pi-plus"
+          collapseIcon="pi pi-minus">
+          <ng-container *ngFor="let item of chapterObject.chapters; let i = index">
+            <p-accordionTab>
+              <ng-template pTemplate="header">
+                <span
+                  class="course-detail__landing-page-course-content-section-header flex align-items-center justify-content-between gap-2 w-full">
+                  <span class="text-md course-detail__landing-page-course-content-section-header__title">{{ item.title
+                    }}</span>
+                  <p class="course-detail__landing-page-course-content-section-header__lesson">{{ item.topic.length }}
+                    bài học</p>
+                </span>
+              </ng-template>
+
+              <ng-container *ngFor="let element of item.topic">
+                <div class="course-detail__landing-page-course-content-section-content">
+                  <div class="course-detail__landing-page-course-content-section-content-item">
+                    <!-- START ELEMENNT TOPIC TYPE -->
+                    <div class="course-detail__landing-page-course-content-section-content-item-first">
+                      <ng-container *ngIf="element.element_topic?.video_id !== null">
+                        <i class="pi pi-video" style="font-size: 1rem"></i>
+                      </ng-container>
+                      <ng-container *ngIf="element.element_topic?.question_bank_id !== null">
+                        <i class="pi pi-question-circle" style="font-size: 1rem"></i>
+                      </ng-container>
+                      <ng-container *ngIf="element.element_topic?.document_id !== null">
+                        <i class="pi pi-book" style="font-size: 1rem"></i>
+                      </ng-container>
+                      <p class="course-detail__landing-page-course-content-section-content-item-first__text">{{
+                        element.title }}</p>
+                    </div>
+                    <div class="course-detail__landing-page-course-content-section-content-item-last">
+                      <a *ngIf="element.element_topic?.video" (click)="showDialog(element.element_topic?.video)">(Xem
+                        trước)</a>
+                    </div>
+                    <!-- END ELEMENNT TOPIC TYPE -->
+                  </div>
+                </div>
+              </ng-container>
+            </p-accordionTab>
+          </ng-container>
+        </p-accordion>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <div class="course-detail__landing-page-what-will-you-learn">
+      <ul class="m-0 p-0 list-none">
+        <li *ngFor="let item of [1,2,3,4]" class="mb-3">
+          <div class="flex">
+            <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+            <div style="flex: 1">
+              <p-skeleton width="100%" styleClass="mb-2" />
+              <p-skeleton width="75%" />
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <p-dialog *ngIf="course !== undefined" header="{{ course.title }}" [modal]="true" [(visible)]="visible"
+    [style]="{ width: '60vw', background: '#fff'}" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <ng-template pTemplate="headless">
+      <div class="youtube-container">
+        <div class="youtube-container__header">
+          <h4 class="youtube-container__header-title">{{ course.title }}</h4>
+          <span class="youtube-container__header-close">
+            <button pButton type="button" icon="pi pi-times" severity="secondary"
+              class="p-button-text youtube-container__header-close-btn" (click)="visible = false"></button>
+          </span>
+        </div>
+        <div class="youtube-container__video-wrapper">
+          <iframe class="youtube-container__video" [src]="videoUrl" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>

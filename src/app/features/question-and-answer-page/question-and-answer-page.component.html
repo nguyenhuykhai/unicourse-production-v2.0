@@ -1,0 +1,25 @@
+<div class="question-and-answer">
+    <div class="question-and-answer__header">
+        <h1 class="question-and-answer__title">Câu hỏi thường gặp</h1>
+        <p class="question-and-answer__subtitle">
+            "Chúng tôi luôn vui lòng được hỗ trợ bạn tốt nhất"
+        </p>
+    </div>
+
+    <div class="question-and-answer__content">
+        <div class="faq">
+            <div class="faq__questions">
+                <ng-container *ngIf="blogs; else loading">
+                    <div (click)="setCurrentBlog(item)" *ngFor="let item of blogs.data" class="faq__question"
+                    [ngClass]="{ active: currentBlog?.id  === item.id }">{{ item.title }}</div>
+                </ng-container>
+                <ng-template #loading>
+                    <p>Loading...</p>
+                </ng-template>
+            </div>
+            <div class="faq__answers">
+                <div class="faq__answer" [innerHTML]="sanitizeContent(currentBlog?.content)"></div>
+            </div>
+        </div>
+    </div>
+</div>

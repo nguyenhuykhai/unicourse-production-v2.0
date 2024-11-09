@@ -1,0 +1,115 @@
+$main_color: #003a8c;
+
+.section-background {
+  &__container {
+    margin-top: 2%;
+    padding: 0% 10%;
+
+    h3 {
+      color: $main_color;
+      font-size: 2rem;
+    }
+
+    h4 {
+      font-size: 2rem;
+      margin: 0;
+      max-width: 50rem;
+      font-weight: 600;
+    }
+    &-mission {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      &-item {
+        border: 1px solid $main_color;
+        padding: 30px 40px;
+        border-radius: 25px;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        p {
+          font-size: 24px;
+          text-align: center;
+          font-weight: 600;
+          color: $main_color;
+          margin: 0;
+        }
+        &-icon {
+          width: 50px;
+          svg {
+            fill: $main_color;
+          }
+        }
+        p:nth-child(3) {
+          font-size: 1rem;
+          color: gray;
+        }
+
+        &:hover {
+          background-color: $main_color;
+          p {
+            color: white;
+          }
+          svg {
+            fill: white !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+@media (max-width: 599px) {
+  .section-background {
+    &__container {
+      &-mission {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+  }
+}
+
+
+/*
+*************************************************
+Style Web responsive (ipad - tablet) 768px
+*************************************************
+*/
+@media (max-width: 768px) {
+  .section-background {
+    &__container {
+      padding: 0% 5%; 
+      h3 {
+        font-size: 1.75rem; 
+      }
+      h4 {
+        font-size: 1.75rem;
+      }
+
+      &-mission {
+        grid-template-columns: repeat(2, 1fr); 
+        gap: 1.5rem; 
+        &-item {
+          padding: 20px 30px;
+          p {
+            font-size: 22px;
+          }
+          &-icon {
+            width: 40px;
+          }
+          p:nth-child(3) {
+            font-size: 0.9rem; 
+          }
+        }
+      }
+    }
+  }
+}

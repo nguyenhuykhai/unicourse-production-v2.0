@@ -1,0 +1,16 @@
+<section class="course-mentor-detail">
+    <p-card>
+        <ng-template pTemplate="header">
+            <!-- Header course: Title Course, Mentor Info -->
+             <app-course-mentor-detail-header [blockedUI]="blockedUI" [enrollCourseDetail]="enrollCourseDetail"></app-course-mentor-detail-header>
+        </ng-template>
+    
+        <section class="course-mentor-detail__section-one">
+            <!-- Course information: Course duration (start date, end date), participants -->
+            <app-course-mentor-detail-info class="course-mentor-detail__section-one__info-container" [blockedUI]="blockedUI" [enrollCourseDetail]="enrollCourseDetail"></app-course-mentor-detail-info>
+        
+            <!-- Center information: google map view, address -->
+            <app-course-mentor-detail-center-info class="course-mentor-detail__section-one__center-container" [blockedUI]="blockedUI" [enrollCourseDetail]="enrollCourseDetail"></app-course-mentor-detail-center-info>
+        </section>
+    </p-card>
+</section>

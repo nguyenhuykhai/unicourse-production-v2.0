@@ -1,0 +1,239 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/font_variables";
+@import "../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../styles/mixins"; // Import mixin
+
+$color: #d9d9d9;
+
+.footer {
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  padding: 5% 5%;
+
+  &__group_one {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+
+    &-logo {
+      width: 10rem;
+      margin-bottom: 10px;
+    }
+
+    &-phone,
+    &-email,
+    &-address {
+      margin: 5px 0;
+      color: $color;
+    }
+
+    &-phone,
+    &-email {
+      text-decoration: none;
+
+      &:hover {
+        color: $background-white;
+        transition: 0.5s ease;
+      }
+    }
+  }
+
+  &__section {
+    &-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    &-item {
+      font-size: 1rem;
+      margin: 5px 0;
+      color: $color;
+    }
+  }
+
+  &__payment {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+
+    &-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      &-one,
+      &-two {
+        &-title {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 10px;
+          color: white;
+        }
+
+        &-methods {
+          align-items: center;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+      }
+
+      &-one {
+        &-logo {
+          height: 3rem;
+        }
+
+        &-customize-logo {
+          height: 6rem;
+        }
+      }
+
+      &-two {
+        &-download-apple-store-logo {
+          height: 3rem;
+          cursor: pointer;
+        }
+
+        &-download-google-play-logo {
+          height: 10rem;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  &__headquarters {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+
+    &-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    &-address {
+      font-size: 1rem;
+      color: $color;
+    }
+  }
+
+  &__legal {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    &-text {
+      font-size: 1rem;
+      color: $color;
+    }
+
+    &-link {
+      color: #1c80cf;
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:hover {
+        color: darkblue;
+      }
+    }
+  }
+
+  &__social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    a {
+      display: block;
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .footer {
+    padding: 5% 5% 30% 5%;
+
+    &__group_one {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__payment {
+      &-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        &-one {
+            &-logo {
+              height: 2rem;
+            }
+        
+            &-customize-logo {
+              height: 4rem;
+            }
+          }
+  
+        &-two {
+          &-download-apple-store-logo {
+            height: 2rem;
+          }
+  
+          &-download-google-play-logo {
+            height: 6.5rem;
+          }
+        }
+      }
+    }
+
+    &__legal {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: self-start;
+    }
+  }
+}
+
+@include respond-to(md) {
+}
+
+@include respond-to(sm) {
+}
+
+@include respond-to(xs) {
+}
+
+@include respond-to(xxs) {
+}

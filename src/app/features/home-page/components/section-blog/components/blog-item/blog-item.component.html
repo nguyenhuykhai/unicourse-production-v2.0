@@ -1,0 +1,19 @@
+<a class="blogs-item" [routerLink]="['/blog', dataBlog?.id]">
+  <img
+    class="blogs-item__img"
+    src="{{ dataBlog?.thumbnail_url }}"
+    alt="{{ dataBlog?.title }}"
+  />
+
+  <div class="blogs-item__des">
+    <h5>{{ dataBlog?.title }}</h5>
+
+    <p class="blogs-item__des-datetime">
+      {{ dataBlog?.created_at | date : "mm:HH | dd/MM/yyyy" }}
+    </p>
+
+    <p class="blogs-item__des-description">
+      {{ dataBlog?.description | slice : 0 : 70 }}...
+    </p>
+  </div>
+</a>

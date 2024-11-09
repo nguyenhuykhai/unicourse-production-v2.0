@@ -1,0 +1,73 @@
+<!-- login.component.html -->
+<div class="login">
+  <p-dialog [(visible)]="visibleSignInDialog" [modal]="true" [closable]="false">
+    <div class="login__container">
+      <div class="login__logo">
+        <img src="{{ LOGO }}" alt="logo" />
+        <p class="login__logo login__logo-title">Đăng nhập vào Unicourse</p>
+        <span class="login__logo login__logo-subtitle"
+          >Lưu ý rằng không được chia sẻ tài khoản của bạn với người khác, nếu
+          phát hiện sẽ bị khóa tài khoản.
+        </span>
+      </div>
+
+      <ng-container *ngIf="mode === 'DEFAULT_LOGIN_MODE';else formLoginMode">
+        <div class="login__options">
+          <button (click)="tryGoogleLogin()" class="login__button login__button--google">
+            Đăng nhập với Google
+          </button>
+          <button (click)="changeMode('FORM_SIGN_IN_MODE')" class="login__button login__button--google">
+            Đăng nhập với tài khoản
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #formLoginMode>
+        <div class="login__options">
+          <!-- FORM SIGNIN -->
+          <div class="login__options-username">
+            <label for="username">Tài khoản</label>
+            <input pInputText id="username" aria-describedby="username-help" [(ngModel)]="account.username"
+            [ngClass]="{'ng-invalid ng-dirty': account.username_error}"
+            (change)="isFieldInvalid(account.username, 'USERNAME')"/>
+            <small id="username-help">
+              {{ account.username_error }}
+            </small>
+          </div>
+          <div class="login__options-password">
+            <label for="username">Mật khẩu</label>
+            <p-password id="password" [toggleMask]="true" aria-describedby="password-help" [(ngModel)]="account.password"
+            [ngClass]="{'ng-invalid ng-dirty': account.password_error}"
+            (change)="isFieldInvalid(account.password, 'PASSWORD')"/>
+            <small id="password-help">
+              {{ account.password_error }}
+            </small>
+          </div>
+
+          <!-- BUTTON SIGNIN -->
+          <button class="login__button login-signIn" (click)="trySignIn()"
+          [ngClass]="{'disable': account.username_error || account.password_error || !account.password || !account.username}">
+            Đăng nhập
+          </button>
+        </div>
+      </ng-template>
+
+      <div class="login__terms">
+        <p>
+          Việc bạn tiếp tục sử dụng trang web này đồng nghĩa bạn đồng ý với
+          <a href="#">điều khoản sử dụng</a> của chúng tôi.
+        </p>
+      </div>
+
+      <p-button
+        class="login__close"
+        icon="pi pi-times"
+        [rounded]="true"
+        severity="secondary"
+        [outlined]="true"
+        (click)="hideSignInDialog()"
+      />
+
+      <p-button *ngIf="mode !== 'DEFAULT_LOGIN_MODE'" (click)="changeMode('DEFAULT_LOGIN_MODE')" [link]="true" class="login__back" label="Quay lại" [plain]="true" icon="pi pi-angle-left" />
+    </div>
+  </p-dialog>
+</div>

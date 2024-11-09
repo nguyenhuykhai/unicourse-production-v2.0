@@ -1,0 +1,349 @@
+<header class="header">
+  <!-- Cụm phần thứ 1: Logo - Search -->
+  <div class="header__group_one">
+    <img class="header__logo" src="{{ LOGO }}" alt="logo" routerLink="/" />
+
+    <!-- Search -->
+    <div class="header__group_one-search">
+      <p-iconField iconPosition="left">
+        <p-inputIcon>
+          <lord-icon class="icon-search" src="https://cdn.lordicon.com/jtkfemwz.json" trigger="hover"
+            style="width: 20px; height: 20px">
+          </lord-icon>
+        </p-inputIcon>
+        <input class="header__group_one-search__input" type="text" pInputText placeholder="Tìm kiếm khóa học..."
+          (input)="toggleOverlayForSearch($event)" [(ngModel)]="searchText" />
+      </p-iconField>
+    </div>
+  </div>
+
+  <!-- Cụm phần thứ 2: Navigate - Button - Avt -->
+  <div class="header__group_two">
+    <nav class="header__navigate">
+      <p class="header__navigate-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/">
+        Trang chủ
+      </p>
+      <p class="header__navigate-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+        routerLink="/about-us">
+        Về Unicourse
+      </p>
+      <p class="header__navigate-item" routerLink="/contact" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Liên hệ
+      </p>
+      <!-- <p class="header__navigate-item" routerLink="/recruitment" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Tuyển dụng
+      </p> -->
+      <p class="header__navigate-item" routerLink="/policy" routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Chính sách
+      </p>
+    </nav>
+  </div>
+
+  <!-- Cụm phần thứ 3: Search - Cart - Avatar -->
+  <div class="header__group_three">
+    <ng-container *ngIf="user; else unLogin">
+      <!-- More Options -->
+      <lord-icon (click)="this.toggleDialog($event)" class="header__group_three-header__avatar-icon"
+        src="https://cdn.lordicon.com/rcgrnzji.json" trigger="hover" style="width: 2.5rem; height: 2.5rem"
+        severity="danger"></lord-icon>
+
+      <!-- Cart -->
+      <lord-icon (click)="redirecFromOverlayPanel('profile/{{user?.id}}/cart', true)"
+        class="header__group_three-header__avatar-icon" src="https://cdn.lordicon.com/guothkao.json" trigger="hover"
+        style="width: 2.5rem; height: 2.5rem" value="{{ lengthOfCartItems }}" severity="danger"></lord-icon>
+
+      <!-- Notification -->
+      <div *ngIf="user" (click)="toggleNotificationOverlay($event)" class="header__group_three__notification-container">
+         <div *ngIf="notifications && notifications.data && notifications.data.length > 0 && !allAsRead" class="header__group_three__notification-badge">
+           <span class="header__group_three__notification-badge-dot"></span>
+         </div>
+        <img src="assets/icons/layout-default/bell.svg" class="header__group_three__notification-image"
+          [ngStyle]="{ cursor: 'pointer' }"/>
+      </div>
+
+      <!-- Avatar -->
+      <p-avatar (click)="toggleOverlay($event)" [image]="user.profile_image"
+        class="header__group_three-header__avatar-image" [ngStyle]="{ cursor: 'pointer' }" size="normal"
+        shape="circle"></p-avatar>
+
+      <p-overlayPanel #op>
+        <div class="header__group_three-header__avatar-panel">
+          <!-- Avatar Info -->
+          <div class="header__group_three-header__avatar-info">
+            <img [ngStyle]="{ width: '3rem', height: '3rem', 'border-radius': '100%' }" [src]="user.profile_image"
+              class="header__group_three-header__avatar-info-image" />
+            <div class="header__group_three-header__avatar-info-text">
+              <p class="header__group_three-header__avatar-info-name">{{ user.full_name }}</p>
+              <span class="header__group_three-header__avatar-info-email">{{ user.email }}</span>
+            </div>
+          </div>
+
+          <!-- Points Section -->
+          <div class="header__group_three-header__points">
+            <div class="header__group_three-header__points-details">
+              <p class="header__group_three-header__points-label">Xu</p>
+              <div class="header__group_three-header__points-value">
+                <p class="header__group_three-header__points-value-amount">{{ user.wallet?.balance| number: '1.0-0' }}
+                </p>
+                <lord-icon src="https://cdn.lordicon.com/jtiihjyw.json" trigger="hover"
+                  style="width: 20px; height: 20px; margin-right: 0.1rem;"></lord-icon>
+              </div>
+            </div>
+            <button (click)="toggleOverlay($event)" routerLink="/wallet" routerLinkActive="active" type="button"
+              class="header__group_three-header__points-button">
+              Nạp xu tại đây
+            </button>
+          </div>
+
+          <!-- Profile -->
+          <div class="header__group_three-header__avatar-profile">
+            <p routerLinkActive="active" routerLink="/profile/{{user.id}}" (click)="this.toggleOverlay($event)"
+              class="header__group_three-header__avatar-profile-link">
+              Trang cá nhân
+            </p>
+
+            <p (click)="redirecFromOverlayPanel('calendar')" class="header__group_three-header__avatar-profile-link">
+              Lịch học của tôi
+            </p>
+
+            <p (click)="redirecFromOverlayPanel('my-courses')" class="header__group_three-header__avatar-profile-link">
+              Khóa học của tôi
+            </p>
+
+            <p (click)="redirecFromOverlayPanel('accomplishments')"
+              class="header__group_three-header__avatar-profile-link">
+              Chứng nhận của tôi
+            </p>
+          </div>
+
+          <!-- Blog -->
+          <div class="header__group_three-header__avatar-blog">
+            <p (click)="redirecFromOverlayPanel('blog')" class="header__group_three-header__avatar-blog-link">
+              Bài viết
+            </p>
+            <p (click)="redirecFromOverlayPanel('new-post')" class="header__group_three-header__avatar-blog-link">
+              Viết Blog
+            </p>
+          </div>
+
+          <!-- History Section -->
+          <div class="header__group_three-header__history">
+            <p (click)="redirecFromOverlayPanel('profile/{{user?.id}}/cart')"
+              class="header__group_three-header__history-link">
+              Giỏ hàng
+            </p>
+            <p (click)="redirecFromOverlayPanel('deposit')" class="header__group_three-header__history-link">
+              Lịch sử nhận xu
+            </p>
+            <p (click)="redirecFromOverlayPanel('transaction-history')"
+              class="header__group_three-header__history-link">
+              Lịch sử giao dịch
+            </p>
+          </div>
+
+          <!-- Settings -->
+          <div class="header__group_three-header__settings">
+            <p (click)="redirecFromOverlayPanel('setting/personal')" class="header__group_three-header__settings-link">
+              Cài đặt
+            </p>
+            <p (click)="this.logout()" class="header__group_three-header__settings-link">
+              Đăng xuất
+            </p>
+          </div>
+        </div>
+      </p-overlayPanel>
+
+      <p-menu #menu [model]="items" [popup]="true"></p-menu>
+    </ng-container>
+    <ng-template #unLogin>
+      <!-- More Options -->
+      <lord-icon (click)="this.toggleDialog($event)" src="https://cdn.lordicon.com/rcgrnzji.json" trigger="hover"
+        style="width: 2.5rem; height: 2.5rem; cursor: pointer" severity="danger"></lord-icon>
+
+      <button (click)="turnOnSignInDialog()" class="header__group_three-header__login-button">
+        Đăng nhập
+      </button>
+    </ng-template>
+
+
+  </div>
+</header>
+
+<!-- ************************************************* -->
+<!-- Giao diện Header cho phần Web responsive (mobile) -->
+<!-- ************************************************* -->
+
+<header class="header_mobile" [ngStyle]="{ display: 'none' }">
+  <!-- Cụm phần tử thứ 1 -->
+  <div class="header_mobile__group_one">
+    <img class="header_mobile__logo" src="{{ LOGO }}" alt="logo" routerLink="/" />
+
+    <div class="header_mobile__search">
+      <p-iconField iconPosition="left">
+        <p-inputIcon styleClass="pi pi-search" />
+        <input class="header__search-input" type="text" pInputText placeholder="Tìm kiếm..."
+          (input)="toggleOverlayForSearch($event)" [(ngModel)]="searchText" />
+      </p-iconField>
+    </div>
+
+    <!-- AVT - BTN -->
+    <div class="header_mobile__login_avt">
+      <ng-container *ngIf="user; else unLogin">
+        <!-- More Options -->
+        <lord-icon (click)="this.toggleDialog($event)" class="header__group_three-header__avatar-icon"
+          src="https://cdn.lordicon.com/rcgrnzji.json" trigger="hover" style="width: 2.5rem; height: 2.5rem"
+          severity="danger"></lord-icon>
+
+        <!-- Cart -->
+        <lord-icon (click)="redirecFromOverlayPanel('profile/{{user?.id}}/cart', true)"
+          class="header__group_three-header__avatar-icon" src="https://cdn.lordicon.com/guothkao.json" trigger="hover"
+          style="width: 2.5rem; height: 2.5rem; margin: 0;" value="{{ lengthOfCartItems }}" severity="danger"></lord-icon>
+
+          <!-- Notification -->
+        <div *ngIf="user" (click)="toggleNotificationOverlay($event)" class="header__group_three__notification-container">
+          <div *ngIf="notifications && notifications.data && notifications.data.length > 0 && !allAsRead" class="header__group_three__notification-badge">
+            <span class="header__group_three__notification-badge-dot"></span>
+          </div>
+          <img src="assets/icons/layout-default/bell.svg" class="header__group_three__notification-image"
+          [ngStyle]="{ cursor: 'pointer' }"/>
+        </div>
+
+        <!-- Avatar -->
+        <p-avatar (click)="toggleOverlay($event)" [image]="user.profile_image"
+          class="header__group_three-header__avatar-image" [ngStyle]="{ cursor: 'pointer' }" size="normal"
+          shape="circle"></p-avatar>
+
+        <p-overlayPanel #op>
+          <div class="header__group_three-header__avatar-panel">
+            <!-- Avatar Info -->
+            <div class="header__group_three-header__avatar-info">
+              <img [ngStyle]="{ width: '3rem', height: '3rem', 'border-radius': '100%' }" [src]="user.profile_image"
+                class="header__group_three-header__avatar-info-image" />
+              <div class="header__group_three-header__avatar-info-text">
+                <p class="header__group_three-header__avatar-info-name">{{ user.full_name }}</p>
+                <span class="header__group_three-header__avatar-info-email">{{ user.email }}</span>
+              </div>
+            </div>
+
+            <!-- Points Section -->
+            <div class="header__group_three-header__points">
+              <div class="header__group_three-header__points-details">
+                <p class="header__group_three-header__points-label">Xu</p>
+                <div class="header__group_three-header__points-value">
+                  <p class="header__group_three-header__points-value-amount">{{ 0 | number: '1.0-0' }}</p>
+                  <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+                    style="width: 20px; height: 20px; margin-left: 0.1rem;"></lord-icon>
+                </div>
+              </div>
+              <button (click)="toggleOverlay($event)" routerLink="/wallet" routerLinkActive="active" type="button"
+                class="header__group_three-header__points-button">
+                Nạp xu tại đây
+              </button>
+            </div>
+
+            <!-- Profile -->
+            <div class="header__group_three-header__avatar-profile">
+              <p routerLinkActive="active" routerLink="/profile/{{user.id}}" (click)="this.toggleOverlay($event)"
+                class="header__group_three-header__avatar-profile-link">
+                Trang cá nhân
+              </p>
+              <p (click)="redirecFromOverlayPanel('calendar')" class="header__group_three-header__avatar-profile-link">
+                Lịch học của tôi
+              </p>
+              <p (click)="redirecFromOverlayPanel('my-courses')"
+                class="header__group_three-header__avatar-profile-link">
+                Khóa học của tôi
+              </p>
+              <p (click)="redirecFromOverlayPanel('accomplishments')"
+                class="header__group_three-header__avatar-profile-link">
+                Chứng nhận của tôi
+              </p>
+            </div>
+
+            <!-- Blog -->
+            <div class="header__group_three-header__avatar-blog">
+              <p (click)="redirecFromOverlayPanel('blog')" class="header__group_three-header__avatar-blog-link">
+                Bài viết
+              </p>
+              <p (click)="redirecFromOverlayPanel('new-post')" class="header__group_three-header__avatar-blog-link">
+                Viết Blog
+              </p>
+            </div>
+
+            <!-- History Section -->
+            <div class="header__group_three-header__history">
+              <p (click)="redirecFromOverlayPanel('profile/{{user?.id}}/cart')"
+                class="header__group_three-header__history-link">
+                Giỏ hàng
+              </p>
+              <p (click)="redirecFromOverlayPanel('deposit')" class="header__group_three-header__history-link">
+                Lịch sử nhận xu
+              </p>
+              <p (click)="redirecFromOverlayPanel('transaction-history')"
+                class="header__group_three-header__history-link">
+                Lịch sử giao dịch
+              </p>
+            </div>
+
+            <!-- Settings -->
+            <div class="header__group_three-header__settings">
+              <p (click)="redirecFromOverlayPanel('setting/personal')"
+                class="header__group_three-header__settings-link">
+                Cài đặt
+              </p>
+              <p (click)="this.logout()" class="header__group_three-header__settings-link">
+                Đăng xuất
+              </p>
+            </div>
+          </div>
+        </p-overlayPanel>
+
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+      </ng-container>
+      <ng-template #unLogin>
+        <button (click)="turnOnSignInDialog()" class="header_mobile__login_avt-login">
+          Đăng nhập
+        </button>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Cụm phần tử thứ 2 -->
+  <div class="header_mobile__group_two">
+    <app-navigation></app-navigation>
+  </div>
+</header>
+
+<!-- ************************************************* -->
+<!-- Giao diện cho phần dialog-->
+<!-- ************************************************* -->
+
+<p-overlayPanel class="search-dialog" #searchDialog [dismissable]="true" [showCloseIcon]="false">
+  <ng-template pTemplate="content">
+    <app-search-dialog [loadingSearch]="loadingSearch" [searchText]="searchText" [dataSearch]="dataSearch"
+      (toggleSearch)="toggleOverlayFromChild($event)"></app-search-dialog>
+  </ng-template>
+</p-overlayPanel>
+
+<p-overlayPanel #moreOptionsDialog [dismissable]="true" [showCloseIcon]="false">
+  <div class="more-option" *ngFor="let item of moreOptions">
+    <div (click)="redirectToOptions(item.path)" class="more-option__item">
+      <lord-icon class="icon-search" [src]="item.iconString" trigger="hover"
+        style="width: 20px; height: 20px"></lord-icon>
+      <p class="more-option__item-name">{{ item.name }}</p>
+    </div>
+  </div>
+</p-overlayPanel>
+
+<!-- ************************************************* -->
+<!-- Giao diện cho phần notification-->
+<!-- ************************************************* -->
+<p-overlayPanel class="notification-overplay" #notificationOverPlay [dismissable]="true" [showCloseIcon]="false">
+  <ng-template pTemplate="content">
+    <app-notification (onMovePrevNotification)="handleMovePrevNotification()" (onMoveNextNotification)="handleMoveNextNotification()" (onMarkAllAsReaded)="handleOnMarkAllAsReaded()" [user]="user" [notifications]="notifications" [loadingNoti]="loadingNoti"></app-notification>
+  </ng-template>
+</p-overlayPanel>

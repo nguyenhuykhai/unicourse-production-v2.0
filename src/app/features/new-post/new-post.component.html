@@ -1,0 +1,66 @@
+<div class="blog-editor">
+    <p-toast [life]="3000"></p-toast>
+    <header class="blog-editor__header">
+        <div routerLink="/" class="blog-editor__header-left">
+            <div class="blog-editor__back-home">
+                <i class="pi pi-angle-left blog-editor__icon"></i>
+                <p class="blog-editor__text">QUAY LẠI</p>
+            </div>
+        </div>
+
+        <div class="blog-editor__header-right">
+            <ng-container *ngIf="blogPayload.content && blogPayload.title; else isPublishable">
+                <button pButton pRipple label="Xem trước" class="blog-editor__header-right__button--review"
+                    (click)="toggleReviewDialog()"></button>
+                <button pButton pRipple label="Xuất bản" class="blog-editor__header-right__button--publish"
+                    (click)="togglePublishDialog()"></button>
+            </ng-container>
+            <ng-template #isPublishable>
+                <button pButton pRipple label="Xem trước" class="blog-editor__header-right__button--review" [disabled]="true"></button>
+                <button pButton pRipple label="Xuất bản" class="blog-editor__header-right__button--publish" [disabled]="true"></button>
+            </ng-template>
+        </div>
+    </header>
+
+    <!-- Editor -->
+    <section class="blog-editor__content">
+        <div class="blog-editor__content-container">
+            <div class="blog-editor__content-container__column--left">
+                <input pInputText class="blog-editor__title" [(ngModel)]="blogPayload.title" type="text" placeholder="Tiêu đề" />
+
+                <editor class="blog-editor__editor" [(ngModel)]="blogPayload.content"
+                    apiKey="8oi2m4vzjnoj301r398iggki6v0ukdgpwavrr76kku9cnnpz"
+                    [init]="{ plugins: 'lists link image table code help wordcount' }"></editor>
+            </div>
+            <div class="blog-editor__content-container__column--right">
+                <h1 class="blog-editor__preview-title" *ngIf="blogPayload.title">{{ blogPayload.title }}</h1>
+                <div class="blog-editor__preview-content" *ngIf="blogPayload.content"
+                    [innerHTML]="sanitizeContent(blogPayload.content)"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Dialog -->
+    <p-dialog [(visible)]="displayDialog" header="Header" [dismissableMask]="true" [style]="{width: '90vw'}"
+        [transitionOptions]="'400ms'" modal="true" (onHide)="onDialogClose()">
+        <header class="blog-editor__dialog-header">
+            <p-button icon="pi pi-times" [rounded]="true" [text]="true" [outlined]="true" size="small"
+                severity="secondary" (click)="onDialogClose()" />
+        </header>
+
+        <section class="blog-editor__review-content">
+            <ng-container>
+                <h4 class="blog-editor__review-content__preview-title" *ngIf="blogPayload.title">{{ blogPayload.title }}</h4>
+                <div class="blog-editor__review-content__preview-content" *ngIf="blogPayload.content"
+                    [innerHTML]="sanitizeContent(blogPayload.content)">
+                </div>
+            </ng-container>
+        </section>
+    </p-dialog>
+
+    <!-- Publish Dialog -->
+    <p-dialog [(visible)]="publishDialog" header="Header" [dismissableMask]="true" [style]="{width: '90vw'}"
+        [transitionOptions]="'400ms'" modal="true" (onHide)="onPublishDialogClose()">
+        <app-publish-dialog (closeDialog)="onPublishDialogClose()" (data)="handleCreateBlog($event)" [blogPayload]="blogPayload" [categories]="categories"></app-publish-dialog>
+    </p-dialog>
+</div>

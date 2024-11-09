@@ -1,0 +1,147 @@
+@import "../../../styles/variables";
+@import "../../../styles/font_variables";
+@import "../../../styles/breakpoints"; // Import breakpoints
+@import "../../../styles/mixins"; // Import mixin
+
+.blog-page {
+    padding: 0 5%;
+    background-image: url('https://flowbite.s3.amazonaws.com/docs/jumbotron/hero-pattern.svg');
+
+    .desktop-only {
+        display: block;
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: 2rem;
+
+        &__title {
+            font-size: $font-size-7xl;
+            font-weight: $font-weight-extrabold;
+            color: $text-black;
+            margin-bottom: 10px;
+            line-height: 1;
+        }
+
+        &__description {
+            color: $text-gray-800;
+            font-style: italic;
+            line-height: $line-height-lg;
+            font-weight: $font-weight-semibold;
+            font-size: $font-size-xl;
+        }
+    }
+
+    &__featured-section {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 2rem;
+    }
+
+    &__all-posts {
+        &__title {
+            font-size: $font-size-3xl;
+            font-weight: $font-weight-semibold;
+            color: $text-black;
+        }
+    }
+
+    &__pagination {
+        width: 100%;
+        margin-top: 2rem;
+    }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+    .blog-page {
+        padding: 0 3%;
+
+        .desktop-only {
+            display: none;
+        }
+
+        &__header {
+            text-align: center;
+        }
+
+        &__featured-section {
+            flex-direction: column;
+        }
+    }
+}
+
+@include respond-to(md) {
+    .blog-page {
+        padding: 0 3%;
+
+        .desktop-only {
+            display: none;
+        }
+
+        &__header {
+            text-align: center;
+        }
+
+        &__featured-section {
+            flex-direction: column;
+        }
+    }
+}
+
+@include respond-to(sm) {
+    .blog-page {
+        padding: 0 3%;
+
+        .desktop-only {
+            display: none;
+        }
+
+        &__header {
+            text-align: center;
+        }
+
+        &__featured-section {
+            flex-direction: column;
+        }
+    }
+}
+
+@include respond-to(xs) {
+    .blog-page {
+        padding: 0 3%;
+
+        .desktop-only {
+            display: none;
+        }
+
+        &__header {
+            text-align: center;
+        }
+
+        &__featured-section {
+            flex-direction: column;
+        }
+    }
+}
+
+@include respond-to(xxs) {
+    .blog-page {
+        padding: 0 3%;
+
+        .desktop-only {
+            display: none;
+        }
+
+        &__header {
+            text-align: center;
+        }
+
+        &__featured-section {
+            flex-direction: column;
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<div class="course-page__footer">
+    <div class="course-page__footer__sidebar">
+        <p-sidebar #sidebarRef [(visible)]="sidebarVisible" [dismissible]="true">
+            <ng-template pTemplate="headless">
+                <div class="course-page__footer__sidebar__header">
+                    <p class="course-page__footer__sidebar__header-title">
+                        Nội dung khóa học
+                    </p>
+                    <span>
+                        <p-button (onClick)="toggleSidebar($event)" icon="pi pi-times" [rounded]="true" [text]="true"
+                            severity="secondary" />
+                    </span>
+                </div>
+                <app-p-sidebar
+                    (moveLesson)="handleMoveLesson($event)"
+                    [blocked]="blocked"
+                    [chapters]="chapters"
+                    [currentChapterId]="currentChapterId"
+                    [currentTopic]="currentTopic"
+                    [sidebarVisible]="sidebarVisible"
+                    class="course-page__footer__sidebar__body"></app-p-sidebar>
+            </ng-template>
+        </p-sidebar>
+        <ng-container *ngIf="!blocked; else loading">
+            <p-button (onClick)="toggleSidebar($event)" icon="pi pi-bars" [rounded]="true" [outlined]="true" />
+        </ng-container>
+        <ng-template #loading>
+            <p-button icon="pi pi-bars" [rounded]="true" [outlined]="true" />
+        </ng-template>
+    </div>
+    <button (click)="handleMoveNextOrPrevLesson('PREV')" class="course-page__footer-button course-page__footer-button--previous">
+        &lt; BÀI TRƯỚC
+    </button>
+    <button (click)="handleMoveNextOrPrevLesson('NEXT')" class="course-page__footer-button course-page__footer-button--next">
+        BÀI TIẾP &gt;
+    </button>
+</div>

@@ -1,0 +1,183 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+@import "../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../styles/mixins"; // Import mixin
+
+.search-dialog {
+    width: 28rem;
+    height: 100%;
+
+    &__section-header {
+        display: flex;
+        align-items: center;
+        padding-bottom: 1rem;
+
+        &__icon {
+            margin-right: 8px;
+        }
+
+        &__search {
+            width: 100%;
+            font-size: 14px;
+            color: $text-gray-700;
+            outline: none;
+        }
+    }
+
+    &__section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(0, 0, 0, .05);
+
+        &__text {
+            padding: 8px 0px;
+            font-size: 14px;
+            font-weight: $font-weight-semibold;
+            color: $text-gray-900;
+            text-transform: uppercase;
+        }
+
+        &__link {
+            font-size: 14px;
+            color: $text-gray-700;
+            cursor: pointer;
+
+            &:hover {
+                color: $primary-main;
+            }
+        }
+    }
+
+    &__list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        :last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+    }
+
+    &__item {
+        padding: 8px 0;
+        border-bottom: 1px solid #eaeaea;
+        cursor: pointer;
+
+        &__container {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+
+            img {
+                width: 3rem;
+                height: 3rem;
+                border-radius: 50%;
+                margin-right: 8px;
+            }
+
+            span {
+                font-size: 14px;
+                color: $text-gray-900;
+            }
+        }
+
+        &:hover {
+            background-color: #f9f9f9;
+        }
+    }
+
+    &__icon {
+        margin-right: 8px;
+    }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+    .search-dialog {
+        width: fit-content;
+
+        &__item {
+            &__container {
+                span {
+                    white-space: nowrap; // Prevent text from wrapping to the next line
+                    overflow: hidden; // Hide the overflow text
+                    text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                    max-width: 18ch; // Set a maximum width, using 'ch' to approximately match the character countwhite-space: nowrap; // Prevent text from wrapping to the next line  
+                }
+            }
+        }
+    }
+}
+
+@include respond-to(md) {
+    .search-dialog {
+        width: fit-content;
+
+        &__item {
+            &__container {
+                span {
+                    white-space: nowrap; // Prevent text from wrapping to the next line
+                    overflow: hidden; // Hide the overflow text
+                    text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                    max-width: 18ch; // Set a maximum width, using 'ch' to approximately match the character countwhite-space: nowrap; // Prevent text from wrapping to the next line  
+                }
+            }
+        }
+    }
+}
+
+@include respond-to(sm) {
+    .search-dialog {
+        width: fit-content;
+
+        &__item {
+            &__container {
+                span {
+                    white-space: nowrap; // Prevent text from wrapping to the next line
+                    overflow: hidden; // Hide the overflow text
+                    text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                    max-width: 18ch; // Set a maximum width, using 'ch' to approximately match the character countwhite-space: nowrap; // Prevent text from wrapping to the next line  
+                }
+            }
+        }
+    }
+}
+
+@include respond-to(xs) {
+    .search-dialog {
+        width: fit-content;
+
+        &__item {
+            &__container {
+                span {
+                    white-space: nowrap; // Prevent text from wrapping to the next line
+                    overflow: hidden; // Hide the overflow text
+                    text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                    max-width: 18ch; // Set a maximum width, using 'ch' to approximately match the character countwhite-space: nowrap; // Prevent text from wrapping to the next line  
+                }
+            }
+        }
+    }
+}
+
+@include respond-to(xxs) {
+    .search-dialog {
+        width: fit-content;
+
+        &__item {
+            &__container {
+                span {
+                    white-space: nowrap; // Prevent text from wrapping to the next line
+                    overflow: hidden; // Hide the overflow text
+                    text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                    max-width: 18ch; // Set a maximum width, using 'ch' to approximately match the character countwhite-space: nowrap; // Prevent text from wrapping to the next line  
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<div class="deposit-history-page">
+    <div class="deposit-history-page__header">
+        <h1 class="deposit-history-page__title">Lịch sử nạp xu</h1>
+        <p class="deposit-history-page__subtitle">
+            "Xem chi tiết lịch sử nạp xu của bạn và tham gia các hoạt động để nhận thêm xu bạn nhé!"
+        </p>
+    </div>
+
+    <div class="deposit-history-page__content">
+        <ng-container *ngIf="payloadDeposit; else loading">
+            <app-desposit-transaction-list 
+                [filterDeposit]="filter"
+                [payloadDeposit]="payloadDeposit"
+                (onPageChange)="onPageChange($event)"
+                (filter)="onChangeFilter($event)">
+            </app-desposit-transaction-list>
+        </ng-container>
+        <ng-template #loading>
+            <p-blockUI [blocked]="blockedUI">
+                <p-progressSpinner></p-progressSpinner>
+            </p-blockUI>
+        </ng-template>
+    </div>
+</div>

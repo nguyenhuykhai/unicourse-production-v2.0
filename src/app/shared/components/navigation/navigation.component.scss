@@ -1,0 +1,128 @@
+@import "../../../../styles/variables";
+
+/* navigation.component.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #151f28;
+}
+
+.navigation {
+  height: 70px;
+  background: #151f28;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.navigation__list {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.navigation__item {
+  position: relative;
+  list-style: none;
+  width: 70px;
+  height: 70px;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition: color 0.3s;
+}
+
+.navigation__link {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff;
+  transition: color 0.3s;
+}
+
+.navigation__icon {
+  position: relative;
+  display: block;
+  line-height: 75px;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: transform 0.5s;
+  color: #fff;
+}
+
+.navigation__text {
+  position: absolute;
+  color: #fff;
+  font-weight: 400;
+  font-size: 0.75em;
+  letter-spacing: 0.05em;
+  transition: opacity 0.5s, transform 0.5s;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.navigation__item--active .navigation__icon {
+  transform: translateY(-10px);
+}
+
+.navigation__item--active .navigation__text {
+  transform: translateY(10px);
+  opacity: 1;
+}
+
+.navigation__item--active .navigation__link {
+  color: var(--active-color);
+}
+
+.navigation__indicator {
+  display: none;
+  position: absolute;
+  top: -50%;
+  width: 70px;
+  height: 70px;
+  background: $primary-light;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  transition: transform 0.5s;
+}
+
+.navigation__indicator::before,
+.navigation__indicator::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  box-shadow: 0 -10px 0 0 #fff;
+}
+
+.navigation__indicator::before {
+  left: -22px;
+  border-top-right-radius: 20px;
+}
+
+.navigation__indicator::after {
+  right: -22px;
+  border-top-left-radius: 20px;
+}

@@ -1,0 +1,21 @@
+<div *ngIf="tabActiveIndex === 'content'" class="document-container">
+    <ng-container *ngIf="!currentTopic?.element_topic?.video">
+        <h1 class="document-container__content-title">{{ currentTopic?.title }}</h1>
+        <p class="document-container__content-subtitle">Lần cập nhật gần đây nhất {{
+            convertDateTimeToText(currentTopic?.updated_at) }}</p>
+    </ng-container>
+    <hr />
+    <div class="document-container__body" [innerHTML]="sanitizeContent(currentTopic?.element_topic?.document?.content)"></div>
+    <hr />
+    <ng-container *ngIf="!currentTopic?.element_topic?.video">
+        <p class="document-container__content-description">Tham gia các cộng đồng để cùng học hỏi, chia sẻ và "thám
+            thính"
+            xem Unicourse sắp có gì mới nhé!</p>
+        <ul>
+            <li><span>Fanpage: </span><a href="https://www.facebook.com/profile.php?id=61559287804624"
+                    target="_blank">Unicourse -
+                    Học Tập Trực Tuyến Đại Học FPT</a></li>
+        </ul>
+    </ng-container>
+    <p class="document-container__content-footer">Made with ❤️ ・ Nền tảng học tập trực tuyến Unicourse</p>
+</div>

@@ -1,0 +1,384 @@
+@import "../../../../styles/variables";
+@import "../../../../styles/font_variables";
+@import "../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../styles/mixins"; // Import mixin
+
+.transaction-list {
+    width: 100%;
+    margin: auto;
+
+    &.desktop-only {
+        display: block;
+    }
+
+    &.mobile-only {
+        display: none;
+    }
+
+    th {
+        background-color: $background-light;
+        font-size: $font-size-md;
+        font-weight: $font-weight-semibold;
+        color: $text-black;
+        text-align: left;
+        padding: 15px;
+        border-bottom: 2px solid $border-color;
+    }
+
+    td {
+        padding: 15px;
+        border-bottom: 1px solid $border-color;
+        font-size: $font-size-md;
+        color: $text-black;
+    }
+
+    .transaction-item__course-info {
+        display: flex;
+        align-items: center;
+    }
+
+    .transaction-item__course-image {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    .transaction-item__course-title {
+        font-size: $font-size-md;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 40ch;
+    }
+
+    .transaction-item__payment {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 40ch;
+    }
+
+    .transaction-item__actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    .transaction-item__button {
+        padding: 5px 15px;
+        font-size: $font-size-sm;
+        border: 1px solid $border-color;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &--receipt {
+            width: 7rem;
+            background-color: $primary-light;
+            color: $text-white;
+
+            &:hover {
+                background-color: $primary-dark;
+            }
+        }
+
+        &--disabled {
+            width: 7rem;
+            background-color: $primary-light;
+            color: $text-white;
+        }
+
+        &--invoice {
+            background-color: #fff;
+            color: $text-black;
+
+            &:hover {
+                background-color: $background-gray-200;
+            }
+        }
+    }
+
+    .transaction-caption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        &__total {
+            display: flex;
+            align-items: center;
+
+            &-title {
+                font-size: $font-size-4xl;
+                color: $text-black;
+                margin-right: 10px;
+
+                span {
+                    font-size: $font-size-md;
+                    color: $text-black;
+                }
+            }
+
+            &-coin {
+                width: 70px;
+                height: 70px;
+                margin-right: 10px;
+                border-radius: 4px;
+                object-fit: cover;
+            }
+        }
+
+        &__group-btn {
+            display: flex;
+            gap: 0.5rem;
+        }
+    }
+
+    // Additional styles for mobile header
+    &__mobile-header {
+        padding: 15px;
+        background-color: $background-light;
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 20px;
+
+        &__session-one {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            &__mobile-total {
+                display: flex;
+                align-items: center;
+
+                &-title {
+                    font-size: $font-size-md;
+                    font-weight: $font-weight-semibold;
+                    color: $text-black;
+                    margin-left: 10px;
+                }
+
+                &-coin {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 4px;
+                    object-fit: cover;
+                }
+            }
+
+            &__mobile-button {
+                margin-left: auto;
+                background-color: $primary-main;
+                color: $text-white;
+                font-size: $font-size-md;
+                border-radius: 4px;
+
+                &:hover {
+                    background-color: $primary-dark;
+                }
+            }
+        }
+
+        &__session-two {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+    }
+}
+
+.transaction-item-card {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+
+    &__header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    &__title {
+        font-size: $font-size-md;
+        color: $primary-main;
+        margin-left: 10px;
+        text-decoration: none;
+        flex-grow: 1;
+    }
+
+    &__course-image {
+        width: 40px;
+        height: 40px;
+        margin-right: 5px;
+        border-radius: 4px;
+        object-fit: cover;
+    }
+
+    &__details {
+        margin-bottom: 10px;
+    }
+
+    &__actions {
+        display: flex;
+        gap: 10px;
+    }
+
+    &__button {
+        padding: 5px 15px;
+        font-size: $font-size-sm;
+        border: 1px solid $border-color;
+        background-color: #fff;
+        cursor: pointer;
+        border-radius: 4px;
+
+        &--receipt {
+            width: 7rem;
+            background-color: $primary-light;
+            color: $text-white;
+
+            &:hover {
+                background-color: $primary-dark;
+            }
+        }
+
+        &--disabled {
+            width: 7rem;
+            background-color: $primary-light;
+            color: $text-white;
+        }
+
+        &--invoice {
+            background-color: #fff;
+            color: $text-black;
+
+            &:hover {
+                background-color: $background-gray-200;
+            }
+        }
+    }
+}
+
+.transaction-list__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+
+    &-button {
+        padding: 10px;
+        margin: 0 10px;
+        border: 1px solid $border-color;
+        background-color: #fff;
+        cursor: pointer;
+        font-size: $font-size-md;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        transition: background-color 0.3s, border-color 0.3s;
+
+        &:hover {
+            background-color: $primary-light;
+            border-color: $primary-dark;
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
+        i {
+            font-size: $font-size-md;
+            color: $text-black;
+        }
+    }
+
+    &-page {
+        margin: 0 5px;
+    }
+
+    &-page-button {
+        background: none;
+        border: none;
+        font-size: $font-size-md;
+        color: $primary-main;
+        cursor: pointer;
+
+        &.active {
+            font-weight: $font-weight-bold;
+            color: $primary-dark;
+        }
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.feedback-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &__header {
+        margin-bottom: 0;
+    }
+
+    &__group-btn {
+        display: flex;
+        gap: 0.5rem;
+    }
+}
+
+.transaction-footer {
+    width: 100%;
+    background-color: #fff;
+
+    &__pagination {
+        margin: 0;
+    }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+    ::ng-deep {
+        .p-splitbutton {
+            width: 100%;
+        }
+        .p-tieredmenu {
+            width: 100%;
+        }
+    }
+
+    .transaction-list.desktop-only {
+        display: none;
+    }
+
+    .transaction-list.mobile-only {
+        display: block;
+    }
+
+    .deposit-footer {
+        display: none;
+    }
+}
+
+@include respond-to(md) {
+}
+
+@include respond-to(sm) {
+}
+
+@include respond-to(xs) {
+}
+
+@include respond-to(xxs) {
+}

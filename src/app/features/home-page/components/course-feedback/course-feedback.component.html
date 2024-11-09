@@ -1,0 +1,7 @@
+<div *ngIf="this.courseFeedbacks.length > 0" class="course-feedback">
+  <ng-container *ngFor="let courseFeedback of this.courseFeedbacks">
+    <app-course-feedback-item
+      [courseFeedback]="courseFeedback"
+    ></app-course-feedback-item>
+  </ng-container>
+</div>

@@ -1,0 +1,125 @@
+<div class="carousel">
+  <app-carousel-banner *ngIf="!blockedUI" [banners]="this.banners"></app-carousel-banner>
+  <a (click)="scrollToTarget()" class="carousel__icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+      <defs>
+        <style>
+          .arrow1-1 {
+            fill: #4d4d4d;
+          }
+
+          .cls-2 {
+            fill: #fff;
+          }
+        </style>
+      </defs>
+      <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+          <circle class="arrow1-1" cx="20" cy="20" r="20"></circle>
+          <path class="cls-2" d="M20,24.5a.5.5,0,0,1-.5-.5V12a.5.5,0,0,1,1,0V24A.5.5,0,0,1,20,24.5Z"></path>
+          <path class="cls-2"
+            d="M20,28.5a.52.52,0,0,1-.38-.17l-3.5-4a.5.5,0,1,1,.76-.66L20,27.24l3.12-3.57a.5.5,0,0,1,.76.66l-3.5,4A.52.52,0,0,1,20,28.5Z">
+          </path>
+        </g>
+      </g>
+    </svg>
+  </a>
+</div>
+
+<div class="home-page">
+  <p-scrollTop icon="pi pi-arrow-up" />
+
+  <!-- Sứ mệnh -->
+  <div class="home-page__section-background">
+    <app-section-background></app-section-background>
+  </div>
+
+  <ng-container *ngIf="blockedUI === false; else loading">
+    <!-- Khoá học bật -->
+    <div id="targetDiv" class="home-page__course-fee">
+      <div class="home-page__course-fee-title">
+        <h2>Khóa Học Nổi Bật</h2>
+        <p>
+          Khám phá các kỹ năng được tìm kiếm nhiều nhất/hàng đầu trong tuần này và
+          bắt đầu việc học của bạn ngay hôm nay
+        </p>
+      </div>
+      <app-course-list [blockedUI]="blockedUI" [feeCourseLoading]="feeCourseLoading" [courses]="feeCourses"></app-course-list>
+      <p-paginator 
+      (onPageChange)="onFeePageChange($event)" 
+      [first]="0" 
+      [rows]="feeCourses.limit" 
+      [totalRecords]="feeCourses.total"/>
+    </div>
+
+    <!-- Khoá học miễn phí -->
+    <div class="home-page__course-free">
+      <div class="home-page__course-free-title">
+        <h2>Trải Nghiệm Học Tập Miễn Phí</h2>
+        <p>
+          Chinh phục những đỉnh cao tri thức mà không tốn phí, khám phá những kỹ
+          năng được săn đón nhất và bắt đầu hành trình học tập đầy hứng khởi ngay
+          hôm nay!
+        </p>
+      </div>
+      <app-course-list [blockedUI]="blockedUI" [freeCourseLoading]="freeCourseLoading" [courses]="freeCourses"></app-course-list>
+      <p-paginator 
+      (onPageChange)="onFreePageChange($event)" 
+      [first]="0" 
+      [rows]="freeCourses.limit" 
+      [totalRecords]="freeCourses.total"/>
+    </div>
+  </ng-container>
+
+  <ng-template #loading>
+    <!-- Khoá học bật -->
+    <div id="targetDiv" class="home-page__course-fee">
+      <div class="home-page__course-fee-title">
+        <h2>Khóa Học Nổi Bật</h2>
+        <p>
+          Khám phá các kỹ năng được tìm kiếm nhiều nhất/hàng đầu trong tuần này và
+          bắt đầu việc học của bạn ngay hôm nay
+        </p>
+      </div>
+      <app-course-list [blockedUI]="blockedUI" [feeCourseLoading]="feeCourseLoading"></app-course-list>
+    </div>
+
+    <!-- Khoá học miễn phí -->
+    <div class="home-page__course-free">
+      <div class="home-page__course-free-title">
+        <h2>Trải Nghiệm Học Tập Miễn Phí</h2>
+        <p>
+          Chinh phục những đỉnh cao tri thức mà không tốn phí, khám phá những kỹ
+          năng được săn đón nhất và bắt đầu hành trình học tập đầy hứng khởi ngay
+          hôm nay!
+        </p>
+      </div>
+      <app-course-list [blockedUI]="blockedUI" [freeCourseLoading]="freeCourseLoading"></app-course-list>
+    </div>
+  </ng-template>
+
+  <!-- Danh sách bài viết -->
+  <div class="home-page__section-blog">
+    <div class="home-page__section-blog-title">
+      <h2>Nơi Chia Sẻ Kiến Thức</h2>
+      <p>
+        "Tham khảo tài liệu tại đây để nâng cao hiệu suất học tập và tiếp thu kiến
+        thức mới nhất."
+      </p>
+    </div>
+    <app-section-blog [dataBlogs]="this.dataBlogs"></app-section-blog>
+  </div>
+
+  <!-- Danh sách phản hồi khoá học -->
+  <div class="home-page__course-feedback">
+    <ng-container *ngIf="!blockedUI">
+      <h2>Học viên nói gì về Unicourse?</h2>
+      <app-course-feedback [courseFeedbacks]="this.highlightFeedbacks"></app-course-feedback>
+    </ng-container>
+  </div>
+
+  <!-- Trở thành giảng viên -->
+  <div *ngIf="!blockedUI" class="home-page__becoming-lecturer">
+    <app-becoming-lecturer></app-becoming-lecturer>
+  </div>
+</div>

@@ -1,0 +1,167 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.payment {
+  &__title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $text-black;
+  }
+
+  &__balance {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    &-icon {
+      font-size: 1.5rem;
+      margin-right: 8px;
+    }
+
+    &-value {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-bold;
+      color: $text-black;
+    }
+  }
+
+  &__details {
+    &-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $text-black;
+      margin-bottom: 10px;
+    }
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 0;
+      font-size: $font-size-md;
+
+      &--total {
+        font-weight: $font-weight-bold;
+      }
+
+      &--break-line {
+        border-bottom: 1px solid #ccc;
+        padding: 10px 0;
+      }
+
+      &-label {
+        color: $text-black;
+      }
+
+      &__group-price {
+        display: flex;
+
+        &-value {
+          color: $text-black;
+          font-weight: $font-weight-regular;
+        }
+      }
+
+      &__group-coupon {
+        display: flex;
+
+        &-value {
+          color: $text-black;
+          font-weight: $font-weight-regular;
+        }
+      }
+
+      &__group-total {
+        display: flex;
+        
+        &-value {
+          color: $text-black;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    border: none;
+    cursor: pointer;
+
+    &--primary {
+      background-color: $primary-main;
+      color: #fff;
+
+      span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+    }
+
+      &:hover {
+        background-color: $primary-dark;
+      }
+    }
+
+    &--secondary {
+      background-color: #eee;
+      color: $text-black;
+
+      &:hover {
+        background-color: #ddd;
+      }
+    }
+  }
+
+  &__coupon {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+
+    &-title {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $text-black;
+    }
+    
+    &-container {
+        display: flex;
+    
+        &-title {
+            font-size: $font-size-lg;
+            font-weight: $font-weight-bold;
+            color: $text-black;
+        }
+    
+        &-input {
+          flex-grow: 1;
+          padding: 10px;
+          font-size: $font-size-md;
+          border: 1px solid #ccc;
+        }
+    
+        &-button {
+          padding: 10px;
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+          background-color: $primary-main;
+          color: #fff;
+          border: none;
+          cursor: pointer;
+    
+          &:hover {
+            background-color: $primary-dark;
+          }
+        }
+    }
+  }
+}
+
+.disable {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}

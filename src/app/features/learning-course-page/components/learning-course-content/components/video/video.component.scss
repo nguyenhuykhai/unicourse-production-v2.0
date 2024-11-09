@@ -1,0 +1,342 @@
+@import "../../../../../../../styles/variables";
+@import "../../../../../../../styles/font_variables";
+@import "../../../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../../../styles/mixins"; // Import mixin
+
+.course-page__content {
+  .mobile-only {
+    display: none;
+  }
+
+  flex: 1;
+  overflow-y: auto;
+
+  &-tab {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  &-frame {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 ratio */
+    height: 0;
+    overflow: hidden;
+
+    &-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: $text-black;
+    }
+  }
+
+  &-background-video {
+    display: flex;
+    justify-content: center;
+    /* Centers horizontally */
+    align-items: center;
+    /* Centers vertically */
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: $text-black;
+    position: relative;
+    /* Make it relative to center the spinner */
+
+    &__spinner {
+      position: absolute;
+      /* Corrected from display */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      /* Centers the spinner */
+    }
+  }
+
+  &-details {
+    background-color: $text-white;
+    height: auto !important;
+    padding: 0 2rem;
+  }
+
+  &-title {
+    font-size: $font-size-4xl;
+    font-weight: $font-weight-bold;
+    margin-bottom: 0.5rem;
+    color: $text-black;
+  }
+
+  &-subtitle {
+    font-size: $font-size-md;
+    color: $text-gray-900;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  &-description {
+    font-size: $font-size-xl;
+    color: $text-gray-900;
+    margin-top: 1rem;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+
+    span {
+      font-weight: $font-weight-semibold;
+      color: $text-black;
+    }
+
+    li {
+      font-size: $font-size-md;
+      margin-bottom: 0.5rem;
+
+      a {
+        color: $primary-main;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &-footer {
+    font-size: $font-size-md;
+    color: $text-gray-900;
+    text-align: center;
+    margin-top: 1rem;
+  }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .course-page__content {
+    .mobile-only {
+      display: block;
+    }
+
+    &-tab {
+      margin-top: 0;
+    }
+
+    &-video {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-sm;
+      margin-bottom: 0.5rem;
+    }
+
+    &-subtitle {
+      font-size: $font-size-md;
+      margin-top: 0;
+    }
+
+    &-description {
+      font-size: $font-size-lg;
+      line-height: $line-height-lg;
+      margin-top: 1rem;
+    }
+
+    &-details {
+      padding: 0 0.5rem 3.5rem 0.5rem;
+      overflow: auto;
+    }
+
+    &-footer {
+      text-align: left;
+    }
+  }
+}
+
+@include respond-to(md) {
+  .course-page__content {
+    .mobile-only {
+      display: block;
+    }
+
+    &-tab {
+      margin-top: 1rem;
+    }
+
+    &-video {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-sm;
+      margin-bottom: 0.5rem;
+    }
+
+    &-subtitle {
+      font-size: $font-size-md;
+      margin-top: 0;
+    }
+
+    &-description {
+      font-size: $font-size-lg;
+      line-height: $line-height-lg;
+      margin-top: 1rem;
+    }
+
+    &-details {
+      padding: 0 0.5rem 3.5rem 0.5rem;
+      overflow: auto;
+    }
+
+    &-footer {
+      text-align: left;
+    }
+  }
+}
+
+@include respond-to(sm) {
+  .course-page__content {
+    .mobile-only {
+      display: block;
+    }
+
+    &-tab {
+      margin-top: 2rem;
+    }
+
+    &-video {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-sm;
+      margin-bottom: 0.5rem;
+    }
+
+    &-subtitle {
+      font-size: $font-size-md;
+      margin-top: 0;
+    }
+
+    &-description {
+      font-size: $font-size-lg;
+      line-height: $line-height-lg;
+      margin-top: 1rem;
+    }
+
+    &-details {
+      padding: 0 0.5rem 3.5rem 0.5rem;
+      overflow: auto;
+    }
+
+    &-footer {
+      text-align: left;
+    }
+  }
+}
+
+@include respond-to(xs) {
+  .course-page__content {
+    .mobile-only {
+      display: block;
+    }
+
+    &-tab {
+      margin-top: 2rem;
+    }
+
+    &-video {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-sm;
+      margin-bottom: 0.5rem;
+    }
+
+    &-subtitle {
+      font-size: $font-size-md;
+      margin-top: 0;
+    }
+
+    &-description {
+      font-size: $font-size-lg;
+      line-height: $line-height-lg;
+      margin-top: 1rem;
+    }
+
+    &-details {
+      padding: 0 0.5rem 3.5rem 0.5rem;
+      overflow: auto;
+    }
+
+    &-footer {
+      text-align: left;
+    }
+  }
+}
+
+@include respond-to(xxs) {
+  .course-page__content {
+    .mobile-only {
+      display: block;
+    }
+
+    &-tab {
+      margin-top: 3.5rem;
+    }
+
+    &-video {
+      height: 100%;
+      width: 100%;
+    }
+
+    &-title {
+      font-size: $font-size-2xl;
+      font-weight: $font-weight-semibold;
+      line-height: $line-height-sm;
+      margin-bottom: 0.5rem;
+    }
+
+    &-subtitle {
+      font-size: $font-size-md;
+      margin-top: 0;
+    }
+
+    &-description {
+      font-size: $font-size-lg;
+      line-height: $line-height-lg;
+      margin-top: 1rem;
+    }
+
+    &-details {
+      padding: 0 0.5rem 3.5rem 0.5rem;
+      overflow: auto;
+    }
+
+    &-footer {
+      text-align: left;
+    }
+  }
+}

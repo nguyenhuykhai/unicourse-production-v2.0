@@ -1,0 +1,84 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+:host ::ng-deep {
+  .p-sidebar-header {
+    padding: 0;
+  }
+  .p-sidebar-left {
+    bottom: 0 !important;
+    left: 0;
+    width: 20rem;
+  }
+}
+
+.course-page__footer {
+  text-align: center;
+  color: #4d4d4d;
+  padding: 9px 0;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid #333;
+
+  &__sidebar {
+    display: none;
+  }
+
+  &-button {
+    padding: 10px 20px;
+    font-size: $font-size-md;
+    font-weight: $font-weight-bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    background: transparent;
+    border: 2px solid $primary-400;
+
+    &--previous, &--next {
+      color: $primary-400;
+
+      &:hover {
+        background-color: rgba(0, 147, 252, 0.1);
+      }
+    }
+  }
+
+  @media (max-width: 599px) {
+    gap: 10px;
+
+    &__sidebar {
+      display: block;
+      flex-basis: 20%;
+
+      &__header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 90%;
+        align-items: center;
+        margin: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+
+        &-title {
+          font-size: $font-size-md;
+          font-weight: $font-weight-bold;
+          color: $text-black;
+          margin-bottom: 1rem;
+        }
+      }
+
+      &__body {
+        overflow-y: auto;
+      }
+    }
+
+    &-button {
+      font-size: $font-size-xxs;
+      flex-basis: 35%;
+    }
+  }
+}

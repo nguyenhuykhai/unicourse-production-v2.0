@@ -1,0 +1,15 @@
+<div id="targetDiv" class="course-detail">
+    <app-course-content [course]="course" [lecturer]="lecturer" [blockedUI]="blockedUI"></app-course-content>
+
+    <app-course-sidebar [course]="course" [lecturer]="lecturer" [enrollIds]="enrollIds" [blockedUI]="blockedUI"></app-course-sidebar>
+
+    <app-course-instructor [lecturer]="lecturer" [blockedUI]="blockedUI"></app-course-instructor>
+
+    <app-course-main-content id="targetDivMain" [course]="course" [blockedUI]="blockedUI"></app-course-main-content>
+
+    <app-course-requirements [course]="course" [blockedUI]="blockedUI"></app-course-requirements>
+
+    <app-course-description [course]="course" [blockedUI]="blockedUI"></app-course-description>
+
+    <app-course-reviews [course]="course" [feedbacks]="feedbacks" [blockedUI]="blockedUI"></app-course-reviews>
+</div>

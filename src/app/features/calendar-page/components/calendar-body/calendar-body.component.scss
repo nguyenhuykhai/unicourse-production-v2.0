@@ -1,0 +1,158 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+::ng-deep {
+    .p-card .p-card-content {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}
+
+.calendar__table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid $border-color;
+}
+
+.calendar__th {
+    padding: 0.5rem;
+    border-right: 1px solid $border-color;
+    text-align: center;
+    background-color: $background-gray-150;
+    color: $text-black;
+    text-transform: uppercase;
+    font-weight: $font-weight-semibold;
+}
+
+.calendar__day {
+    border: 1px solid $border-color;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &-th {
+        text-transform: uppercase;
+        font-weight: $font-weight-semibold;
+    }
+
+    &:hover {
+        background-color: $background-gray-150;
+    }
+
+    &__loading {
+        display: flex;
+        flex-direction: column;
+        height: 5rem;
+        justify-content: center;
+    }
+}
+
+.calendar-dialog {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    gap: 1rem;
+
+    &__body {
+        &-ul {
+            max-height: 20rem;
+            overflow: auto;
+
+            &__item {
+                margin: 1rem;
+
+                &-card {
+                    width: 95%;
+
+                    &__header {
+                        font-size: $font-size-lg;
+                        font-weight: $font-weight-medium;
+                        line-height: $line-height-md;
+                        color: $text-black;
+                        margin: 0;
+                        padding: 1rem;
+                        border-bottom: 1px solid $border-color;
+                        cursor: pointer;
+                        transition: font-weight 0.3s, color 0.3s;
+
+                        &:hover {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    &__group-one {
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                    }
+
+                    &__group-four {
+                        &__mentor-container {
+
+                            &__avatar,
+                            &__name {
+                                cursor: pointer;
+                            }
+
+                            &__name {
+                                font-size: $font-size-md;
+                                font-weight: $font-weight-semibold;
+                                color: $text-black;
+                                transition: font-weight 0.3s, color 0.3s;
+
+                                &:hover {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+
+                    &:last-child {
+                        margin-bottom: 1rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .calendar__table {
+        font-size: 0.875rem;
+    }
+
+    .calendar__day {
+        height: 3rem;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .calendar__table {
+        font-size: 0.75rem;
+    }
+
+    .calendar__day {
+        height: 2.5rem;
+    }
+
+    .calendar__tasks-title {
+        font-size: 1rem;
+    }
+
+    .calendar__task-item {
+        font-size: 0.875rem;
+    }
+
+    .desktop-only {
+        display: none;
+    }
+}

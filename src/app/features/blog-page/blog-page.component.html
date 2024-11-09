@@ -1,0 +1,25 @@
+<div enterClass="fadein" leaveClass="fadeout" class="blog-page">
+    <!-- Blog Header -->
+    <div class="blog-page__header">
+        <h1 class="blog-page__header__title">Nơi chia sẻ kiến thức</h1>
+        <p class="blog-page__header__description">
+            "Tham khảo tài liệu tại đây để nâng cao hiệu suất học tập và tiếp thu kiến thức mới nhất."
+        </p>
+    </div>
+
+    <!-- Featured Blogs Section -->
+    <div id="targetDiv" class="blog-page__featured-section desktop-only">
+        <app-featured-blog [blocked]="blockedUI" [blogs]="highlightBlogs?.data"></app-featured-blog>
+    </div>
+
+    <!-- All Blog Posts -->
+    <div id="targetDiv2" class="blog-page__all-posts ">
+        <h2 class="blog-page__all-posts__title desktop-only">Tất cả bài đăng</h2>
+        <app-blog-list [blocked]="this.normalBlogBlockedUI" [blogs]="normalBlogs?.data"></app-blog-list>
+    </div>
+
+    <div *ngIf="normalBlogs && normalBlogs.page" class="blog-page__pagination">
+        <p-paginator (onPageChange)="onPageChange($event)" [first]="0" [rows]="normalBlogs.limit"
+            [totalRecords]="normalBlogs.total" />
+    </div>
+</div>

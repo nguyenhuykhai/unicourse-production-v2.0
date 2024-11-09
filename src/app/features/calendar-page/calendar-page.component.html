@@ -1,0 +1,11 @@
+<div class="calendar">
+  <!-- Header Component: Emit monthChanged -->
+  <app-calendar-header [currentMonth]="currentMonth" [currentYear]="currentYear" (monthChanged)="onMonthChange($event)"
+    class="calendar__header">
+  </app-calendar-header>
+
+  <!-- Body Component: Days and weeks of the calendar -->
+  <app-calendar-body [blockedUI]="blockedUI" [currentMonth]="currentMonth" [currentYear]="currentYear"
+    [daysOfWeek]="daysOfWeek" [weeks]="weeks" class="calendar__table">
+  </app-calendar-body>
+</div>

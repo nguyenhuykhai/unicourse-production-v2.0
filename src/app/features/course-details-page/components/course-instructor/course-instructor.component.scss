@@ -1,0 +1,211 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+@import "../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../styles/mixins"; // Import mixin
+/* navigation.component.css */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+.course-instructor {
+  padding: 0% 15%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 75%;
+
+  h3 {
+    font-size: $font-size-2xl;
+    margin: 0;
+  }
+
+  &__intro {
+    h3 {
+      margin-top: 0;
+      color: $primary-700;
+      margin-bottom: 5px;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    span {
+      color: $primary-700;
+      font-weight: $font-weight-light;
+    }
+  }
+
+  &__image-stats {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+
+    &-image-link {
+      img {
+        width: 10rem;
+        border-radius: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &-list-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1rem;
+
+      &-item {
+        display: flex;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        align-items: center;
+        color: black;
+        width: 100%;
+      }
+    }
+  }
+
+  &__job-title {
+    font-weight: $font-weight-medium;
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .course-instructor {
+    padding: 0% 5%;
+    width: 100%;
+
+    &__image-stats {
+      &-list-stat {
+        &-item {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    &__job-title {
+      font-weight: $font-weight-medium;
+      font-size: $font-size-md;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@include respond-to(md) {
+  .course-instructor {
+    padding: 0% 5%;
+    width: 100%;
+
+    &__image-stats {
+      &-list-stat {
+        &-item {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    &__job-title {
+      font-weight: $font-weight-medium;
+      font-size: $font-size-md;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@include respond-to(sm) {
+  .course-instructor {
+    padding: 0% 5%;
+    width: 100%;
+
+    &__image-stats {
+      &-list-stat {
+        &-item {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    &__job-title {
+      font-weight: $font-weight-medium;
+      font-size: $font-size-md;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@include respond-to(xs) {
+  .course-instructor {
+    padding: 0% 5%;
+    width: 100%;
+
+    &__image-stats {
+      &-list-stat {
+        &-item {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    &__job-title {
+      font-weight: $font-weight-medium;
+      font-size: $font-size-md;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@include respond-to(xxs) {
+  .course-instructor {
+    padding: 0% 5%;
+    width: 320px;
+
+    &__image-stats {
+      &-list-stat {
+        &-item {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+
+    &__job-title {
+      font-weight: $font-weight-medium;
+      font-size: $font-size-md;
+
+      p {
+        margin-top: 0;
+      }
+    }
+  }
+}

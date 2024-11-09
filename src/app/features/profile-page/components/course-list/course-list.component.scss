@@ -1,0 +1,77 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+
+.course-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  &__course {
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 2px solid #e5e7eb;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &-image {
+      width: 33.333333%;
+      height: 12rem;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    &-content {
+      width: 66.666666%;
+      display: flex;
+      flex-direction: column;
+
+      &-title {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        margin: 0;
+        color: $text-black;
+        cursor: pointer;
+      }
+  
+      &-description {
+        font-size: $font-size-md;
+        color: $text-gray-900;
+        text-align: justify;
+        line-height: $line-height-md;
+      }
+    }
+  }
+
+  @media (max-width: 599px) {
+    &__course {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      &-image {
+        width: 100%;
+        height: auto;
+      }
+
+      &-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        &-title {
+          font-size: $font-size-md;
+        }
+  
+        &-description {
+          font-size: $font-size-xs;
+        }
+      
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<ng-container *ngIf="instanceType === 0 && student">
+  <div class="user-info">
+    <img class="user-info__avatar" [src]="student.user?.profile_image" alt="User Avatar" />
+    <h1 class="user-info__name">{{ student.user?.full_name }}</h1>
+    <p class="user-info__role">{{ convertRoleToString(student.user?.role) }}</p>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="instanceType === 1 && user">
+  <div class="user-info">
+    <img class="user-info__avatar" [src]="user.profile_image" alt="User Avatar" />
+    <h1 class="user-info__name">{{ user.full_name }}</h1>
+    <p class="user-info__role">{{ convertRoleToString(user.role) }}</p>
+  </div>
+</ng-container>

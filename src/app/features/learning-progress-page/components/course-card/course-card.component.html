@@ -1,0 +1,16 @@
+<p-card class="course-card">
+    <img routerLink="/courses/{{course.course_mentor.course?.id}}" routerLinkActive="active"
+        [src]="course.course_mentor.course?.thumbnail" [alt]="course.course_mentor.course?.title"
+        class="course-card__image">
+
+    <div class="course-card__info">
+        <p routerLink="/courses/{{course.course_mentor.course?.id}}" routerLinkActive="active"
+            pTooltip="{{ course.course_mentor.course?.title }}" tooltipPosition="top" placeholder="Top"
+            class="course-card__info__title">{{ course.course_mentor.course?.title }}</p>
+        <p class="course-card__info__subtitle">{{ convertDateToText(course.created_at, course._count.learning_progress)
+            }}</p>
+
+        <!-- Progress Bar -->
+        <p-progressBar [value]="progress" class="course-card__progress"></p-progressBar>
+    </div>
+</p-card>

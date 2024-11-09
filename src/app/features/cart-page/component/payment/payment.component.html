@@ -1,0 +1,70 @@
+<div class="payment">
+    <p class="payment__title">Số dư xu</p>
+    <div class="payment__balance">
+        <lord-icon src="https://cdn.lordicon.com/jtiihjyw.json" trigger="hover"
+            style="width: 40px; height: 40px; margin-right: 0.2rem;"></lord-icon>
+        <span class="payment__balance-value">{{ user?.wallet?.balance || 0 | number: '1.0-0' }}</span>
+    </div>
+    <div class="payment__details">
+        <h3 class="payment__details-title">Chi tiết thanh toán</h3>
+        <div class="payment__details-row">
+            <span class="payment__details-label">Tổng xu</span>
+            <div class="payment__details-row__group-price">
+                <span class="payment__details-row__group-price-value">{{ cartTotal | number: '1.0-0' }}</span>
+                <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+                    style="width: 20px; height: 20px; margin-left: 0.2rem;"></lord-icon>
+            </div>
+        </div>
+        <div class="payment__details-row payment__details-row--break-line">
+            <span class="payment__details-label">Khuyến mãi</span>
+            <div class="payment__details-row__group-coupon">
+                <span class="payment__details-row__group-coupon-value">{{ discount | number: '1.0-0' }}</span>
+                <lord-icon src="https://cdn.lordicon.com/tswnhcwg.json" trigger="hover"
+                    style="width: 20px; height: 20px; margin-left: 0.2rem;"></lord-icon>
+            </div>
+        </div>
+        <div class="payment__details-row payment__details-row--total">
+            <span class="payment__details-row-label">Tổng cộng</span>
+            <div class="payment__details-row__group-total">
+                <span class="payment__details-row__group-total-value">{{ total | number: '1.0-0' }}</span>
+                <lord-icon src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"
+                    style="width: 20px; height: 20px; margin-left: 0.2rem;"></lord-icon>
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngIf="item.cartItem.length > 0; else emptyCartItem">
+        <!-- IN DEFAULT STATE -->
+        <ng-container *ngIf="!blockedUI; else loading">
+            <button (click)="handlePayment()" class="payment__button payment__button--primary">Thanh toán ngay</button>
+        </ng-container>
+        <!-- IN PAYMENT PROCESSING STATE -->
+        <ng-template #loading>
+            <button class="payment__button payment__button--primary disable">
+                <span>
+                    <p [ngStyle]="{ margin: 0 }">Đang xử lý</p>
+                    <p-progressSpinner styleClass="w-1rem h-1rem" strokeWidth="8"
+                        animationDuration=".5s" />
+                </span>
+            </button>
+        </ng-template>
+    </ng-container>
+
+    <ng-template #emptyCartItem>
+        <button class="payment__button payment__button--primary disable">Thanh toán ngay</button>
+    </ng-template>
+    <ng-container *ngIf="blockedUI">
+        <button class="payment__button payment__button--secondary disable">Nạp thêm xu</button>
+    </ng-container>
+    <ng-container *ngIf="!blockedUI">
+        <button routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/wallet" class="payment__button payment__button--secondary">Nạp thêm xu</button>
+    </ng-container>
+
+    <div class="payment__coupon">
+        <p class="payment__coupon-title">Khuyến mãi</p>
+        <div class="payment__coupon-container">
+            <input type="text" class="payment__coupon-container-input" placeholder="Nhập coupon" />
+            <button class="payment__coupon-container-button">Áp dụng</button>
+        </div>
+    </div>
+</div>

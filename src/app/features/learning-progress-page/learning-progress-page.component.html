@@ -1,0 +1,23 @@
+<div class="learning-progress-page">
+    <ng-container *ngIf="!blockedUI; else loading">
+        <div class="learning-progress-page__header">
+            <h1 class="learning-progress-page__title">Khóa học của tôi</h1>
+        </div>
+
+        <div class="learning-progress-page__courses">
+            <app-course-card *ngFor="let course of enrolledCourses" [course]="course"
+                class="learning-progress-page__course-card"></app-course-card>
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <p-skeleton height="2rem" width="50%" styleClass="my-2" />
+        <div class="w-full pt-3">
+            <p-skeleton styleClass="mb-2" />
+            <p-skeleton width="100%" styleClass="mb-2" />
+            <p-skeleton width="100%" styleClass="mb-2" />
+            <p-skeleton width="100%" styleClass="mb-2" />
+            <p-skeleton width="100%" height="4rem" />
+        </div>
+    </ng-template>
+</div>

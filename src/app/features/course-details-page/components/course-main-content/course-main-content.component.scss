@@ -1,0 +1,582 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+@import "../../../../../styles/breakpoints"; // Import breakpoints
+@import "../../../../../styles/mixins"; // Import mixin
+
+.course-detail__landing-page {
+  margin-top: 2%;
+  padding: 0% 15%;
+  width: 75%;
+  position: relative;
+
+  &-what-will-you-learn {
+    padding: 3%;
+    border: 1px solid $border-color;
+
+    &-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+
+      &-item {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0.5rem;
+
+        p {
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  &-course-content {
+    &-header {
+      font-weight: $font-weight-bold;
+    }
+
+    &-sub-header {
+      p {
+        margin-top: 0;
+        font-size: $font-size-md;
+        font-weight: $font-weight-medium;
+      }
+    }
+
+    &-section {
+      &-header {
+        &__title {
+          flex-basis: 70%;
+        }
+
+        &__lesson {
+          width: 35%;
+          text-align: end;
+        }
+      }
+
+      &-content {
+        &-item {
+          cursor: pointer;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+
+          &-first {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+
+            p {
+              font-size: $font-size-md;
+              font-weight: $font-weight-medium;
+            }
+
+            &__text {
+              white-space: nowrap; // Prevent text from wrapping to the next line
+              overflow: hidden; // Hide the overflow text
+              text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+              max-width: 40ch; // Set a maximum width, using 'ch' to approximately match the character count
+            }
+          }
+
+          &-last {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.5rem;
+
+            a {
+              color: #1c80cf;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.youtube-container {
+  position: relative;
+  padding: 0% 2% 2% 2%;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &-title {
+      font-weight: $font-weight-bold;
+    }
+
+    &__close {
+      &-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #fff;
+        border: none;
+        padding: 0.5rem;
+        cursor: pointer;
+        z-index: 1;
+      }
+    }
+  }
+
+  &__video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 Aspect Ratio */
+    height: 0;
+    /* Set height to 0 to maintain the aspect ratio */
+    overflow: hidden;
+  }
+
+  &__video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+}
+
+/*
+*************************************************
+Style Web responsive (mobile)
+*************************************************
+*/
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+  .course-detail__landing-page {
+    padding: 0% 5%;
+    width: 100%;
+
+    &-what-will-you-learn {
+      &-list {
+        &-item {
+          p {
+            margin-top: 0;
+            font-size: $font-size-md;
+          }
+        }
+      }
+    }
+
+    &-course-content {
+      &-header {
+        font-weight: $font-weight-bold;
+      }
+
+      &-sub-header {
+        p {
+          margin-top: 0;
+          font-size: $font-size-md;
+          font-weight: $font-weight-medium;
+        }
+      }
+
+      &-section {
+        &-header {
+          font-size: $font-size-md !important;
+
+          p {
+            display: none;
+          }
+
+          span {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 25ch; // Set a maximum width, using 'ch' to approximately match the character count
+          }
+        }
+
+        &-content {
+          &-item {
+            &-first {
+              width: 100%;
+
+              p {
+                font-size: $font-size-sm;
+              }
+
+              &__text {
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 40ch; // Set a maximum width, using 'ch' to approximately match the character count
+              }
+            }
+
+            &-last {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .youtube-container {
+    padding: 2% 1% 1% 1%;
+
+    iframe {
+      padding-bottom: 75%;
+    }
+
+    // &__video-wrapper {
+    //   padding-bottom: 75%;
+    //   /* Adjust aspect ratio for better fit on mobile */
+    // }
+  }
+}
+
+@include respond-to(md) {
+  .course-detail__landing-page {
+    padding: 0% 5%;
+    width: 100%;
+
+    &-what-will-you-learn {
+      &-list {
+        &-item {
+          p {
+            margin-top: 0;
+            font-size: $font-size-md;
+          }
+        }
+      }
+    }
+
+    &-course-content {
+      &-header {
+        font-weight: $font-weight-bold;
+      }
+
+      &-sub-header {
+        p {
+          margin-top: 0;
+          font-size: $font-size-md;
+          font-weight: $font-weight-medium;
+        }
+      }
+
+      &-section {
+        &-header {
+          font-size: $font-size-md !important;
+
+          p {
+            display: none;
+          }
+
+          span {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 25ch; // Set a maximum width, using 'ch' to approximately match the character count
+          }
+        }
+
+        &-content {
+          &-item {
+            &-first {
+              width: 100%;
+
+              p {
+                font-size: $font-size-sm;
+              }
+
+              &__text {
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 40ch; // Set a maximum width, using 'ch' to approximately match the character count
+              }
+            }
+
+            &-last {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .youtube-container {
+    padding: 2% 1% 1% 1%;
+
+    iframe {
+      padding-bottom: 75%;
+    }
+
+    // &__video-wrapper {
+    //   padding-bottom: 75%;
+    //   /* Adjust aspect ratio for better fit on mobile */
+    // }
+  }
+}
+
+@include respond-to(sm) {
+  .course-detail__landing-page {
+    padding: 0% 5%;
+    width: 100%;
+
+    &-what-will-you-learn {
+      &-list {
+        &-item {
+          p {
+            margin-top: 0;
+            font-size: $font-size-md;
+          }
+        }
+      }
+    }
+
+    &-course-content {
+      &-header {
+        font-weight: $font-weight-bold;
+      }
+
+      &-sub-header {
+        p {
+          margin-top: 0;
+          font-size: $font-size-md;
+          font-weight: $font-weight-medium;
+        }
+      }
+
+      &-section {
+        &-header {
+          font-size: $font-size-md !important;
+
+          p {
+            display: none;
+          }
+
+          span {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 25ch; // Set a maximum width, using 'ch' to approximately match the character count
+          }
+        }
+
+        &-content {
+          &-item {
+            &-first {
+              width: 100%;
+
+              p {
+                font-size: $font-size-sm;
+              }
+
+              &__text {
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 40ch; // Set a maximum width, using 'ch' to approximately match the character count
+              }
+            }
+
+            &-last {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .youtube-container {
+    padding: 2% 1% 1% 1%;
+
+    iframe {
+      padding-bottom: 75%;
+    }
+
+    // &__video-wrapper {
+    //   padding-bottom: 75%;
+    //   /* Adjust aspect ratio for better fit on mobile */
+    // }
+  }
+}
+
+@include respond-to(xs) {
+  .course-detail__landing-page {
+    padding: 0% 5%;
+    width: 100%;
+
+    &-what-will-you-learn {
+      &-list {
+        &-item {
+          p {
+            margin-top: 0;
+            font-size: $font-size-md;
+          }
+        }
+      }
+    }
+
+    &-course-content {
+      &-header {
+        font-weight: $font-weight-bold;
+      }
+
+      &-sub-header {
+        p {
+          margin-top: 0;
+          font-size: $font-size-md;
+          font-weight: $font-weight-medium;
+        }
+      }
+
+      &-section {
+        &-header {
+          font-size: $font-size-md !important;
+
+          p {
+            display: none;
+          }
+
+          span {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 25ch; // Set a maximum width, using 'ch' to approximately match the character count
+          }
+        }
+
+        &-content {
+          &-item {
+            &-first {
+              width: 100%;
+
+              p {
+                font-size: $font-size-sm;
+              }
+
+              &__text {
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 40ch; // Set a maximum width, using 'ch' to approximately match the character count
+              }
+            }
+
+            &-last {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .youtube-container {
+    padding: 2% 1% 1% 1%;
+
+    iframe {
+      padding-bottom: 75%;
+    }
+
+    // &__video-wrapper {
+    //   padding-bottom: 75%;
+    //   /* Adjust aspect ratio for better fit on mobile */
+    // }
+  }
+}
+
+@include respond-to(xxs) {
+  .course-detail__landing-page {
+    padding: 0% 5%;
+    width: 320px;
+
+    &-what-will-you-learn {
+      &-list {
+        &-item {
+          p {
+            margin-top: 0;
+            font-size: $font-size-md;
+          }
+        }
+      }
+    }
+
+    &-course-content {
+      &-header {
+        font-weight: $font-weight-bold;
+      }
+
+      &-sub-header {
+        p {
+          margin-top: 0;
+          font-size: $font-size-md;
+          font-weight: $font-weight-medium;
+        }
+      }
+
+      &-section {
+        &-header {
+          font-size: $font-size-md !important;
+
+          p {
+            display: none;
+          }
+
+          span {
+            white-space: nowrap; // Prevent text from wrapping to the next line
+            overflow: hidden; // Hide the overflow text
+            text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+            max-width: 25ch; // Set a maximum width, using 'ch' to approximately match the character count
+          }
+        }
+
+        &-content {
+          &-item {
+            &-first {
+              width: 100%;
+
+              p {
+                font-size: $font-size-sm;
+              }
+
+              &__text {
+                white-space: nowrap; // Prevent text from wrapping to the next line
+                overflow: hidden; // Hide the overflow text
+                text-overflow: ellipsis; // Add ellipsis (...) if the text overflows
+                max-width: 40ch; // Set a maximum width, using 'ch' to approximately match the character count
+              }
+            }
+
+            &-last {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .youtube-container {
+    padding: 2% 1% 1% 1%;
+
+    iframe {
+      padding-bottom: 75%;
+    }
+
+    // &__video-wrapper {
+    //   padding-bottom: 75%;
+    //   /* Adjust aspect ratio for better fit on mobile */
+    // }
+  }
+}

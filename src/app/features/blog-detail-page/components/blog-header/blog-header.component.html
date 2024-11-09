@@ -1,0 +1,24 @@
+<div class="blog-header">
+    <ng-container *ngIf="!blockedUI && blog; else loading">
+        <h1 class="blog-header__title">{{ blog.title }}</h1>
+        <div class="blog-header__meta">
+            <div class="blog-header__meta-image">
+                <img routerLinkActive="active" routerLink="/profile/{{ blog.author.id }}" [src]="blog.author.profile_image" class="blog-header__author-img">
+            </div>
+            <div class="blog-header__meta-info">
+                <span routerLinkActive="active" routerLink="/profile/{{ blog.author.id }}" class="blog-header__meta-info__author">{{ blog.author.full_name }}</span>
+                <span class="blog-header__meta-info__date">{{ convertDateToString(blog.created_at) }} • {{ blog.min_read }} phút đọc</span>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #loading>
+        <p-skeleton width="100%" height="2rem" styleClass="mb-2"></p-skeleton>
+        <div class="flex mb-3">
+            <div>
+                <p-skeleton width="10rem" styleClass="mb-2"></p-skeleton>
+                <p-skeleton width="5rem" styleClass="mb-2"></p-skeleton>
+                <p-skeleton height=".5rem"></p-skeleton>
+            </div>
+        </div>
+    </ng-template>
+</div>

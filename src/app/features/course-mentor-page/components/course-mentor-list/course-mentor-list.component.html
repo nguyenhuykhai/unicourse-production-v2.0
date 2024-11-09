@@ -1,0 +1,97 @@
+<div class="course-mentor-list">
+    <ng-container *ngIf="!blockedUI; else loading">
+        <div class="course-mentor-list-what-will-you-learn">
+            <div id="targetDiv" class="course-mentor-list-course-content">
+                <h3 class="course-mentor-list-course-content-header">
+                    TỔNG QUAN KHÓA HỌC
+                </h3>
+    
+                <div class="course-mentor-list-course-content-sub-header">
+                    <span class="course-mentor-list-course-content-sub-header__item">
+                        <span class="pi pi-calendar"></span>
+                        <p>Bắt đầu: {{ courseMentor?.start_date | date: 'dd/MM/yyyy' }}</p>
+                    </span>
+                    <span class="course-mentor-list-course-content-sub-header__item">
+                        <span class="pi pi-calendar"></span>
+                        <p>Kết thúc: {{ courseMentor?.end_date | date: 'dd/MM/yyyy' }}</p>
+                    </span>
+                    <span class="course-mentor-list-course-content-sub-header__item">
+                        <span class="pi pi-book"></span>
+                        <p>Số buổi học: {{ courseMentor?.mentor_session?.length }} buổi</p>
+                    </span>
+                    <span class="course-mentor-list-course-content-sub-header__item">
+                        <span class="pi pi-map-marker"></span>
+                        <p>Địa điểm: {{ courseMentor?.center?.address }}</p>
+                        <a class="desktop-only" (click)="showDialog()">(Xem bản đồ)</a>
+                        <i (click)="showDialog()" class="pi pi-eye mobile-only"></i>
+                    </span>
+                </div>
+    
+                <p-accordion class="course-mentor-list-course-content-section w-full" expandIcon="pi pi-plus"
+                    collapseIcon="pi pi-minus">
+                    <ng-container *ngFor="let item of courseMentor?.mentor_session; let i = index">
+                        <p-accordionTab>
+                            <ng-template pTemplate="header">
+                                <span
+                                    class="course-mentor-list-course-content-section-header flex align-items-center justify-content-between gap-2 w-full">
+                                    <span
+                                        class="text-md course-mentor-list-course-content-section-header__title">{{ item.title }}</span>
+                                    <p>{{ item.start_time | date: 'dd/MM/yyyy' }}</p>
+                                </span>
+                            </ng-template>
+    
+                            <ng-container>
+                                <div class="course-detail__landing-page-course-content-section-content">
+                                    <div class="course-detail__landing-page-course-content-section-content-item">
+                                        <div class="course-detail__landing-page-course-content-section-content-item-last">
+                                            <p><strong>Mô tả:</strong> {{ item.description }}</p>
+                                            <p><strong>Thời lượng:</strong> {{ convertDuration(item.start_time, item.end_time) }}</p>
+                                            <p><strong>Phòng học:</strong> {{ item.room?.name }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </p-accordionTab>
+                    </ng-container>
+                </p-accordion>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #loading>
+        <div class="course-mentor-list-what-will-you-learn">
+            <ul class="m-0 p-0 list-none">
+                <li *ngFor="let item of [1,2,3,4]" class="mb-3">
+                    <div class="flex">
+                        <p-skeleton shape="circle" size="4rem" styleClass="mr-2" />
+                        <div style="flex: 1">
+                            <p-skeleton width="100%" styleClass="mb-2" />
+                            <p-skeleton width="75%" />
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </ng-template>
+    <!-- DIALOG FOR GOOGLE MAP -->
+    <p-dialog header="{{ courseMentor?.center?.address }}" [modal]="true" [(visible)]="visible"
+        [style]="{ width: '60vw', background: '#fff'}" [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+        <ng-template pTemplate="headless">
+            <div class="youtube-container">
+                <div class="youtube-container__header">
+                    <h4 class="youtube-container__header-title">{{ courseMentor?.center?.address }}</h4>
+                    <span class="youtube-container__header-close">
+                        <button pButton type="button" icon="pi pi-times" severity="secondary"
+                            class="p-button-text youtube-container__header-close-btn" (click)="visible = false"></button>
+                    </span>
+                </div>
+                <div class="main__location">
+                    <iframe class="w-full"
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.6100105370224!2d106.80730807575326!3d10.84112758931161!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752731176b07b1%3A0xb752b24b379bae5e!2sFPT%20University%20HCMC!5e0!3m2!1sen!2s!4v1720290853657!5m2!1sen!2s"
+                        width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>
