@@ -1,8 +1,12 @@
 [build]
-  command = "ng build --configuration production"
-  publish = "dist/unicourse-client/browser"
+  base = 'site/'
+  command = 'ng build && ng run site:serverless:production'
+  publish = 'dist/unicourse-client/browser'
+
+[[plugins]]
+  package = '@netlify/plugin-angular-universal'
 
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from ='/'
+  to ='/index.html'
   status = 200
