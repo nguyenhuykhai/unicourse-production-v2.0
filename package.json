@@ -21,6 +21,7 @@
     "@angular/router": "^18.0.0",
     "@auth0/angular-jwt": "^5.2.0",
     "@lordicon/element": "^1.6.0",
+    "@netlify/angular-runtime": "^2.1.0",
     "@tinymce/tinymce-angular": "^8.0.1",
     "@types/lodash": "^4.17.6",
     "@webcomponents/custom-elements": "^1.6.0",
