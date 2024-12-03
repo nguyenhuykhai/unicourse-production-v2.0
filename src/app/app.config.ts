@@ -1,38 +1,33 @@
-import {
-  APP_INITIALIZER,
-  ApplicationConfig,
-  importProvidersFrom,
-  PLATFORM_ID,
-  provideZoneChangeDetection,
-} from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideClientHydration } from '@angular/platform-browser';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { authInterceptor } from './cores/interceptors/auth.interceptor'
-import { LOCALE_ID } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
-import localeVi from '@angular/common/locales/vi';
-import localeEn from '@angular/common/locales/en';
-import { routes } from './app.routes';
 import {
   provideHttpClient,
   withFetch,
-  withInterceptors,
 } from '@angular/common/http';
+import localeEn from '@angular/common/locales/en';
+import localeVi from '@angular/common/locales/vi';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  LOCALE_ID,
+  provideZoneChangeDetection
+} from '@angular/core';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
 
 // Setting Firebase Storage and Authentication
-import { AngularFireModule } from '@angular/fire/compat';
-import { FirebaseOptions } from 'firebase/app';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { getStorage, provideStorage } from '@angular/fire/storage';
-import { getAuth, provideAuth } from '@angular/fire/auth';
-import { MarkdownModule } from 'ngx-markdown';
 import { IMAGE_CONFIG } from '@angular/common';
-import { MessageService } from 'primeng/api';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { FirebaseOptions } from 'firebase/app';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MarkdownModule } from 'ngx-markdown';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { MessageService } from 'primeng/api';
 import { environment } from '../environments/environment';
 
 registerLocaleData(localeVi, 'vi');
@@ -61,7 +56,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(),
     provideAnimationsAsync(),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    provideHttpClient(withFetch()),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideStorage(() => getStorage()),
     provideAuth(() => getAuth()),

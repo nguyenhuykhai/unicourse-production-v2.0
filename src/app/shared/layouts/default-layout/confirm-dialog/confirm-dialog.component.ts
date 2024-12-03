@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { SharedModule } from '../../../shared.module';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from '../../../../common/models';
@@ -11,23 +11,25 @@ import { Subscription } from 'rxjs';
   imports: [SharedModule],
   providers: [ConfirmationService, MessageService],
   templateUrl: './confirm-dialog.component.html',
-  styleUrl: './confirm-dialog.component.scss'
+  styleUrls: ['./confirm-dialog.component.scss']
 })
-export class ConfirmDialogComponent {
+export class ConfirmDialogComponent implements OnDestroy {
   display!: boolean;
-  message!: String;
-  header!: String; // header: Thông báo, Lỗi, Cảnh báo, Thành công
-  icon!: String; // icon: pi pi-info-circle, pi pi-exclamation-triangle, pi pi-exclamation-circle, pi pi-check-circle
-  type!: String; // type: error, warning, info, success
-  return!: boolean; // Có muốn dialog trả về giá trị không?
-  numberBtn!: number; // Số lượng button: 2 [Có, Không] hoặc 1 [OK]
-  public confirmSubscription: Subscription | undefined;
+  message!: string;
+  header!: string;
+  icon!: string;
+  type!: string;
+  return!: boolean;
+  numberBtn!: number;
+  callback?: (...args: any[]) => void; // Dynamic callback function
+  args?: any[]; // Arguments for the callback
+  private confirmSubscription: Subscription | undefined;
 
   constructor(
     public dialogBroadcastService: DialogBroadcastService,
     public confirmationService: ConfirmationService,
     public messageService: MessageService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.confirmSubscription = this.dialogBroadcastService.getConfirmationDialog().subscribe((dialog) => {
@@ -41,6 +43,8 @@ export class ConfirmDialogComponent {
     this.type = dialog.type || 'info';
     this.return = dialog.return || true;
     this.numberBtn = dialog.numberBtn || 2;
+    this.callback = dialog.callback; // Set the dynamic callback function
+    this.args = dialog.args || []; // Set the arguments for the callback
     this.display = true;
   }
 
@@ -48,10 +52,16 @@ export class ConfirmDialogComponent {
     if (this.return) {
       this.dialogBroadcastService.confirmDialog(action);
     }
-    this.display = false;
+
+    // Execute the dynamic callback function with arguments if it's provided
+    if (this.callback) {
+      this.callback(action, ...(this.args || [])); // Pass `action` and any additional arguments
+    }
+
+    this.display = false; // Close the dialog
   }
 
-  ngDestroy(): void {
+  ngOnDestroy(): void {
     if (this.confirmSubscription) {
       this.confirmSubscription.unsubscribe();
     }

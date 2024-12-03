@@ -6,9 +6,11 @@ export interface Dialog {
 }
 
 export interface ConfirmDialog {
-  header: String;
-  message: String;
-  type: String;
+  header: string;
+  message: string;
+  type: string;
   return: boolean;
   numberBtn: number;
+  callback?: (...args: any[]) => void; // Update to accept any function signature
+  args?: any[]; // Array of arguments to pass to the callback
 }

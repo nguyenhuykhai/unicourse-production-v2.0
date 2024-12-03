@@ -1,47 +1,50 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../../environments/environment';
 import { Response } from '../../../../../../common/models';
 import { ConfirmOTP } from '../models';
+import { ErrorHandlingService } from '../../../../../../common/services/error-handling.service';
+import { CustomHttpClientService } from '../../../../../../common/services/customHttpClient.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DangerZoneService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private customHttp: CustomHttpClientService,
+    @Optional() private readonly errorHandlingService?: ErrorHandlingService
+  ) {}
 
   postInitiateAccountClosure(): Observable<Response<boolean>> {
-    return this.httpClient
+    return this.customHttp
       .post<Response<boolean>>(
         `${environment.baseUrl}/api/users/initiate-account-closure`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
+        {}
       )
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   postCompleteAccountClosure(body: ConfirmOTP): Observable<Response<boolean>> {
-    return this.httpClient
+    return this.customHttp
       .post<Response<boolean>>(
         `${environment.baseUrl}/api/users/complete-account-closure`,
-        body,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
+        body
       )
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   private handleError(error: any) {
-    // Handle the error appropriately here
+    if (this.errorHandlingService) {
+      const status = error?.status;
+      const code = error?.error?.code;
+      const message = error?.error?.message || 'An unknown error occurred';
+      
+      this.errorHandlingService.logError(status, code, message);
+    } else {
+      console.warn('ErrorHandlingService is not available');
+    }
     return throwError(() => new Error(error));
   }
 }

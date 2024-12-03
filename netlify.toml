@@ -1,9 +1,0 @@
-[build]
-  base = 'site/'
-  command = 'ng build && ng run site:serverless:production'
-  publish = 'dist/unicourse-client/browser'
-
-[[redirects]]
-  from = "/*"
-  status = 200
-  to = "/index.html"

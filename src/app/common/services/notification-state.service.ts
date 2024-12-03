@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { NotificationPayLoad } from '../../shared/components/header/notification/core/models';
 import { PayloadData } from '../models';

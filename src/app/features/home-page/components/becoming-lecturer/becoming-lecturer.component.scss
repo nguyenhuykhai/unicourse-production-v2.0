@@ -11,6 +11,7 @@
   }
   &__image {
     img {
+      cursor: pointer;
       width: 100%;
     }
   }
@@ -45,6 +46,7 @@ Style Web responsive (mobile)
       display: block;
       width: 40rem;
       img {
+        cursor: pointer;
         width: 100%;
       }
     }

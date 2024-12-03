@@ -9,16 +9,18 @@
     </div>
 
     <div class="course-item__container-content">
-      <p (click)="redirectToCourseDetail(courseItem)" pTooltip="{{ courseItem.title }}" tooltipPosition="top" placeholder="Top" class="course-item__container-content-title">
+      <p (click)="redirectToCourseDetail(courseItem)" pTooltip="{{ courseItem.title }}" tooltipPosition="top"
+        placeholder="Top" class="course-item__container-content-title">
         {{ courseItem.title }}
       </p>
 
       <div class="course-item__container-content-amount">
         <ng-container *ngIf="courseItem && courseItem.price > 0; else freeCourse">
-          <lord-icon class="course-item__container-content-amount-coin" src="https://cdn.lordicon.com/lxizbtuq.json" trigger="hover"></lord-icon>
+          <lord-icon class="course-item__container-content-amount-coin" src="https://cdn.lordicon.com/lxizbtuq.json"
+            trigger="hover"></lord-icon>
           <span class="course-item__container-content-amount-mainprice">{{
             courseItem.price | number: '1.0-0'
-          }}</span>
+            }}</span>
         </ng-container>
         <ng-template #freeCourse>
           <span class="course-item__container-content-amount-mainprice">Miễn phí</span>
@@ -26,7 +28,7 @@
       </div>
 
       <div class="course-item__container-content-rating">
-        <p-rating [(ngModel)]="courseItem.average_rating" [readonly]="true" [cancel]="false" >
+        <p-rating [(ngModel)]="courseItem.average_rating" [readonly]="true" [cancel]="false">
           <ng-template pTemplate="onicon">
             <i class="pi pi-star-fill" style="color: #fdbe11"></i>
           </ng-template>
@@ -37,12 +39,10 @@
         <p>({{ courseItem.total_number_ratings }} đánh giá)</p>
       </div>
 
-      <div routerLink="/lecturer/{{courseItem.lecturer.id}}" routerLinkActive="active" class="course-item__container-content-lecture">
-        <p-avatar
-          [image]="courseItem.lecturer.user?.profile_image"
-          styleClass="mr-2"
-          shape="circle"
-        />
+      <div [pTooltip]="courseItem.lecturer.user?.bio" tooltipPosition="top"
+        routerLink="/lecturer/{{courseItem.lecturer.id}}" routerLinkActive="active"
+        class="course-item__container-content-lecture">
+        <p-avatar [image]="courseItem.lecturer.user?.profile_image" styleClass="mr-2" shape="circle" />
         <p>{{ courseItem.lecturer.user?.full_name }}</p>
       </div>
     </div>

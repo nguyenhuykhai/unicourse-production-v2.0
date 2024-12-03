@@ -331,7 +331,7 @@
 
 <p-overlayPanel #moreOptionsDialog [dismissable]="true" [showCloseIcon]="false">
   <div class="more-option" *ngFor="let item of moreOptions">
-    <div (click)="redirectToOptions(item.path)" class="more-option__item">
+    <div (click)="item.command()" class="more-option__item">
       <lord-icon class="icon-search" [src]="item.iconString" trigger="hover"
         style="width: 20px; height: 20px"></lord-icon>
       <p class="more-option__item-name">{{ item.name }}</p>

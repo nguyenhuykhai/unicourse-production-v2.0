@@ -5,7 +5,7 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { isPlatformBrowser } from '@angular/common';
 import { User } from './common/models';
 import { SocketService } from './common/services/socket.service';
-import { DevtoolsService } from './common/services/devtools.service';
+import { DevtoolsLoggingService } from './common/services/devtools-logging.service';
 
 @Component({
   selector: 'app-root',
@@ -21,29 +21,24 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(PLATFORM_ID) private platformId: Object,
     private socketService: SocketService,
-    private devtoolsService: DevtoolsService
+    private devtoolsLoggingService: DevtoolsLoggingService,
   ) {}
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       // Initialize devtools detection
-      this.devtoolsService.initDevtoolsDetection();
+      this.devtoolsLoggingService.initDevtoolsDetection();
 
       // Check if user is already logged
       const userLocal: User | undefined = localStorage.getItem('UserInfo') ? JSON.parse(localStorage.getItem('UserInfo') as string) : undefined;
-      const accessToken: string | null | undefined = localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : undefined;
-      if (userLocal && accessToken) {
-        this.connectSocket(accessToken);
+      if (userLocal) {
+        this.socketService.connect('/');
       }
     }
   }
 
   ngOnDestroy(): void {
     this.cleanupResources();
-  }
-
-  private connectSocket(token: string): void {
-    this.socketService.connectWithToken(token, '/')
   }
 
   private cleanupResources(): void {

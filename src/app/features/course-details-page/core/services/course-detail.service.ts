@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -10,68 +10,69 @@ import {
   Wishlist,
 } from '../../../../common/models';
 import { Feedbacks } from '../models';
+import { ErrorHandlingService } from '../../../../common/services/error-handling.service';
+import { CustomHttpClientService } from '../../../../common/services/customHttpClient.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CourseDetailService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private customHttp: CustomHttpClientService,
+    @Optional() private readonly errorHandlingService?: ErrorHandlingService
+  ) {}
 
   getCourseById(courseId: string): Observable<Response<Course>> {
-    return this.httpClient
+    return this.customHttp
       .get<Response<Course>>(`${environment.baseUrl}/api/courses/${courseId}`)
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   getFeedbackByCourseId(
     courseId: string
   ): Observable<Response<Array<Feedbacks>>> {
-    return this.httpClient
+    return this.customHttp
       .get<Response<any>>(
         `${environment.baseUrl}/api/courses/${courseId}/course-mentors/feedbacks`
       )
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   getLectureInfoByLectureId(lectureId: string): Observable<Response<Lecturer>> {
-    return this.httpClient
+    return this.customHttp
       .get<Response<Lecturer>>(
         `${environment.baseUrl}/api/lecturers/${lectureId}`
       )
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   enrollCourse(course_mentor_id: string): Observable<Response<any>> {
-    return this.httpClient
+    return this.customHttp
       .post<Response<any>>(
         `${environment.baseUrl}/api/courses/enrollCourse`,
         {
           mentor_course_id: course_mentor_id
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
         }
       )
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   getEnrollIdsList(): Observable<Response<any>> {
-    return this.httpClient
-      .get<Response<any>>(
-        `${environment.baseUrl}/api/users/enrolledcourse/retrieve-id`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
-      )
-      .pipe(catchError(this.handleError));
+    return this.customHttp
+      .get<Response<any>>(`${environment.baseUrl}/api/users/enrolledcourse/retrieve-id`)
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   private handleError(error: any) {
-    // Handle the error appropriately here
+    if (this.errorHandlingService) {
+      const status = error?.status;
+      const code = error?.error?.code;
+      const message = error?.error?.message || 'An unknown error occurred';
+      
+      this.errorHandlingService.logError(status, code, message);
+    } else {
+      console.warn('ErrorHandlingService is not available');
+    }
     return throwError(() => new Error(error));
   }
 }

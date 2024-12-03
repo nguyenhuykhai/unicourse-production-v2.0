@@ -7,6 +7,8 @@ import { ConfirmOTP, StepCloseAccount } from './core/models';
 import { User } from '../../../../common/models';
 import { AuthService } from '../../../../shared/layouts/default-layout/sign-in-form-dialog/core/services';
 import { Router } from '@angular/router';
+import { UserService } from '../../../../common/services/user.service';
+import { Helpers } from '../../../../cores/utils';
 
 @Component({
   selector: 'app-danger-zone',
@@ -25,6 +27,7 @@ export class DangerZoneComponent implements OnDestroy {
   constructor(
     private readonly dangerZoneService: DangerZoneService,
     private readonly authService: AuthService,
+    private readonly userService: UserService,
     private router: Router,
     private dialogBroadcastService: DialogBroadcastService
   ) {}
@@ -118,12 +121,10 @@ export class DangerZoneComponent implements OnDestroy {
   }
 
   logout() {
-    this.authService.doLogout();
     // Đăng xuất thì xóa hết dữ liệu trong localStorage
-    localStorage.clear();
-    this.user = undefined;
-    this.router.navigate(['/']);
-    window.location.reload();
+    this.authService.doLogout().subscribe(() => {
+      Helpers.clearLocalStorageAndRedirectAndReload();
+    });
   }
 
   handleCancelAccountClosure() {

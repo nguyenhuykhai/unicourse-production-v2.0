@@ -87,7 +87,7 @@ export class CourseSidebarComponent implements OnInit, OnChanges, OnDestroy {
     } else {
       console.warn('Custom Elements are not supported in this environment.');
     }
-
+    
     // Khởi động logic sau khi ứng dụng đã ổn định
     if (isPlatformBrowser(this.platformId)) {
       this.ngZone.run(() => {

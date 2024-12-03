@@ -11,3 +11,4 @@ export * from './video.service';
 export * from './cryptoJS.service';
 export * from './socket.service';
 export * from './notification-state.service';
+export * from './coupon.service';

@@ -1,6 +1,6 @@
 <p-scrollTop icon="pi pi-arrow-up" />
 <app-confirm-dialog></app-confirm-dialog>
-<app-header></app-header>
+<app-header #header></app-header>
 
 <div class="main">
   <router-outlet></router-outlet>
@@ -11,10 +11,13 @@
 <!-- Dialog Form -->
 <app-sign-in-form-dialog></app-sign-in-form-dialog>
 
+<!-- Event Dialog -->
+<app-event-dialog #eventDialog></app-event-dialog>
+
 <div class="dock-window desktop-only">
   <p-dock [model]="itemsDesktop" [position]="'left'">
     <ng-template pTemplate="item" let-item>
-      <img [src]="item.icon" [alt]="item.label" width="100%" />
+      <img [pTooltip]="item.label" tooltipPosition="top" [src]="item.icon" [alt]="item.label" [ngStyle]="{ width: item.width }" />
     </ng-template>
   </p-dock>
 </div>
@@ -22,7 +25,7 @@
 <div class="dock-window mobile-only">
   <p-dock [model]="itemsMobile" [position]="'left'">
     <ng-template pTemplate="item" let-item>
-      <img [src]="item.icon" [alt]="item.label" width="100%" />
+      <img [src]="item.icon" [alt]="item.label" [ngStyle]="{ width: item.width }" />
     </ng-template>
   </p-dock>
 </div>

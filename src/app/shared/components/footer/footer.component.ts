@@ -33,14 +33,4 @@ export class FooterComponent implements OnInit {
   openLink(link: string): void {
     window.open(`${link}`, '_blank');
   }
-
-  showDialog(): void {
-    this.dialogBroadcastService.broadcastConfirmationDialog({
-      header: 'Thông báo',
-      message: 'Ứng dụng mobile dành cho Android đang trong quá trình phát triển. Vui lòng quay lại sau.',
-      type: 'info',
-      return: false,
-      numberBtn: 1,
-    });
-  }
 }

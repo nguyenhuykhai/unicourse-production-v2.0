@@ -26,7 +26,7 @@ import { OverlayPanel } from 'primeng/overlaypanel';
 import { isPlatformBrowser } from '@angular/common';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { TopicCommentService } from '../../core/services';
-import { Helpers } from '../../../../common/utils';
+import { Helpers } from '../../../../cores/utils';
 
 @Component({
   selector: 'app-comment-body',

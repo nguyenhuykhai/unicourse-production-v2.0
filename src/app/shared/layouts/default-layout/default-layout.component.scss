@@ -1,3 +1,6 @@
+@import "../../../../styles/breakpoints";
+@import "../../../../styles/mixins";
+
 :host ::ng-deep {
   .p-dock {
     z-index: 1000;
@@ -9,6 +12,7 @@
     }
     .p-dock-link {
       img {
+        cursor: pointer;
         width: 5rem;
       }
     }
@@ -27,25 +31,24 @@
   display: none;
 }
 
-/*
-*************************************************
-Style Web responsive (mobile)
-*************************************************
-*/
-@media (max-width: 599px) {
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
   :host ::ng-deep {
     .p-dock {
       z-index: 1000;
-      margin-top: 35vh;
-      align-items: center;
+      align-items: end;
       position: fixed;
       .p-dock-list-container {
         background: none;
         border: none;
-        height: auto;
+        margin-bottom: 7rem;
       }
       .p-dock-link {
         img {
+          cursor: pointer;
           width: 5rem;
         }
       }
@@ -58,6 +61,28 @@ Style Web responsive (mobile)
   }
 
   .desktop-only {
+    display: block;
+  }
+  
+  .mobile-only {
+    display: none;
+  }
+}
+
+@include respond-to(md) {
+  :host ::ng-deep {
+    .p-dock {
+      .p-dock-list-container {
+        margin-bottom: 6rem;
+      }
+    }
+    .p-dock-list {
+      margin: 0;
+      align-self: end;
+    }
+  }
+
+  .desktop-only {
     display: none;
   }
   
@@ -65,3 +90,45 @@ Style Web responsive (mobile)
     display: block;
   }
 }
+
+@include respond-to(sm) {
+}
+
+@include respond-to(xs) {
+}
+
+@include respond-to(xxs) {
+}
+// @media (max-width: 599px) {
+//   :host ::ng-deep {
+//     .p-dock {
+//       z-index: 1000;
+//       margin-top: 35vh;
+//       align-items: center;
+//       position: fixed;
+//       .p-dock-list-container {
+//         background: none;
+//         border: none;
+//         height: auto;
+//       }
+//       .p-dock-link {
+//         img {
+//           width: 5rem;
+//         }
+//       }
+//     }
+//   }
+
+//   ::ng-deep .p-scrolltop {
+//     z-index: 1000;
+//     margin-bottom: 70px;
+//   }
+
+//   .desktop-only {
+//     display: none;
+//   }
+  
+//   .mobile-only {
+//     display: block;
+//   }
+// }

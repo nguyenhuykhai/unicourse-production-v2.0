@@ -1,4 +1,5 @@
 <div class="course-page">
+    <app-confirm-dialog></app-confirm-dialog>
     <app-learning-course-header [blocked]="blockedUI" [header]="courseMentor?.title"
         [learningProgress]="learningProgress" class="course-page__header"></app-learning-course-header>
     <div class="course-page__container">
@@ -14,7 +15,6 @@
         [chapters]="courseMentor?.chapter" [currentChapterId]="currentChapter?.id" [currentTopic]="currentTopic"
         class="course-page__footer">
     </app-learning-course-footer>
-    <app-confirm-dialog></app-confirm-dialog>
     <ng-container *ngIf="questionState !== 'IN_PROGRESS'">
         <app-chat-bot class="course-page__chat-bot"></app-chat-bot>
     </ng-container>

@@ -16,6 +16,10 @@
             <input type="number" id="coinAmount" class="wallet-page__input" min="0" placeholder="0"
                 [(ngModel)]="coinAmount" />
             <p class="wallet-page__hint">2,000 xu ~ 2,000đ</p>
+            <!-- Lưu ý: Bạn vui lòng không thay đổi thông tin được tạo sẵn của thanh toán -->
+            <p class="wallet-page__subtitle">
+                Lưu ý: Bạn vui lòng không thay đổi thông tin được tạo sẵn của thanh toán
+            </p>
             <ng-container *ngIf="!blockedUI; else loading">
                 <button (click)="createPaymentLink()" class="wallet-page__button">
                     Nạp xu ngay

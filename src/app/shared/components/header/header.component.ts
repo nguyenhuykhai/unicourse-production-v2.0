@@ -1,11 +1,11 @@
 import { CUSTOM_ELEMENTS_SCHEMA, Component, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { defineElement } from '@lordicon/element';
+import lottie from 'lottie-web';
+import { Subject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { LOGO } from '../../../../assets';
 import { SharedModule } from '../../shared.module';
-import { Router } from '@angular/router';
-import { Subscription, Subject } from 'rxjs';
-import lottie from 'lottie-web';
-import { defineElement } from '@lordicon/element';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 // Models
 import { Course, Filter, PayloadData, User } from '../../../common/models';
@@ -15,19 +15,22 @@ import { NavigationComponent } from '../navigation/navigation.component';
 
 // Services
 import { MenuItem, MessageService } from 'primeng/api';
-import { NotificationStateService, SharedService, UserStateService } from '../../../common/services';
-import { AuthService } from '../../layouts/default-layout/sign-in-form-dialog/core/services';
 import { OverlayPanel } from 'primeng/overlaypanel';
-import { SearchDialogComponent } from './search-dialog/search-dialog.component';
+import { NotificationStateService, SharedService, UserStateService } from '../../../common/services';
 import { CourseService } from '../../../common/services/course.service';
-import { NotificationComponent } from "./notification/notification.component";
+import { UserService } from '../../../common/services/user.service';
+import { Helpers } from '../../../cores/utils';
+import { AuthService } from '../../layouts/default-layout/sign-in-form-dialog/core/services';
+import { NotificationPayLoad } from './notification/core/models';
 import { NotificationService } from './notification/core/services';
-import { CatcheNotiDataWithFilter, NotificationPayLoad } from './notification/core/models';
+import { NotificationComponent } from "./notification/notification.component";
+import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 
 declare interface Options {
   name: string;
   path: string;
   iconString?: string;
+  command: () => void;
 }
 
 @Component({
@@ -84,6 +87,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private readonly sharedService: SharedService,
     private readonly authService: AuthService,
+    private readonly userService: UserService,
     private readonly courseService: CourseService,
     private readonly notificationService: NotificationService,
     private readonly notificationStateService: NotificationStateService,
@@ -179,17 +183,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
       {
         name: 'Bài viết (Blog)',
         path: '/blog',
-        iconString: 'https://cdn.lordicon.com/awgiupxe.json'
+        iconString: 'https://cdn.lordicon.com/awgiupxe.json',
+        command: () => {
+          this.redirectToOptions('/blog');
+        }
       },
       {
         name: 'Viết bài mới',
         path: '/new-post',
-        iconString: 'https://cdn.lordicon.com/igljtrxq.json'
+        iconString: 'https://cdn.lordicon.com/igljtrxq.json',
+        command: () => {
+          this.redirectToOptions('/new-post');
+        }
       },
       {
         name: 'Hỏi đáp (FAQ)',
         path: '/qna',
-        iconString: 'https://cdn.lordicon.com/rttwnbcz.json'
+        iconString: 'https://cdn.lordicon.com/rttwnbcz.json',
+        command: () => {
+          this.redirectToOptions('/qna');
+        }
       }
     ]
   }
@@ -219,12 +232,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    this.authService.doLogout();
     // Đăng xuất thì xóa hết dữ liệu trong localStorage
-    localStorage.clear();
-    this.user = undefined;
-    this.router.navigate(['/']);
-    window.location.reload();
+    this.authService.doLogout().subscribe(() => {
+      Helpers.clearLocalStorageAndRedirectAndReload();
+    });
   }
 
   // INITIZALIZATION ZONE

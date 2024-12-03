@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
 import { Dialog, ConfirmDialog } from '../models';
 

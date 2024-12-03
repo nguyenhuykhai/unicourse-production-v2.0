@@ -11,7 +11,6 @@ import { LOGO } from '../../../../../assets';
 import { Response, User } from '../../../../common/models';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Account } from './core/models';
-import { ErrorHandlingService } from '../../../../common/services/error-handling.service';
 
 @Component({
   selector: 'app-sign-in-form-dialog',
@@ -34,7 +33,6 @@ export class SignInFormDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly sharedService: SharedService,
-    private readonly errorHandlingService: ErrorHandlingService,
     public authService: AuthService,
     public afAuth: AngularFireAuth,
     private ngZone: NgZone
@@ -103,14 +101,14 @@ export class SignInFormDialogComponent implements OnInit, OnDestroy {
                 }
               },
               error: (err) => {
-                this.errorHandlingService.logError(err.status, err.message);
+                // this.errorHandlingService.logError(err.status, err.message);
               },
             });
             this.subscriptions.push(userSub$);
           }
         })
         .catch((error) => {
-          this.errorHandlingService.logError(error.status, error.message || 'Error retrieving user information');
+          // this.errorHandlingService.logError(error.status, error.code, error.message);
         });
     });
   }

@@ -1,0 +1,52 @@
+<p-dialog class="dialog" [modal]="true" [(visible)]="visible" [style]="{ 'padding': '10px 20px', 'background': '#fff' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <ng-template pTemplate="headless">
+        <div class="dialog-header">
+            <h4 class="dialog-header__title">Sự kiện Unicourse</h4>
+            <button pButton type="button" icon="pi pi-times" severity="secondary"
+                class="p-button-text dialog-header__close-btn" (click)="hide()"></button>
+        </div>
+
+        <div class="dialog-body">
+            <div class="dialog-body__group-one">
+                <ng-container *ngIf="error else normal">
+                    <img 
+                        pTooltip="Ui da! Hình như bạn nhập lỗi mất rồi, thử lại nhé! ~(^_^~)" 
+                        tooltipPosition="top" 
+                        src="assets/icons/matcos/Asset-6.svg" 
+                        alt="Attribution Icon" 
+                    />
+                </ng-container>
+                <ng-template #normal>
+                    <img 
+                        pTooltip="Hí! Nhập mã ngay để săn voucher xịn nào! ✨" 
+                        tooltipPosition="top" 
+                        src="assets/icons/matcos/Asset-3.svg" 
+                        alt="Attribution Icon" 
+                    />
+                </ng-template>                                
+            </div>
+
+            <div class="dialog-body__group-two">
+                <p class="dialog-body__group-two-introduce m-0">
+                    Sự kiện tri ân khách hàng của <strong>Unicourse</strong> sẽ diễn ra từ ngày
+                    <strong>24/11/2024</strong> đến hết ngày <strong>31/12/2024</strong>, dành lời cảm ơn sâu sắc đến tất cả các bạn đã đồng
+                    hành cùng chúng tôi. Nhập mã voucher để nhận ngay phần quà đặc biệt từ
+                    <strong>Unicourse</strong>!
+                </p>
+
+                <p class="dialog-body__group-two-description">Nhập mã voucher của bạn</p>
+                <div class="dialog-body__group-two-content">
+                    <p-inputOtp [length]="6" [(ngModel)]="value" />
+                    <p class="dialog-body__group-two-content__hint">
+                        {{ error ? 'Lỗi: ' + error : 'Lưu ý: Mỗi mã voucher chỉ được sử dụng một lần' }}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dialog-footer">
+            <button pButton type="button" label="Áp dụng ngay!" (click)="handleSubmitVoucher()"></button>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -18,8 +18,10 @@ import {
   first,
   forkJoin,
   of,
+  skip,
   Subscription,
   switchMap,
+  take,
 } from 'rxjs';
 import { CourseMentorService } from '../../common/services/coure-mentor.service';
 import { ActivatedRoute } from '@angular/router';
@@ -40,6 +42,8 @@ import { DialogBroadcastService } from '../../common/services';
 import { ChatBotComponent } from './components/chat-bot/chat-bot.component';
 import { CommentComponent } from "./components/comment/comment.component";
 import { CommentBodyComponent } from './components/comment-body/comment-body.component';
+import { Helpers } from '../../cores/utils';
+import { DevtoolsDebuggingService } from '../../common/services/devtools-debugging.service';
 
 @Component({
   selector: 'app-learning-course-page',
@@ -95,8 +99,8 @@ export class LearningCoursePageComponent implements OnInit, OnDestroy {
     private readonly dialogBroadcastService: DialogBroadcastService,
     private readonly topicCommentService: TopicCommentService,
     private route: ActivatedRoute,
-    private applicationRef: ApplicationRef,
-    private ngZone: NgZone // Helps Angular recognize external data changes
+    private ngZone: NgZone, // Helps Angular recognize external data changes
+    private devtoolsDebuggingService: DevtoolsDebuggingService
   ) {}
 
   ngOnInit(): void {
@@ -115,6 +119,7 @@ export class LearningCoursePageComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         if (isPlatformBrowser(this.platformId)) {
           this.ngZone.run(() => {
+            this.initDevToolsStateSubscription();          
             this.initData();
           });
         }
@@ -168,6 +173,12 @@ export class LearningCoursePageComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(forkJoinSubscription$);
   }
+
+  private initDevToolsStateSubscription(): void {
+    // Lắng nghe trạng thái DevTools liên tục
+    this.devtoolsDebuggingService.ngOnInit();
+  }
+  
 
   mappingDataWithLearningProgress(
     courseMentor: CourseMentorDetail,
@@ -481,7 +492,6 @@ export class LearningCoursePageComponent implements OnInit, OnDestroy {
     }
   }
 
-  // BEHAVIOR ZONE
   toggleComments(type: string): void {
     if (type === 'mobile') {
       this.displayDialog = true; // Show dialog on mobile

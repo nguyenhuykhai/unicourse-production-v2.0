@@ -1,0 +1,156 @@
+@import "../../../../../styles/variables";
+@import "../../../../../styles/font_variables";
+@import "../../../../../styles/breakpoints";
+@import "../../../../../styles/mixins";
+
+.dialog {
+    &-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 1rem;
+
+        &__title {
+            font-size: $font-size-2xl;
+            font-weight: $font-weight-bold;
+            color: $text-black;
+            margin: 0;
+        }
+
+        &__close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: $font-size-md;
+
+            &:hover {
+                color: $background-black;
+            }
+        }
+    }
+
+    &-body {
+        display: flex;
+        flex-direction: row;
+
+        &__group-one {
+            flex-basis: 20%;
+            align-content: center;
+
+            img {
+                cursor: pointer;
+                width: 10rem;
+                height: auto;
+                object-fit: cover;
+            }
+        }
+
+        &__group-two {
+            flex: 1;
+
+            &-introduce {
+                margin: 0;
+                font-size: 1rem;
+                line-height: 1.6;
+                color: #333;
+                font-weight: 500;
+                text-align: justify;
+
+                strong {
+                    color: #007ad9;
+                    /* Highlight important parts with primary color */
+                }
+            }
+
+            &-description {
+                font-size: $font-size-sm;
+                color: $text-black;
+                font-weight: $font-weight-regular;
+            }
+
+            &-content {
+                &__input {
+                    width: 100%;
+                    padding: 10px;
+                    border: 1px solid $border-color-light;
+                    border-radius: 4px;
+                    margin-bottom: 10px;
+
+                    &:focus {
+                        border: 1px solid $primary-400;
+                        outline: none;
+                    }
+                }
+
+                &__hint {
+                    font-size: $font-size-sm;
+                    color: $error-color;
+                    font-style: italic;
+                    margin-bottom: 20px;
+                    margin-top: 1rem;
+                }
+            }
+        }
+    }
+
+    &-footer {
+        text-align: center;
+
+        button {
+            padding: 10px 20px;
+            background: linear-gradient(to right, $button-secondary-1, $button-secondary-2);
+            color: $text-white;
+            border: none;
+            cursor: pointer;
+            font-size: $font-size-md;
+            font-weight: $font-weight-regular;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 80%;
+
+            &:hover {
+                background: linear-gradient(to bottom left, $button-secondary-1, $button-secondary-2);
+            }
+        }
+    }
+}
+
+@include respond-to(xxl) {}
+
+@include respond-to(xl) {}
+
+@include respond-to(lg) {
+}
+
+@include respond-to(md) {
+    .dialog {
+        &-body {
+            flex-direction: column;
+    
+            &__group-one {
+                flex-basis: 20%;
+                align-content: center;
+                align-self: center;
+                margin-bottom: 1rem;
+                margin-top: 0.5rem;
+    
+                img {
+                    width: 6rem;
+                }
+            }
+        }
+
+        &-footer {
+            padding-bottom: 1rem;
+        }
+    }
+}
+
+@include respond-to(sm) {
+}
+
+@include respond-to(xs) {
+}
+
+@include respond-to(xxs) {
+}

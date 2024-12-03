@@ -48,7 +48,6 @@
         font-size: $font-size-xl;
         font-weight: $font-weight-medium;
         text-align: left;
-        margin-bottom: 20px;
     }
 
     &__form {
@@ -81,7 +80,15 @@
     &__hint {
         font-size: $font-size-sm;
         color: $text-gray-900;
+        margin-top: 0;
+    }
+
+    &__subtitle {
+        font-size: $font-size-sm;
+        color: $border-error;
+        font-style: italic;
         margin-bottom: 20px;
+        margin-top: 0;
     }
 
     &__button {

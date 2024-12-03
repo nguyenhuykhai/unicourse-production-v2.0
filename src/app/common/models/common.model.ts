@@ -9,6 +9,7 @@ export interface Common {
 export interface Response<T> {
   status: number;
   message: string;
+  code?: string;
   data: T;
 }
 

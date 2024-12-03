@@ -1,57 +1,66 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Feedback, FeedBackCourseMentorResponse, FeedbackIssueObject, Response } from '../models';
+import {
+  Feedback,
+  FeedBackCourseMentorResponse,
+  FeedbackIssueObject,
+  Response,
+} from '../models';
 import { environment } from '../../../environments/environment';
-import { FeedbackObject } from '../../features/transaction-history-page/transaction-list/core/models';
+import { ErrorHandlingService } from './error-handling.service';
+import { CustomHttpClientService } from './customHttpClient.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FeedbackService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private customHttp: CustomHttpClientService,
+    @Optional() private readonly errorHandlingService?: ErrorHandlingService
+  ) {}
 
   getAllHighLightFeedback(): Observable<Response<Feedback>> {
-    return this.httpClient
-      .get<Response<Feedback>>(
-        `${environment.baseUrl}/api/feedbacks/highlight`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }
-      )
-      .pipe(catchError(this.handleError));
+    return this.customHttp
+      .get<Response<Feedback>>(`${environment.baseUrl}/api/feedbacks/highlight`)
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
-  postFeedback(content: string, rating: number, course_enroll_id: string): Observable<Response<FeedBackCourseMentorResponse>> {
-    return this.httpClient
-      .post<Response<FeedBackCourseMentorResponse>>(`${environment.baseUrl}/api/feedbacks`, 
-      {
-        content,
-        rating,
-        course_enroll_id,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .pipe(catchError(this.handleError));
+  postFeedback(
+    content: string,
+    rating: number,
+    course_enroll_id: string
+  ): Observable<Response<FeedBackCourseMentorResponse>> {
+    return this.customHttp
+      .post<Response<FeedBackCourseMentorResponse>>(
+        `${environment.baseUrl}/api/feedbacks`,
+        {
+          content,
+          rating,
+          course_enroll_id,
+        }
+      )
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   postFeedbackIssue(body: FeedbackIssueObject): Observable<Response<boolean>> {
-    return this.httpClient
-      .post<Response<boolean>>(`${environment.baseUrl}/api/feedbacks/send`, body, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      })
-      .pipe(catchError(this.handleError));
+    return this.customHttp
+      .post<Response<boolean>>(
+        `${environment.baseUrl}/api/feedbacks/send`,
+        body
+      )
+      .pipe(catchError((error) => this.handleError(error)));
   }
 
   private handleError(error: any) {
-    // Handle the error appropriately here
+    if (this.errorHandlingService) {
+      const status = error?.status;
+      const code = error?.error?.code;
+      const message = error?.error?.message || 'An unknown error occurred';
+
+      this.errorHandlingService.logError(status, code, message);
+    } else {
+      console.warn('ErrorHandlingService is not available');
+    }
     return throwError(() => new Error(error));
   }
 }

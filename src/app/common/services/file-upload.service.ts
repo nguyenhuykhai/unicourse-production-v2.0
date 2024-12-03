@@ -5,8 +5,9 @@ import {
   AngularFireList,
 } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { FileUpload } from '../models';
+import { ErrorHandlingService } from './error-handling.service';
 
 @Injectable({ providedIn: 'root' })
 export class FileUploadService {
@@ -14,7 +15,8 @@ export class FileUploadService {
 
   constructor(
     private db: AngularFireDatabase,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    @Optional() private readonly errorHandlingService?: ErrorHandlingService
   ) {}
 
   pushFileToStorage(
@@ -77,6 +79,15 @@ export class FileUploadService {
   }
 
   private handleError(error: any) {
+    if (this.errorHandlingService) {
+      const status = error?.status;
+      const code = error?.error?.code;
+      const message = error?.error?.message || 'An unknown error occurred';
+      
+      this.errorHandlingService.logError(status, code, message);
+    } else {
+      console.warn('ErrorHandlingService is not available');
+    }
     return throwError(() => new Error(error));
   }
 }
