@@ -1,0 +1,7 @@
+[build]
+  publish = "dist/unicourse-client"
+  command = "ng build -c=production"
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
