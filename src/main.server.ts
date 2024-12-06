@@ -1,6 +1,21 @@
-// Kiểm tra và tạo đối tượng global nếu chưa tồn tại
-if (typeof global === 'undefined') {
-  globalThis.global = globalThis;
+// Polyfill cho FinalizationRegistry nếu không được hỗ trợ
+if (typeof FinalizationRegistry === 'undefined') {
+  class FinalizationRegistryShim<T> {
+    private _registrations: Map<T, Function> = new Map();
+
+    constructor() {}
+
+    register(value: T, cleanupCallback: Function): void {
+      this._registrations.set(value, cleanupCallback);
+    }
+
+    unregister(value: T): void {
+      this._registrations.delete(value);
+    }
+  }
+
+  // Gán shim cho globalThis.FinalizationRegistry
+  globalThis.FinalizationRegistry = FinalizationRegistryShim as any;
 }
 
 // Các import của Angular và các cấu hình khác
